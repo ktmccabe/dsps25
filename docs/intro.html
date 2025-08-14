@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Introduction – Data Science for Political Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science for Political Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Notes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Section Contents</h2>
+   
+  <ul>
+  <li><a href="#what-have-i-signed-up-for" id="toc-what-have-i-signed-up-for" class="nav-link active" data-scroll-target="#what-have-i-signed-up-for"><span class="header-section-number">1.1</span> What have I signed up for?</a>
+  <ul>
+  <li><a href="#data-science-can-help-social-scientists" id="toc-data-science-can-help-social-scientists" class="nav-link" data-scroll-target="#data-science-can-help-social-scientists"><span class="header-section-number">1.1.1</span> Data Science Can Help Social Scientists</a></li>
+  <li><a href="#course-goals" id="toc-course-goals" class="nav-link" data-scroll-target="#course-goals"><span class="header-section-number">1.1.2</span> Course Goals</a></li>
+  </ul></li>
+  <li><a href="#rsetup" id="toc-rsetup" class="nav-link" data-scroll-target="#rsetup"><span class="header-section-number">1.2</span> Setup in R</a></li>
+  <li><a href="#open-r-script-in-rstudio" id="toc-open-r-script-in-rstudio" class="nav-link" data-scroll-target="#open-r-script-in-rstudio"><span class="header-section-number">1.3</span> Open R Script in RStudio</a>
+  <ul>
+  <li><a href="#using-r-as-a-calculator" id="toc-using-r-as-a-calculator" class="nav-link" data-scroll-target="#using-r-as-a-calculator"><span class="header-section-number">1.3.1</span> Using R as a Calculator</a></li>
+  <li><a href="#working-in-an-r-script" id="toc-working-in-an-r-script" class="nav-link" data-scroll-target="#working-in-an-r-script"><span class="header-section-number">1.3.2</span> Working in an R Script</a></li>
+  <li><a href="#saving-the-r-script" id="toc-saving-the-r-script" class="nav-link" data-scroll-target="#saving-the-r-script"><span class="header-section-number">1.3.3</span> Saving the R Script</a></li>
+  <li><a href="#annotating-your-r-script" id="toc-annotating-your-r-script" class="nav-link" data-scroll-target="#annotating-your-r-script"><span class="header-section-number">1.3.4</span> Annotating your R script</a></li>
+  <li><a href="#running-commands-in-your-r-script" id="toc-running-commands-in-your-r-script" class="nav-link" data-scroll-target="#running-commands-in-your-r-script"><span class="header-section-number">1.3.5</span> Running Commands in your R script</a></li>
+  <li><a href="#objects" id="toc-objects" class="nav-link" data-scroll-target="#objects"><span class="header-section-number">1.3.6</span> Objects</a></li>
+  </ul></li>
+  <li><a href="#r-markdown" id="toc-r-markdown" class="nav-link" data-scroll-target="#r-markdown"><span class="header-section-number">1.4</span> R Markdown</a>
+  <ul>
+  <li><a href="#getting-started-with-rmarkdown" id="toc-getting-started-with-rmarkdown" class="nav-link" data-scroll-target="#getting-started-with-rmarkdown"><span class="header-section-number">1.4.1</span> Getting started with RMarkdown</a></li>
+  </ul></li>
+  <li><a href="#assignment-1" id="toc-assignment-1" class="nav-link" data-scroll-target="#assignment-1"><span class="header-section-number">1.5</span> Assignment 1</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="what-have-i-signed-up-for" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-have-i-signed-up-for"><span class="header-section-number">1.1</span> What have I signed up for?</h2>
+<p>First: What is Data Science?</p>
+<ul>
+<li>Data Science involves a combination of math/statistics and programming/coding skills, which, for our purposes, we will combine with social science knowledge.
+<ul>
+<li><a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram">Drew Conway</a> has a nice venn diagram of how these different skill sets intersect.</li>
+<li>Note: This course will not assume prior familiarity with data science in general or coding, specifically. For those brand new to data science, the idea of learning to code may seem intimidating, but anyone can succeed with a bit of patience and an open mind.</li>
+</ul></li>
+</ul>
+<p><img src="images/venn.png" class="img-fluid"></p>
+<p>Next: What is political science?</p>
+<ul>
+<li>The science of politics, of course! Politics focuses on studying governance and the distribution of power in society, broadly conceived.
+<ul>
+<li>How else might you define politics and political science? What do we study in political science?</li>
+</ul></li>
+</ul>
+<section id="data-science-can-help-social-scientists" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="data-science-can-help-social-scientists"><span class="header-section-number">1.1.1</span> Data Science Can Help Social Scientists</h3>
+<p><strong><em>Example: Mapping poverty using mobile phone and satellite data</em></strong></p>
+<p>Researchers used modern data sources, including mobile phone data, as a way to <strong><em>predict</em></strong> and <strong><em>describe</em></strong> poverty in different geographic regions. These tools helped social scientists come up with methods that are much more cost-effective and efficient, but still as accurate as traditional methods for this type of measurement.</p>
+<ul>
+<li>How might measures of global poverty be useful to political scientists?</li>
+</ul>
+<p><img src="images/blum.jpg" class="img-fluid" style="width:90.0%"></p>
+<p><a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2016.0690">Steele et al.&nbsp;2017</a>: “Poverty is one of the most important determinants of adverse health outcomes globally, a major cause of societal instability and one of the largest causes of lost human potential. Traditional approaches to measuring and targeting poverty rely heavily on census data, which in most low- and middle-income countries (LMICs) are unavailable or out-of-date. Alternat emeasures are needed to complement and update estimates between censuses. This study demonstrates how public and private data sources that are commonly available for LMICs can be used to provide novel insight into the spatial distribution of poverty.We evaluate the relative value of modelling three traditional poverty measures using aggregate data from mobile operators and widely available geospatial data.”</p>
+</section>
+<section id="course-goals" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="course-goals"><span class="header-section-number">1.1.2</span> Course Goals</h3>
+<p><strong><em>Social Science Goals</em></strong></p>
+<p>We have several goals in social science. Here are four that data science can help us pursue:</p>
+<ul>
+<li><strong>Describe</strong> and measure
+<ul>
+<li>Has the U.S. population increased?</li>
+</ul></li>
+<li><strong>Explain</strong>, evaluate, and recommend (study of causation)
+<ul>
+<li>Does expanding Medicaid improve health outcomes?</li>
+</ul></li>
+<li><strong>Predict</strong>
+<ul>
+<li>Who will win the next election?</li>
+</ul></li>
+<li><strong>Discover</strong>
+<ul>
+<li>How do policies diffuse across states?</li>
+</ul></li>
+</ul>
+<p>What are other examples of these goals?</p>
+<p>Note: In this course, we are exploiting the benefits of quantitative data to help achieve goals of social science. However, quantitative data have their shortcomings, too. We will also discuss the limitations of various applications of social science data, and we encourage you to always think critically about how we are using data.</p>
+<p>This course will provide you with a taste of each of these social science goals, and how the use of data can help achieve these goals. By the end of the course, you should be able to</p>
+<ul>
+<li>Provide examples of how quantitative data may be used to help answer social science research questions.</li>
+<li>Compare and contrast the goals of description, causation, prediction, and discovery in social science research.</li>
+<li>Use the programming language R to import and explore social science data and conduct basic statistical analyses.</li>
+<li>Interpret and describe visual displays of social science data, such as graphs and maps.</li>
+<li>Develop your own analyses and visualizations to understand social science phenomena.</li>
+</ul>
+<p>If you are someone that loves data, we hope you will find this course engaging. If you are someone who loathes or finds the idea of working with data and statistics alarming, we hope you keep an open mind. We will meet you where you are. This course will not assume knowledge of statistical software, and there will be plenty of opportunities to ask questions and seek help from classmates and the instructor throughout the semester.</p>
+<p>The first section of course will walk people through how to use the statistical program– R– that we will employ this semester.</p>
+<p><strong><em>Will this course help me in the future?</em></strong></p>
+<p>Even if you do not plan on becoming a social scientist or a data scientist, an introduction to these skills may prove helpful throughout your academic and professional careers.</p>
+<ul>
+<li>To become an informed consumer of news articles and research involving quantitative analyses.</li>
+<li>To practice analytical thinking to make informed arguments and decisions.</li>
+<li>To expand your toolkit for getting a job that may involve consuming or performing some data analysis, even if that is not the traditional role.
+<ul>
+<li>Example: Journalism- <a href="https://www.nytimes.com/2019/06/12/reader-center/data-reporting-spreadsheets.html">How 5 Data Dynamos Do Their Jobs</a></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="rsetup" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="rsetup"><span class="header-section-number">1.2</span> Setup in R</h2>
+<p><strong>Goal</strong></p>
+<p>By the end of the first week of the course, you will want to have R and RStudio installed on your computer (both free), feel comfortable using R as a calculator, and making documents using the R Markdown file type within RStudio.</p>
+<p>R is an application that processes the R programming language. RStudio is also an application, which serves as a user interface that makes working in R easier. We will primarily open and use RStudio to work with R.</p>
+<p>In other classes, you may come across Stata, SPSS, Excel, or SAS, which are programs that also conduct data analysis. R has the advantage of being free and open-source. Even after you leave the university setting, you will be able to use R/RStudio for free. As an open-source program, it is very flexible, and a community of active R/RStudio users is constantly adding to and improving the program. You might also encounter the Python language at some point. R and Python have similarities, and learning R can also make learning Python easier down the road.</p>
+<p><strong>R and RStudio Installation</strong></p>
+<p>IMPORTANT: Note the 2 Steps. These are 2 separate applications you must install. Installing one without the other will not work for our purposes.</p>
+<p>This content follows and reinforces section <a href="https://assets.press.princeton.edu/chapters/s11025.pdf">QSS 1.3</a> in our book. Additional resources are also linked below.</p>
+<ul>
+<li>This <a href="http://www.youtube.com/embed/ulIv0NiVTs4?rel=0">video</a> from Professor Christopher Bail explains why many social scientists use R and describes the R and RStudio installation process. This involves
+<ol type="1">
+<li>Going to <a href="https://cran.r-project.org/">cran</a>, select the link that matches your operating system, and then follow the installation instructions, and</li>
+<li>Visiting <a href="http://www.rstudio.com/">RStudio</a> and follow the download and installation instructions. R is the statistical software and programming language used for analysis. RStudio provides a convenient user interface for running R code.</li>
+</ol></li>
+</ul>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/ulIv0NiVTs4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="open-r-script-in-rstudio" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="open-r-script-in-rstudio"><span class="header-section-number">1.3</span> Open R Script in RStudio</h2>
+<p>This next section provides a few notes on using R and RStudio now that you have installed it. In this section, we cover the following materials:</p>
+<ul>
+<li>Using R as a calculator and assigning objects using <code>&lt;-</code></li>
+<li>Setting your working directory and the <code>setwd()</code> function.</li>
+<li>Creating and saving an R script (.R file)</li>
+<li>Creating, saving, and compiling an R Markdown document (.Rmd) into an html document (.html)</li>
+</ul>
+<p>This section highlights important concepts from <a href="https://assets.press.princeton.edu/chapters/s11025.pdf">QSS chapter 1</a>.</p>
+<p>RStudio is an open-source and free program that greatly facilitates the use of R, especially for users new to programming. Once you have downloaded and installed R and RStudio, to work in R, all you need to do now is <strong><em>open RStudio</em></strong> (it will open R). It should look like this, though your version numbers will be different:</p>
+<p><img src="images/rconsole1.png" class="img-fluid"></p>
+<p><strong>Note:</strong> The first time you open RStudio, you likely only have the three windows above. We will want to create a fourth window by <strong>opening an R script</strong> to create the fourth window.</p>
+<ul>
+<li>To do this, in RStudio, click on File -&gt; New -&gt; R script in your computer’s toolbar. This will open a blank document for text editing in the upper left of the RStudio window. We will return to this window in a moment.
+<ul>
+<li>You can alternatively click on the green + sign indicator in the top-left corner of the RStudio window, which should give you the option to create a new R script document.</li>
+</ul></li>
+</ul>
+<p>Now you should have something that looks like this, similar to Figure 1.1. in QSS:</p>
+<p><img src="images/rconsole2.png" class="img-fluid"></p>
+<ul>
+<li>The upper-left window has our .R script document that will contain code.</li>
+<li>The lower-left window is the console. This will show the output of the code we run. We will also be able to type directly in the console.</li>
+<li>The upper-right window shows the environment (and other tabs, such as the history of commands). When we load and store data in RStudio, we will see a summary of that in the environment.</li>
+<li>The lower-right window will enable us to view plots and search help files, among other things.</li>
+</ul>
+<section id="using-r-as-a-calculator" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="using-r-as-a-calculator"><span class="header-section-number">1.3.1</span> Using R as a Calculator</h3>
+<p>The <em>bottom left</em> window in your RStudio is the Console. You can type in this window to use R as a calculator or to try out commands. It will show the raw output of any commands you type. For example, we can try to use R as a calculator. Type the following in the Console (the bottom left window) and hit “enter” or “return” on your keyboard:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">/</span><span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.666667</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+<p>Again, in the other RStudio windows, the upper right will show a history of commands that you have sent from the text editor to the R console, along with other items. The lower right will show graphs, help documents and other features. These will be useful later in the course.</p>
+</section>
+<section id="working-in-an-r-script" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="working-in-an-r-script"><span class="header-section-number">1.3.2</span> Working in an R Script</h3>
+<p>Earlier, I asked you to open an R script in the upper left window by doing File, then New File, then R Script. Let’s go back to working in that window.</p>
+<p><strong>Set your working directory <code>setwd()</code></strong></p>
+<p>Many times you work in RStudio, the first thing you will do is set your working directory. This is a designated folder in your computer where you will save your R scripts and datasets.</p>
+<p>There are many ways to do this.</p>
+<ul>
+<li>An easy way is to go to Session -&gt; Set Working Directory -&gt; Choose Directory. I suggest choosing a folder in your computer that you can easily find and that you will routinely use for this class. Go ahead and create/select it.</li>
+<li>Note: when you selected your directory, code came out in the bottom left Console window. This is the <code>setwd()</code> command which can also be used directly to set your working directory in the future.</li>
+<li>If you aren’t sure where your directory has been set, you can also type <code>getwd()</code> in your Console. Try it now</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of where my directory was</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/ktmccabe/Dropbox/GitHub2/dsps25"</code></pre>
+</div>
+</div>
+<p>If I want to change the working directory, I can go to the top toolbar of my computer and use Session -&gt; Set Working Directory -&gt; Choose Directory or just type my file pathway using the <code>setwd()</code> below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of setting the working directory using setwd().</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Your computer will have your own file path.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/ktmccabe/Dropbox/Rutgers Teaching/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="saving-the-r-script" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="saving-the-r-script"><span class="header-section-number">1.3.3</span> Saving the R Script</h3>
+<p>Let’s now save our R script to our working directory and give it an informative name. To do so, go to File, then Save As, make sure you are in the same folder on your computer as the folder you chose for your working directory.</p>
+<p>Give the file an informative name, such as: “McCabeWeek1.R”. Note: all of your R scripts will have the .R extension.</p>
+</section>
+<section id="annotating-your-r-script" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="annotating-your-r-script"><span class="header-section-number">1.3.4</span> Annotating your R script</h3>
+<p>Now that we have saved our R script, let’s work inside of it. Remember, we are in the top-left RStudio window now.</p>
+<ul>
+<li>Just like the beginning of a paper, you will want to title your R script. In R, any line that you start with a # will not be treated as a programming command. You can use this to your advantage to write titles/comments– annotations that explain what your code is doing. Below is a screenshot example of a template R script.</li>
+<li>You can specify your working directory at the top, too. Add your own filepath inside <code>setwd()</code></li>
+</ul>
+<p><img src="images/templateR.png" class="img-fluid"></p>
+<ul>
+<li>Then you can start answering problems in the rest of the script.</li>
+<li>Think of the R script as where you write the final draft of your paper. In the Console (the bottom-left window), you can mess around and try different things, like you might when you are taking notes or outlining an essay. Then, write the final programming steps that lead you to your answer in the R script. For example, if I wanted to add 5 + 3, I might try different ways of typing it in the Console, and then when I found out <code>5 + 3</code> is the right approach, I would type that into my script.</li>
+</ul>
+</section>
+<section id="running-commands-in-your-r-script" class="level3" data-number="1.3.5">
+<h3 data-number="1.3.5" class="anchored" data-anchor-id="running-commands-in-your-r-script"><span class="header-section-number">1.3.5</span> Running Commands in your R script</h3>
+<p>The last thing we will note in this section is how to execute commands in your R script.</p>
+<p>To run / execute a command in your R script (the upper left window), you can</p>
+<ol type="1">
+<li>Highlight the code you want to run, and then hold down “command + return” on a Mac or “control + enter” on Windows</li>
+<li>Place your cursor at the end of the line of code (far right), and hit “command + return” on a Mac or “control + return” on Windows, or</li>
+<li>Do 1 or 2, but instead of using the keyboard to execute the commands, click “Run” in the top right corner of the upper-left window.</li>
+</ol>
+<p>Try it: Type <code>5 + 3</code> in the R script. Then, try to execute <code>5 + 3</code>. It should look something like this:</p>
+<p><img src="images/rtemplate2.png" class="img-fluid"></p>
+<p>After you executed the code, you should see it pop out in your Console:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+<p><img src="images/runningcode.png" class="img-fluid" style="width:90.0%"></p>
+<p>Note: The symbol # also allows for annotation behind commands or on a separate line. Everything that follows # will be ignored by R. You can annotate your own code so that you and others can understand what each part of the code is designed to do.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span> <span class="co"># example of assigning an addition calculation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="objects" class="level3" data-number="1.3.6">
+<h3 data-number="1.3.6" class="anchored" data-anchor-id="objects"><span class="header-section-number">1.3.6</span> Objects</h3>
+<p>Sometimes we will want to store our calculations as “objects” in R. We use <code>&lt;-</code> to assign objects by placing it <a href="https://www.youtube.com/watch?v=vLZA67L7gIo&amp;ab_channel=BeyonceSasha1">to the left</a> of what we want to store. For example, let’s store the calculation <code>5 + 3</code> as an object named <code>sum53</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After we execute this code, <code>sum53</code> now stores the calculation. This means, that if we execute a line of code that just has <code>sum53</code>, it will output 8. Try it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sum53</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+<p>Now we no longer have to type <code>5 + 3</code>, we can just type <code>sum53</code>. For example, let’s say we wanted to subtract 2 from this calculation. We could do:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="sc">-</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>Let’s say we wanted to divide two stored calculations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ten <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ten <span class="sc">/</span> two</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>The information stored does not have to be numeric. For example, it can be a word, or what we would call a character string, in which case you need to use quotation marks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mccabe <span class="ot">&lt;-</span> <span class="st">"professor for this course"</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mccabe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "professor for this course"</code></pre>
+</div>
+</div>
+<p><em>Note:</em> Object names cannot begin with numbers and no spacing is allowed. Avoid using special characters such as % and $, which have specific meanings in R. Finally, use concise and intuitive object names.</p>
+<ul>
+<li>GOOD CODE: <code>practice.calc &lt;- 5 + 3</code></li>
+<li>BAD CODE: <code>meaningless.and.unnecessarily.long.name &lt;- 5 + 3</code></li>
+</ul>
+<p>While these are simple examples, we will use objects all the time for more complicated things to store (e.g., like full datasets!) throughout the course.</p>
+<p>We can also store an array or “vector” of information using <code>c()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>somenumbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>somenumbers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 6 8 9</code></pre>
+</div>
+</div>
+<p><strong>Importance of Clean Code</strong></p>
+<p>Ideally, when you are done with your R script, you should be able to highlight the entire script and execute it without generating any error messages. This means your code is clean. Code with typos in it may generate a red error message in the Console upon execution. This can happen when there are typos or commands are misused.</p>
+<p>For example, R is case sensitive. Let’s say we assigned our object like before:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However, when we went to execute <code>sum53</code>, we accidentally typed <code>Sum53</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Sum53</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: object 'Sum53' not found</code></pre>
+</div>
+</div>
+<p>Only certain types of objects can be used in mathematical calculations. Let’s say we tried to divide <code>mccabe</code> by 2:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mccabe <span class="sc">/</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in mccabe/2: non-numeric argument to binary operator</code></pre>
+</div>
+</div>
+<p>A big part of learning to use R will be learning how to troubleshoot and detect typos in your code that generate error messages.</p>
+<p><img src="images/punctuation.png" class="img-fluid" style="width:80.0%"></p>
+</section>
+</section>
+<section id="r-markdown" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="r-markdown"><span class="header-section-number">1.4</span> R Markdown</h2>
+<p>An R Markdown document, which you can also create in RStudio, allows you to weave together regular text, R code, and the output of R code in the same document. This can be very convenient when conducting data analysis because it allows you more space to explain what you are doing in each step. We will use it as an effective platform for writing up problem sets.</p>
+<p>R Markdown documents can be “compiled” into html, pdf, or docx documents by clicking the <code>Knit</code> button on top of the upper-left window. Below is an example of what a compiled html file looks like.</p>
+<ul>
+<li>Note that the image has both written text and a gray chunk, within which there is some R code, as well as the output of the R code (e.g., the number 8 and the image of the histogram plot. <img src="images/rmarkdownscreenshot.png" class="img-fluid" style="width:60.0%"></li>
+</ul>
+<p>We say this is a “compiled” RMarkdown document because it differs from the raw version of the file, which is a .Rmd file format. Below is an example of what the raw .Rmd version looks like, compared to the compiled html version.</p>
+<p><img src="images/rmarkdownraw.png" class="img-fluid" style="width:45.0%"> <img src="images/rmarkdownscreenshot.png" class="img-fluid" style="width:40.0%"></p>
+<section id="getting-started-with-rmarkdown" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="getting-started-with-rmarkdown"><span class="header-section-number">1.4.1</span> Getting started with RMarkdown</h3>
+<p>Just like with a regular R script, to work in R Markdown, you will open up RStudio.</p>
+<ul>
+<li>For additional support beyond the notes below, you can also follow the materials provided by RStudio for getting started with R Markdown https://rmarkdown.rstudio.com/lesson-1.html.</li>
+</ul>
+<p>The <strong>first time</strong> you will be working in R Markdown, you will want to install two packages: <code>rmarkdown</code> and <code>knitr</code>. You can do this in the Console window in RStudio (remember the lower-left window!).</p>
+<p>Type the following into the Console window and hit enter/return.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rmarkdown"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"knitr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once you have those installed, now, each time you want to create an R Markdown document, you will open up a .Rmd R Markdown file and get to work.</p>
+<ol type="1">
+<li>Go to File -&gt; New File -&gt; R Markdown in RStudio
+<ul>
+<li>Alternatively, you can click the green + symbol at the top left of your RStudio window</li>
+</ul></li>
+<li>This should open up a window with several options, similar to the image below
+<ul>
+<li>Create an informative title and change the author name to match your own</li>
+<li>For now, we will keep the file type as html. In the future, you can create pdf or .doc documents. However, these require additional programs installed on your computer, which we will not cover in the course.</li>
+</ul></li>
+</ol>
+<p><img src="images/rmarkdownnewfile.png" class="img-fluid"></p>
+<ol start="3" type="1">
+<li>After you hit “OK” a new .Rmd script file will open in your top-left window with some template language and code chunks, similar to the image below. Alternatively, you can start from scratch by clicking “Create Empty Document” or open a template .Rmd file of your own saved on your computer.</li>
+</ol>
+<p><img src="images/rmarkdowntemplate.png" class="img-fluid"></p>
+<ol start="4" type="1">
+<li><strong><em>Save as .Rmd file.</em></strong> Save the file by going to “File -&gt; Save as” in RStudio</li>
+</ol>
+<ul>
+<li>Give the file an informative name like your LastnamePractice1.Rmd</li>
+</ul>
+<ol start="5" type="1">
+<li><p><strong><em>Key Components.</em></strong> Now you are ready to work within the Rmd script file. We will point to four basic components of this file, and you can build your knowledge of RMarkdown from there.</p>
+<ol type="1">
+<li>The top part bracketed by <code>---</code> on top and bottom is the YAML component. This tells RStudio the pertinent information about how to “compile” the Rmd file.
+<ul>
+<li>Most of the time you can leave this alone, but you can always edit the title, author, or date as you wish.</li>
+</ul></li>
+<li>The next component are the global options for the document. It is conveniently labeled “setup.” By default what this is saying is that the compiled version will “echo” (i.e., display all code chunks and output) unless you specifically specify otherwise. For example, note that it says <code>include = FALSE</code> for the setup chunk. That setting means that this code chunk will “run” but it will not appear in the nicely compiled .html file.
+<ul>
+<li>Most of the time you will not need to edit those settings.</li>
+</ul></li>
+<li>The third component I want to bring attention to is the body text. The # symbol in RMarkdown is used to indicate that you have a new section of the document. For example, in the compiled images at the beginning, this resulted in the text being larger and bolded when it said “Problem 2.” In addition to just using a single #, using ## or ### can indicate subsections or subsubsections. Other than that symbol, you can generally write text just as you would in any word processing program, with some exceptions, such as how to make text bold or italicized.</li>
+<li>The final component I want to call attention to are the other main body code chunks. These are specific parts of the document where you want to create a mini R script. To create these, you can simply click the + C symbol toward the top of the top left window of RStudio and indicate you want an R chunk.</li>
+</ol>
+<center>
+<p><img src="images/rmarkdownnewchunk.png" class="img-fluid" style="width:20.0%"></p>
+</center></li>
+<li><p><strong><em>Writing R Code.</em></strong> Within a code chunk, you can type R code just like you would in any R script, as explained in the previous section. However, in RMarkdown, you also have the option of running an entire code chunk at once by hitting the green triangle at the top-right of a given code chunk.</p></li>
+</ol>
+<p><img src="images/codechunkexample.png" class="img-fluid" style="width:70.0%"></p>
+<ol start="7" type="1">
+<li><strong><em>Knitting the document.</em></strong> Once you have added a code chunk and/or some text, you are ready to compile or “Knit” the document. This is what generates the .html document.
+<ul>
+<li>To do so, click on the Knit button toward the top of the top-left window of Rstudio. After a few moments, this should open up a preview window displaying the compiled html file.</li>
+<li>It will also save an actual .html file in your working directory (the same location on your computer where you have saved the .Rmd file)</li>
+<li>Try to locate this compiled .html file on your computer and open it. For most computers, .html files will open in your default web browser, such as Google Chrome or Safari.</li>
+<li>This step is a common place where errors are detected and generated. Sometimes the compiling process fails due to errors in the R code in your code chunks or an error in the Markdown syntax. If your document fails to knit, the next step is to try to troubleshoot the error messages the compiling process generates. The best way to reduce and more easily detect errors is to “knit as you go.” Try to knit your document after each chunk of code you create.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="assignment-1" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="assignment-1"><span class="header-section-number">1.5</span> Assignment 1</h2>
+<p>Below is an exercise that will demonstrate you are able to use R as a calculator, create R scripts, and create and compile R Markdown files. You should be able to complete this assignment after reviewing the course notes from this section and QSS chapter 1.</p>
+<p>We will start walking through this assignment together during class, but you are welcome to try to do this ahead of time on your own.</p>
+<p>You will submit three documents on Canvas:</p>
+<ul>
+<li>An <strong>R script</strong> (.R) file with your code. Follow the best practices by titling your script and using # comments to explain your steps. This code should be clean. I should be able to run your code to verify that the code produces the answers you write down.</li>
+<li>An <strong>.Rmd</strong> <strong>document</strong> <strong>and</strong></li>
+<li>A compiled RMarkdown <strong>.html document</strong> that you get after “knitting” the .Rmd file. This should also have a title including your name and use text or # comments to explain your steps.</li>
+</ul>
+<p>You can create these documents from scratch using the guidance in the previous sections, or you can download and open the .R and .Rmd templates, provided on Canvas, in RStudio to get started.</p>
+<p>This video provides a brief overview of opening an R script and R Markdown file in RStudio with similar problems to those asked of you in the assignment. The notes in previous sections provide additional details.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/g37_-icdPMc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><strong><em>Assignment Exercises</em></strong></p>
+<ol type="1">
+<li>Create a .R script saved as “LastnameSetup1.R” (use your last name). If you use the template on Canvas, after opening in RStudio, use File -&gt; Save As to change to create this file name. Within the body of this file, make sure to title it and provide your name.
+<ol type="1">
+<li>Set your working directory using the Session tab in RStudio.</li>
+<li>Do the calculation 8 + 3 - 5 in your R script. Store it as an object with an informative name. Report the answer as a comment # below the code.</li>
+<li>Do the calculation 7 x 3 in your R script. Store it as an object with an informative name. Report the answer as a comment # below the code.</li>
+<li>Add these two calculations together. Note: do this by adding together the objects you created, not the underlying raw calculations. Report the answer as a # below the code.</li>
+</ol></li>
+<li>In this problem, we will just re-format what we did in the first problem in an R Markdown format. Create a .Rmd R Markdown file saved as “LastnameSetup1.Rmd.” If you use the template on Canvas, after opening in RStudio, use File -&gt; Save As to change to create this file name. Within this file, make sure to title it and provide your name.
+<ol type="1">
+<li>Create a Markdown heading # Problem 2.1. Underneath this, create an R code chunk in which you do the calculation 8 + 3 - 5. Store it as an object with an informative name. Report the answer in plain language below the code chunk.</li>
+<li>Create a Markdown heading # Problem 2.2. Underneath this, create an R code chunk in which you do the calculation 7 x 3 in your R script. Store it as an object with an informative name. Report the answer in plain language below the code chunk.</li>
+<li>Create a Markdown heading # Problem 2.3. Underneath this, create an R code chunk in which you add the previous two calculations together. Note: do this by adding together the objects you created, not the underlying raw calculations. Report the answer in plain language below the code chunk.</li>
+<li>Create a Markdown heading # Problem 2.4. Write down how you will complete your R assignments this semester. For example, if you have a personal laptop with R and RStudio on it, you will simply write “I will use my personal laptop.” If you don’t have a personal computer or laptop, please indicate where on campus or off-campus you will have regular access to a computer with R/RStudio to do your work. It is <strong><em>essential</em></strong> that you have regular access to a computer so that you will not fall behind in this course.</li>
+</ol></li>
+<li>Create a compiled .html file by “knitting” the .Rmd file into a .html document. Save the file as “LastnameSetup1.html.” This should happen automatically. The file will be located in the folder where the .Rmd file is also saved.</li>
+</ol>
+<p>All done! Submit the three documents (.R, .Rmd, and .html) on Canvas.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Course Notes">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Course Notes</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,35 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Data Science for Political Science"
+  date: "September 2025"
+  chapters:
+    - index.qmd
+    - intro.qmd
+  page-navigation: true
+  sidebar:
+    style: docked
+    background: light
+    foreground: blue
+
+format:
+  html:
+    theme: yeti
+    toc-title: Section Contents
+    toc: true
+    toc-location: left
+    toc-depth: 4
+    linkcolor: red
+  pdf:
+    toc-title: Section Contents
+    toc: true
+    toc-location: left
+    toc-depth: 4
+    linkcolor: red
+  
+
+
+editor: visual
+

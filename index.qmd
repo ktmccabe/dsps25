@@ -1,12 +1,12 @@
 # Course Notes {.unnumbered}
 
-This document will include important links and course notes for 01:790:391:01: Data Science for Political Science for the fall 2024 semester.
+This document will include important links and course notes for 01:790:391:01: Data Science for Political Science for the fall 2025 semester.
 
 -   This site will be updated throughout the semester with new content.
 
 -   The Canvas modules will provide links to the relevant sections to review for a given week of the course.
 
--   The primary text for the course is [Quantitative Social Science: An Introduction](https://qss.princeton.press/qss-an-introduction/) by Kosuke Imai. We will refer to this as QSS in the notes.
+-   The primary recommended textbook for the course is [Quantitative Social Science: An Introduction](https://qss.princeton.press/qss-an-introduction/) by Kosuke Imai. We will refer to this as QSS in the notes.
 
 -   This is a living document. If you spot errors or have questions or suggestions, please email me at k.mccabe\@rutgers.edu or post to the course Canvas site.
 

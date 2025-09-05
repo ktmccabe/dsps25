@@ -167,6 +167,60 @@ Note that the below is also equivalent to the mean
 sumofvalues / numberofvalues
 ```
 
+
+## Combining vectors into a dataframe
+
+When we know multiple things about a person (or any type of "unit"), it can be helpful to organize them so it is easier to access all of the information from the same place. This will take us to our first experience working with "dataframes," a type of rectangular data object.
+
+We will first manually create a dataframe, and in future sections, we will load pre-existing datasets as dataframe objects.
+
+We can use the `data.frame(tag = value)` function to create a rectangular dataset by supplying multiple labels or "tags," followed by a vector of the values associated with those tags. The tags become the column names of the dataframe. 
+
+This is easiest to understand when you see it in practice. We will supply the tags "Outcome" and "People" as column names, and for each, the vectors containing the values.
+
+```{r}
+## creating a dataframe
+surveyresults <- data.frame(Outcome = c(0,0,0,0,1,1,0,1,0,1),
+                            People = c("Joe","Sally", "Trevor", "Emily", "Mark", 
+                                       "Sarah Jane", "Stacey", "Steve", "Phoebe", "Jesse"))
+
+surveyresults
+```
+
+
+Note that this has created a single object called `surveyresults`.
+
+
+```{r}
+## Object type
+class(surveyresults)
+
+## ## How many observations (the rows)?
+nrow(surveyresults)
+
+## ## How many variables (the columns)?
+ncol(surveyresults)
+```
+
+
+In a dataframe, we can still access a single column of values using the syntax `dataframename$columnname`
+
+```{r}
+## Access the individual columns using $
+surveyresults$Outcome
+surveyresults$People
+```
+
+We can even take the `mean()` of these columns in the same way we did above outside of a dataframe.
+
+```{r}
+## Taking the mean
+mean(surveyresults$Outcome)
+```
+
+
+## Summing up univariate description
+
 Returning to our example, we found that 40% of people surveyed thought the economy was doing well. Surveying people about their opinions on how the country doing is a common way that social scientists use description. We could extend this exercise in many ways going forward, even with the same question.
 
 -   Start with a question: How is the economy doing?
@@ -205,7 +259,7 @@ For a video explainer of the code in this section, see below. The video only dis
 
 {{< video src="https://www.youtube.com/watch?v=rm_g0rrglEQ" >}}
 
-Often the variables we care about are stored inside of rectangular datasets
+Often the variables we care about are stored inside of rectangular datasets that we load into R (or have created manually, like the simple example in the previous section.)
 
 -   These have a number of rows `nrow()` and columns `ncol()`
 -   Each row is an "observation," representing the information collected from an individual or entity
@@ -486,9 +540,9 @@ Not a big deal now, but imagine if you had to write 100 numbers or 1 MILLION NUM
 
 ## Creating dataframes from within R
 
-While importing data from outside of R is the most common way to work with dataframes in R, you can also create dataframes from inside R. Ultimately, a dataframe just binds together multiple vectors / columns to create a rectangular object.
+A reminder that while importing data from outside of R is the most common way to work with dataframes in R, you can create dataframes from inside R. Ultimately, a dataframe just binds together multiple vectors / columns to create a rectangular object. Let's get additional practice with this using our voter turnout data.
 
-For example, let's say we want to create a dataframe with columns indicating just the midterm years and their VEP turnout. These correspond to the two vectors:
+Let's say we want to create a dataframe with columns indicating just the midterm years and their VEP turnout. These correspond to the two vectors:
 
 -   `turnout$newVEPturnout[seq(2, 12, 2)]`
 -   `turnout$year[seq(2, 12, 2)]`

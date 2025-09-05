@@ -8,6 +8,7 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
+    - 02-Description.qmd
   page-navigation: true
   sidebar:
     style: docked
@@ -17,12 +18,6 @@ book:
 format:
   html:
     theme: yeti
-    toc-title: Section Contents
-    toc: true
-    toc-location: left
-    toc-depth: 4
-    linkcolor: red
-  pdf:
     toc-title: Section Contents
     toc: true
     toc-location: left

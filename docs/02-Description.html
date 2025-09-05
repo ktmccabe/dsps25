@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Description – Data Science for Political Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9becf3fbc736aa3d8123452166bd44f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-Description.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science for Political Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Notes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Description.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Section Contents</h2>
+   
+  <ul>
+  <li><a href="#process-of-describing" id="toc-process-of-describing" class="nav-link active" data-scroll-target="#process-of-describing"><span class="header-section-number">2.1</span> Process of Describing</a>
+  <ul>
+  <li><a href="#example-process" id="toc-example-process" class="nav-link" data-scroll-target="#example-process"><span class="header-section-number">2.1.1</span> Example Process</a></li>
+  </ul></li>
+  <li><a href="#summarizing-univariate-data" id="toc-summarizing-univariate-data" class="nav-link" data-scroll-target="#summarizing-univariate-data"><span class="header-section-number">2.2</span> Summarizing univariate data</a></li>
+  <li><a href="#functions-to-summarize-univariate-data" id="toc-functions-to-summarize-univariate-data" class="nav-link" data-scroll-target="#functions-to-summarize-univariate-data"><span class="header-section-number">2.3</span> Functions to summarize univariate data</a>
+  <ul>
+  <li><a href="#step-by-step-using-functions-in-r-overview" id="toc-step-by-step-using-functions-in-r-overview" class="nav-link" data-scroll-target="#step-by-step-using-functions-in-r-overview"><span class="header-section-number">2.3.1</span> Step-by-step: Using functions in R (overview)</a></li>
+  </ul></li>
+  <li><a href="#loading-data-into-r" id="toc-loading-data-into-r" class="nav-link" data-scroll-target="#loading-data-into-r"><span class="header-section-number">2.4</span> Loading data into R</a>
+  <ul>
+  <li><a href="#working-with-datasets-in-r" id="toc-working-with-datasets-in-r" class="nav-link" data-scroll-target="#working-with-datasets-in-r"><span class="header-section-number">2.4.1</span> Working with datasets in R</a></li>
+  <li><a href="#measuring-the-turnout-in-the-us-elections" id="toc-measuring-the-turnout-in-the-us-elections" class="nav-link" data-scroll-target="#measuring-the-turnout-in-the-us-elections"><span class="header-section-number">2.4.2</span> Measuring the Turnout in the US Elections</a></li>
+  <li><a href="#getting-to-know-your-data" id="toc-getting-to-know-your-data" class="nav-link" data-scroll-target="#getting-to-know-your-data"><span class="header-section-number">2.4.3</span> Getting to know your data</a></li>
+  </ul></li>
+  <li><a href="#comparing-vep-and-vap-turnout" id="toc-comparing-vep-and-vap-turnout" class="nav-link" data-scroll-target="#comparing-vep-and-vap-turnout"><span class="header-section-number">2.5</span> Comparing VEP and VAP turnout</a>
+  <ul>
+  <li><a href="#creating-new-variables-in-r" id="toc-creating-new-variables-in-r" class="nav-link" data-scroll-target="#creating-new-variables-in-r"><span class="header-section-number">2.5.1</span> Creating new variables in R</a></li>
+  </ul></li>
+  <li><a href="#comparing-presidential-vs.-midterm-turnout" id="toc-comparing-presidential-vs.-midterm-turnout" class="nav-link" data-scroll-target="#comparing-presidential-vs.-midterm-turnout"><span class="header-section-number">2.6</span> Comparing Presidential vs.&nbsp;Midterm turnout</a>
+  <ul>
+  <li><a href="#r-shortcut-for-writing-vectors" id="toc-r-shortcut-for-writing-vectors" class="nav-link" data-scroll-target="#r-shortcut-for-writing-vectors"><span class="header-section-number">2.6.1</span> R shortcut for writing vectors</a></li>
+  </ul></li>
+  <li><a href="#creating-dataframes-from-within-r" id="toc-creating-dataframes-from-within-r" class="nav-link" data-scroll-target="#creating-dataframes-from-within-r"><span class="header-section-number">2.7</span> Creating dataframes from within R</a></li>
+  <li><a href="#wrapping-up-description" id="toc-wrapping-up-description" class="nav-link" data-scroll-target="#wrapping-up-description"><span class="header-section-number">2.8</span> Wrapping Up Description</a>
+  <ul>
+  <li><a href="#summary-of-r-tools" id="toc-summary-of-r-tools" class="nav-link" data-scroll-target="#summary-of-r-tools"><span class="header-section-number">2.8.1</span> Summary of R tools</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="description" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>What are things we want to describe in political science?</p>
+<ul>
+<li>Unemployment rate, GDP</li>
+<li>Voter turnout, vote share for a party in an election</li>
+<li>Percentage of women in the labor force</li>
+<li>Poverty rates over time</li>
+</ul>
+<p>What else? What does description help us achieve?</p>
+<ul>
+<li>Identify tendencies</li>
+<li>Identify patterns or trends</li>
+<li>Identify relationships between two or more factors</li>
+<li>Help us generalize from anecdotes, what is common vs.&nbsp;what is uncommon?</li>
+<li>Diagnose demand, needs, potential problems, likely outcomes</li>
+</ul>
+<p>Generate ideas for other goals, such as explanation and prediction</p>
+<section id="process-of-describing" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="process-of-describing"><span class="header-section-number">2.1</span> Process of Describing</h2>
+<p>How do we go about a descriptive quantitative analysis?</p>
+<ol type="1">
+<li>Substantive Expertise: Start with a topic, puzzle, or question (e.g., How is the economy doing?)</li>
+<li>Find outcome data relevant to that question (e.g., GDP)
+<ul>
+<li>Start from a concept: what we want to describe (i.e., health of the economy)</li>
+<li>Move toward an “operationalization” (i.e., a way to measure it)</li>
+<li>Easy! except… social science is messy. Our concepts are rich, while our measures may be very narrow or concrete.
+<ul>
+<li>For example, GDP is one way to measure economic health, but is it the only measure?</li>
+<li>Choose measures based on validity, reliability, cost</li>
+<li>Validity: how well does the empirical measure reflect the concept it is trying to measure (too broad vs.&nbsp;narrow, susceptible to external biases?)</li>
+<li>Reliability: how reproducible and stable is the measure across different researchers and slight variation in sample or measures</li>
+</ul></li>
+</ul></li>
+<li>Find multiple relevant units or “data points” depending on the descriptions and comparisons you want to make
+<ul>
+<li>E.g., Multiple years of data (e.g., U.S., from 1900 to 2020)</li>
+<li>E.g., Multiple countries from one year (e.g., U.S. to Germany to other countries)</li>
+</ul></li>
+<li>Summarize the data to help answer the question</li>
+</ol>
+<section id="example-process" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="example-process"><span class="header-section-number">2.1.1</span> Example Process</h3>
+<ol type="1">
+<li>How is the economy doing?</li>
+<li>Find outcome data relevant to that question
+<ul>
+<li>Let’s ask people</li>
+</ul></li>
+<li>Find multiple relevant units or data points
+<ul>
+<li>We will ask several people. Each person will be a data point.</li>
+</ul></li>
+<li>Summarize the data
+<ul>
+<li>Let’s take the mean</li>
+</ul></li>
+</ol>
+<p><img src="images/economysurvey.png" class="img-fluid" style="width:50.0%"></p>
+<p>How would you summarize information in explaining it to another person? You would probably want to describe how most people feel about the economy. In other words, you would describe the “central tendency” of people’s responses (the central tendency of the data).</p>
+</section>
+</section>
+<section id="summarizing-univariate-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="summarizing-univariate-data"><span class="header-section-number">2.2</span> Summarizing univariate data</h2>
+<p>For a video explainer of the code in this section, see below. The video only discusses the code. Use the notes and lecture discussion for additional context. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/80tbdiWuljc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Univariate data refers to data coming from one “variable,” where a variable captures the values of a changing characteristic.</p>
+<p>Our set of values is Outcome = {0,0,0,0,1,1,0,1,0,1}.</p>
+<ul>
+<li>We will call this a vector of values, where a vector is just a collection of things.</li>
+<li>Because our vector contains only numbers, we will call it a <em>numeric</em> vector.</li>
+<li>Each value can be indexed by <code>i</code>, denoting the position of the value in the</li>
+<li>For example, Jesse is in position <code>i=10</code> of the vector, and his value is 1</li>
+</ul>
+<p>We can create vectors in R by using <code>c()</code> and assigning <code>&lt;-</code> it to an object we will call <code>Outcome</code>. Note: you will use the <code>c()</code> and <code>&lt;-</code> assignment tool all of the time in this course!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># Use commas to separate values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can extract a particular value within our vector using brackets and the value’s numeric position in the vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Outcome[<span class="dv">10</span>] <span class="co"># what value is in the 10th position?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>We can label our outcomes using <code>names()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Outcome) <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Joe"</span>,<span class="st">"Sally"</span>, <span class="st">"Trevor"</span>, <span class="st">"Emily"</span>, <span class="st">"Mark"</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Sarah Jane"</span>, <span class="st">"Stacey"</span>, <span class="st">"Steve"</span>, <span class="st">"Phoebe"</span>, <span class="st">"Jesse"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Outcome[<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jesse 
+    1 </code></pre>
+</div>
+</div>
+<p>We can overwrite whole vectors or values within a vector</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># oops we put the wrong numbers</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Outcome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 5 0 2 6 1 1 7 8 0 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># no problem, just overwrite it</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Outcome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 0 0 0 1 1 0 1 0 1</code></pre>
+</div>
+</div>
+<p>Oops we accidentally type a 0 for Jesse.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="co"># oops typo for Jesse</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Outcome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 0 0 0 1 1 0 1 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Outcome[<span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># no prob bob. Assign a 1 in position 10</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Outcome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 0 0 0 1 1 0 1 0 1</code></pre>
+</div>
+</div>
+<p>Vectors do not have to be numeric. Character vectors contain a collection of words and phrases. In R, we use quotations around character values</p>
+<p>Example: let’s create a vector of names that we will call <code>People</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>People <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Joe"</span>,<span class="st">"Sally"</span>, <span class="st">"Trevor"</span>, <span class="st">"Emily"</span>, <span class="st">"Mark"</span>, <span class="st">"Sarah Jane"</span>, <span class="st">"Stacey"</span>, <span class="st">"Steve"</span>, <span class="st">"Phoebe"</span>, <span class="st">"Jesse"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>People[<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Jesse"</code></pre>
+</div>
+</div>
+<p>We can use the R function <code>class()</code> to tell us the type of object we have.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(People)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+</section>
+<section id="functions-to-summarize-univariate-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="functions-to-summarize-univariate-data"><span class="header-section-number">2.3</span> Functions to summarize univariate data</h2>
+<p>We will use many “functions” in R, which are actions that we request R to perform with data. Functions take one or more inputs that you provide, “under the hood” perform a series of actions, and then produces one or more outputs. For example, if we supply the <code>mean()</code> function in R with a set of numbers, R will take the average of those numbers and then report the result.</p>
+<p>For univariate data (data based on a single variable or changing characteristic), often we are interested in describing the range of the values and their central tendency. A central tendency reflects the mean or median.</p>
+<ul>
+<li>range: the minimum (<code>min()</code>) and maximum (<code>max()</code>) values</li>
+<li>mean: the average value (<code>mean()</code>)</li>
+</ul>
+<p>The average is the sum of the values divided by the number of values:</p>
+<p><span class="math inline">\(\bar{X} = \frac{\text{sum of values}}{\text{number of values}} = \frac{x_1 + x_2 + ... + x_N}{N}=\frac{1}{N}\sum_{i=1}^{i=N} x_i\)</span></p>
+<p>Let’s do this in R for our set of 10 values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="sc">+</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">/</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4</code></pre>
+</div>
+</div>
+<p>The average outcome is .4. Note: when a variable contains only 0’s and 1’s its mean is the proportion of 1’s. 40% of people think the economy is doing well.</p>
+<section id="step-by-step-using-functions-in-r-overview" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="step-by-step-using-functions-in-r-overview"><span class="header-section-number">2.3.1</span> Step-by-step: Using functions in R (overview)</h3>
+<p>A function is an action(s) that you request R to perform on an object or set of objects. For example, we will use the <code>mean()</code> function to ask R to take the mean or “average” of a vector.</p>
+<ul>
+<li>Inside the function you place inputs or “arguments.”</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4</code></pre>
+</div>
+</div>
+<p>R also has functions that take the sum <code>sum()</code> of a vector of values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sumofvalues <span class="ot">&lt;-</span> <span class="fu">sum</span>(Outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And that count the total number of values or “length” <code>length()</code> of the vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>numberofvalues <span class="ot">&lt;-</span> <span class="fu">length</span>(Outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the below is also equivalent to the mean</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sumofvalues <span class="sc">/</span> numberofvalues</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4</code></pre>
+</div>
+</div>
+<p>Returning to our example, we found that 40% of people surveyed thought the economy was doing well. Surveying people about their opinions on how the country doing is a common way that social scientists use description. We could extend this exercise in many ways going forward, even with the same question.</p>
+<ul>
+<li>Start with a question: How is the economy doing?</li>
+<li>Let’s find a measure: Ask people if the economy is doing well.</li>
+<li>Find data points: Multiple people (we could stop there with the average!), or add more variables:
+<ul>
+<li>Across time: Survey people across multiple years</li>
+<li>Across type of people: Survey different partisan groups</li>
+</ul></li>
+</ul>
+<p>These types of trends are often used by news organizations and public opinion organizations like, Gallup.</p>
+<p><img src="images/gallupec.png" class="img-fluid" style="width:70.0%"></p>
+<p>This was just a first example of description in political science. There are many other ways to describe how the economy is doing and many other topics we might want to describe in politics.</p>
+</section>
+</section>
+<section id="loading-data-into-r" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="loading-data-into-r"><span class="header-section-number">2.4</span> Loading data into R</h2>
+<p>For this section, our motivating example will be methods to measure voter turnout in the United States.</p>
+<p>Describing voter turnout</p>
+<ul>
+<li>What is a typical level of voter turnout?</li>
+<li>How has turnout changed over time?</li>
+<li>Is turnout higher in presidential years or in midterm years?</li>
+</ul>
+<p>How can we measure turnout? Think about the validity, reliability, and cost of different approaches.</p>
+<p>Example: Dataset on Voter Turnout in the U.S. across multiple years</p>
+<p><img src="images/turnoutframe.png" class="img-fluid" style="width:80.0%"></p>
+<p>In this dataset, each row is an election year. Each column contains information about the population, potential voters, or voter turnout. These will help us compute the turnout rate in a given year. To work with this dataset, we need to load it into R.</p>
+<section id="working-with-datasets-in-r" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="working-with-datasets-in-r"><span class="header-section-number">2.4.1</span> Working with datasets in R</h3>
+<p>For a video explainer of the code in this section, see below. The video only discusses the code. Use the notes and lecture discussion for additional context. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/rm_g0rrglEQ" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Often the variables we care about are stored inside of rectangular datasets</p>
+<ul>
+<li>These have a number of rows <code>nrow()</code> and columns <code>ncol()</code></li>
+<li>Each row is an “observation,” representing the information collected from an individual or entity</li>
+<li>Each column is a variable, representing a changing characteristic across multiple observations</li>
+</ul>
+<p>When we import a dataset into R, we have a few options.</p>
+<p>Option 1: Download dataset to your computer</p>
+<ul>
+<li>Move the dataset to your working directory</li>
+<li>Identify the file type (e.g., csv, dta, RData, txt)</li>
+<li>Pick the appropriate R function to match the type (e.g., <code>read.csv(), read.dta(), load(), read.table()</code>)</li>
+<li>Assign the dataset to an object. This object will now be <code>class()</code> of <code>data.frame</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>turnout <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"turnout.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details>
+<summary>
+Click here for an alternative function for csv files.
+</summary>
+<p>Some scholars prefer to use the function <code>read_csv</code> to load csv data. It is better at handling more complicated types of data. We will not need to use this function in this course, but you may encounter it elsewhere.</p>
+<p>To use this function, the first time we will go about using it, we have to first install a “package” called <code>readr</code>. Packages in R give us additional tools beyond what the base version of R provides. It is like installing an extra app on your phone.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once we have that installed, now anytime we want to use the function, we will call (open) the “readr” package using <code>library()</code>, and then the syntax is just like using the <code>read.csv</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>turnout <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"turnout.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<p>Option 2: Read file from a url provided</p>
+<ul>
+<li>Need an active internet connection for this to work</li>
+<li>URL generally must be public</li>
+<li>Include the url inside the function used to read the data</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>turnout <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/turnout.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>You can also open up a window to view the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="measuring-the-turnout-in-the-us-elections" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="measuring-the-turnout-in-the-us-elections"><span class="header-section-number">2.4.2</span> Measuring the Turnout in the US Elections</h3>
+<p>Relevant questions with voter turnout</p>
+<ul>
+<li>What is a typical level of voter turnout?</li>
+<li>Is turnout higher in presidential years or in midterm years?</li>
+<li>Is turnout higher or lower based on voting-eligible (VEP) or voting-age (VAP) populations? We have a lot of people who are citizens 18 and older who are ineligible to vote. This makes the VEP denominator smaller than the VAP.</li>
+</ul>
+<p>Voter Turnout in the U.S.</p>
+<ul>
+<li>Numerator: <code>total</code>: Total votes cast (in thousands)</li>
+<li>Denominator:
+<ul>
+<li>VAP: (voting-age population) from Census</li>
+<li>VEP (voting-eligible population) VEP = VAP + overseas voters - ineligible voters</li>
+</ul></li>
+<li>Additional Variables and Descriptions
+<ul>
+<li><code>year</code>: election year</li>
+<li><code>ANES</code>: ANES self-reported estimated turnout rate</li>
+<li><code>VEP</code>: Voting Eligible Population (in thousands)</li>
+<li><code>VAP</code>: Voting Age Population (in thousands)</li>
+<li><code>total</code>: total ballots cast for highest office (in thousands)</li>
+<li><code>felons</code>: total ineligible felons (in thousands)</li>
+<li><code>noncitizens</code>: total non-citizens (in thousands)</li>
+<li><code>overseas</code>: total eligible overseas voters (in thousands)</li>
+<li><code>osvoters</code>: total ballots counted by overseas voters (in thousands)</li>
+</ul></li>
+</ul>
+</section>
+<section id="getting-to-know-your-data" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="getting-to-know-your-data"><span class="header-section-number">2.4.3</span> Getting to know your data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## How many observations (the rows)?</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## How many variables (the columns)?</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## What are the variable names?</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "year"     "VEP"      "VAP"      "total"    "ANES"     "felons"   "noncit"  
+[8] "overseas" "osvoters"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Show the first six rows</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  year    VEP    VAP total ANES felons noncit overseas osvoters
+1 1980 159635 164445 86515   71    802   5756     1803       NA
+2 1982 160467 166028 67616   60    960   6641     1982       NA
+3 1984 167702 173995 92653   74   1165   7482     2361       NA
+4 1986 170396 177922 64991   53   1367   8362     2216       NA
+5 1988 173579 181955 91595   70   1594   9280     2257       NA
+6 1990 176629 186159 67859   47   1901  10239     2659       NA</code></pre>
+</div>
+</div>
+<p>Extract a particular column (vector) from the data using the $.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2008</code></pre>
+</div>
+</div>
+<p>Extract the 10th year. Just like before! We use 10 to indicate the value of the <code>year</code> column in position (row 10) of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>year[<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1998</code></pre>
+</div>
+</div>
+<p>We can take the <code>mean()</code> of a particular column, too. Let’s take it of the total number of voters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 89778.29</code></pre>
+</div>
+</div>
+<p>And get the <code>class()</code> (Note: integer is just a type of numeric variable)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(turnout<span class="sc">$</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<p>We can also use brackets in the full data frame, but because our data frame has BOTH rows and columns, we cannot just supply one position <code>i</code>. Instead, we have to tell R which row AND which column by using a comma between the positions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>turnout[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># value in row 1, column 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 159635</code></pre>
+</div>
+</div>
+<p>We can use the column name instead</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>turnout[<span class="dv">1</span>, <span class="st">"VEP"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 159635</code></pre>
+</div>
+</div>
+<p>If we leave the second entry blank, it will return all columns for the specified row</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>turnout[<span class="dv">1</span>,] <span class="co"># All variable values for row 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  year    VEP    VAP total ANES felons noncit overseas osvoters
+1 1980 159635 164445 86515   71    802   5756     1803       NA</code></pre>
+</div>
+</div>
+<p>The opposite is true if we leave the first entry blank.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>turnout[,<span class="dv">2</span>] <span class="co"># VEP for all rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 159635 160467 167702 170396 173579 176629 179656 182623 186347 190420
+[11] 194331 198382 203483 213314</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="comparing-vep-and-vap-turnout" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="comparing-vep-and-vap-turnout"><span class="header-section-number">2.5</span> Comparing VEP and VAP turnout</h2>
+<section id="creating-new-variables-in-r" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="creating-new-variables-in-r"><span class="header-section-number">2.5.1</span> Creating new variables in R</h3>
+<p>Let’s create a new variable that is VAP that adds overseas voters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use $ to add a new variable (i.e., column) to a dataframe</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>VAPplusoverseas <span class="ot">&lt;-</span> turnout<span class="sc">$</span>VAP <span class="sc">+</span> turnout<span class="sc">$</span>overseas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Under the hood, what this is doing is taking each value of <code>turnout$VAP</code> and adding it to its corresponding values of <code>turnout$overseas</code>.</p>
+<p>And, yes, this new variable shows up as a new column in <code>turnout</code>. Go ahead, <code>View()</code> it</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This does not change the underlying <code>turnout.csv</code> file, only the <code>turnout data.frame</code> we are working with in the current R session.</p>
+<ul>
+<li>This is an advantage of using an R script.</li>
+<li>You don’t have to worry about overwriting/messing up the raw data.</li>
+<li>You start from the original raw data when you load <code>turnout.csv</code>, and then everything else is done within R.</li>
+</ul>
+<p>This is our new denominator. Now we can calculate turnout based on this denominator.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>newVAPturnout <span class="ot">&lt;-</span> turnout<span class="sc">$</span>total <span class="sc">/</span> turnout<span class="sc">$</span>VAPplusoverseas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Just like with adding two vectors, when we divide, each value in the first vector is divided by its corresponding value in the second vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>newVAPturnout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.5203972 0.4024522 0.5253748 0.3607845 0.4972260 0.3593884 0.5404097
+ [8] 0.3803086 0.4753376 0.3483169 0.4934211 0.3582850 0.5454777 0.5567409</code></pre>
+</div>
+</div>
+<p>Let’s calculate the VEP turnout rate and turn it into a percentage. This time, we do it in one step.</p>
+<ul>
+<li>(total votes / VEP) <span class="math inline">\(\times\)</span> 100:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>newVEPturnout <span class="ot">&lt;-</span> (turnout<span class="sc">$</span>total <span class="sc">/</span> turnout<span class="sc">$</span>VEP) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>newVEPturnout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 54.19551 42.13701 55.24860 38.14115 52.76848 38.41895 58.11384 41.12625
+ [9] 51.65793 38.09316 54.22449 39.51064 60.10084 61.55433</code></pre>
+</div>
+</div>
+<p>Let’s change it from a proportion to a percentage. How? Multiply each value of <code>turnout$newVAP</code> by 100</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>newVAPturnout <span class="ot">&lt;-</span> turnout<span class="sc">$</span>newVAPturnout <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This multiplies each number within the vector by 100.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>newVAPturnout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 52.03972 40.24522 52.53748 36.07845 49.72260 35.93884 54.04097 38.03086
+ [9] 47.53376 34.83169 49.34211 35.82850 54.54777 55.67409</code></pre>
+</div>
+</div>
+<p>What is typical turnout?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>newVAPturnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 45.45658</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48.94937</code></pre>
+</div>
+</div>
+<p>We find that turnout based on the voting age population is lower than turnout based on the voting eligible population. This is a pattern that political scientists have examined, going back several decades. For example, in a 2001 article McDonald and Popkin show that is it the ineligible population that grew from the 1970s onward and not the population of people who simply prefer not to vote. (See more <a href="https://www.jstor.org/stable/3117725">here</a>.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/VEP.png" class="img-fluid figure-img"></p>
+<figcaption>McDonald and Popkin 2001</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="comparing-presidential-vs.-midterm-turnout" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="comparing-presidential-vs.-midterm-turnout"><span class="header-section-number">2.6</span> Comparing Presidential vs.&nbsp;Midterm turnout</h2>
+<p>How does turnout compare in presidential vs.&nbsp;midterm years? Sometimes using a single summary of turnout may obscure important underlying differences in the data. To detect these differences, we may want to summarize different parts of the data.</p>
+<p>Oh dear. We need to extract specific years from the turnout data frame. Which rows contain the years we want?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2008</code></pre>
+</div>
+</div>
+<p>Ok: rows 1,3,5,7,9,11,13,14 are the presidential. And rows 2,4,6,8,10,12 are midterms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## we can extract all of these at once by using c()</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>turnout<span class="sc">$</span>year[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">14</span>)] <span class="co"># presidential</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1980 1984 1988 1992 1996 2000 2004 2008</code></pre>
+</div>
+</div>
+<p>Let’s take the mean VEP turnout for presidential years.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">14</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55.983</code></pre>
+</div>
+</div>
+<p>Let’s take the mean VEP turnout for midterm years.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.5712</code></pre>
+</div>
+</div>
+<p>Let’s take the difference by storing each mean and then subtracting</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>mean.VEP.pres <span class="ot">&lt;-</span> <span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">14</span>)])</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>mean.VEP.mid <span class="ot">&lt;-</span> <span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)])</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>mean.VEP.pres <span class="sc">-</span>  mean.VEP.mid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.41181</code></pre>
+</div>
+</div>
+<p>Presidential turnout, on average, is higher than midterm turnout.</p>
+<section id="r-shortcut-for-writing-vectors" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="r-shortcut-for-writing-vectors"><span class="header-section-number">2.6.1</span> R shortcut for writing vectors</h3>
+<p>Sometimes we write numbers that are in a predictable sequence (e.g., 1,2,3,4,5). In R, we have functions that prevent us from having to type each number when this is the case.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="co"># is equivalent to:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="co"># is equivalent to:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<p>We can use the last one to our advantage to extract the midterm years, which go by 2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)]) <span class="co"># is the same as</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.5712</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(turnout<span class="sc">$</span>newVEPturnout[<span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">2</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.5712</code></pre>
+</div>
+</div>
+<p>Not a big deal now, but imagine if you had to write 100 numbers or 1 MILLION NUMBERS!</p>
+</section>
+</section>
+<section id="creating-dataframes-from-within-r" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="creating-dataframes-from-within-r"><span class="header-section-number">2.7</span> Creating dataframes from within R</h2>
+<p>While importing data from outside of R is the most common way to work with dataframes in R, you can also create dataframes from inside R. Ultimately, a dataframe just binds together multiple vectors / columns to create a rectangular object.</p>
+<p>For example, let’s say we want to create a dataframe with columns indicating just the midterm years and their VEP turnout. These correspond to the two vectors:</p>
+<ul>
+<li><code>turnout$newVEPturnout[seq(2, 12, 2)]</code></li>
+<li><code>turnout$year[seq(2, 12, 2)]</code></li>
+</ul>
+<p>In R, you can create a rectangular <code>data.frame</code> object with the <code>data.frame</code> function.</p>
+<ul>
+<li>Within this function, you can make several entries that follow the syntax <code>colname = values</code>. We supply what we would like the name of the column to be, such as <code>midyear</code>, and then provide R with a set of values. We can then provide a comma and add more columns.
+<ul>
+<li>You just want to make sure each column has the same number of values.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>midtermdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">midyear =</span> turnout<span class="sc">$</span>year[<span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">2</span>)], </span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">VEPturnout =</span> turnout<span class="sc">$</span>newVEPturnout[<span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">2</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can supply the values for each column using objects or just vectors of raw numeric values like the below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>midtermdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">midyear =</span> <span class="fu">c</span>(<span class="dv">1982</span>, <span class="dv">1986</span>, <span class="dv">1990</span>, <span class="dv">1994</span>, <span class="dv">1998</span>, <span class="dv">2002</span>), </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">VEPturnout =</span> <span class="fu">c</span>(<span class="fl">42.13701</span>, <span class="fl">38.14115</span>, <span class="fl">38.41895</span>, <span class="fl">41.12625</span>, <span class="fl">38.09316</span>, <span class="fl">39.51064</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The result is a nice rectangular dataframe similar to what we loaded using the <code>turnout.csv</code> dataset from outside of R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>midtermdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  midyear VEPturnout
+1    1982   42.13701
+2    1986   38.14115
+3    1990   38.41895
+4    1994   41.12625
+5    1998   38.09316
+6    2002   39.51064</code></pre>
+</div>
+</div>
+<p>Now, because our dataframe has a different name. If we want to access columns from this dataframe, we start with <code>midterm$</code> followed by the variable name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>midtermdata<span class="sc">$</span>midyear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1982 1986 1990 1994 1998 2002</code></pre>
+</div>
+</div>
+</section>
+<section id="wrapping-up-description" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="wrapping-up-description"><span class="header-section-number">2.8</span> Wrapping Up Description</h2>
+<p>In this section, we have described voter turnout using multiple measures and types of elections. There are several other questions that political scientists may be interested in when it comes to voter turnout.</p>
+<p>For example, during and following the 2020 elections, many states passed laws that changed election procedures: Ability to vote by mail, Ballot dropboxes, Length of early voting. What else?</p>
+<ul>
+<li>What effect (if any) do these laws have on voter turnout?</li>
+</ul>
+<p>In the next section, we start to examine how to evaluate causal claims.</p>
+<section id="summary-of-r-tools" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="summary-of-r-tools"><span class="header-section-number">2.8.1</span> Summary of R tools</h3>
+<p>We have touched on a number of R tools thus far. Here is a summary of some of the key items to remember going forward:</p>
+<ul>
+<li><code>setwd()</code>: sets the working directory in R, which tells R which folder on your computer contains the datasets or other R files where you will be working. You should get into the habit of setting your working directory each time you work in RStudio.
+<ul>
+<li>Can set this in the toolbar Session -&gt; Set Working Directory -&gt; Choose Directory, followed by clicking the “Open” button on the folder where you want to work.</li>
+<li>Example: <code>setwd("~/Downloads/Data Science")</code></li>
+</ul></li>
+<li><code>##</code>: Hashtags are used to help annotate your code. Anything behind a hashtag is treated as plain text</li>
+<li><code>+ - * /</code>: These are some of the mathematical operators you can use in R
+<ul>
+<li>You can also control which operations are performed first using <code>()</code> just like you would do with math outside of R. For example, try to compare the answer to <code>6 + 4 * 3</code> with <code>(6 + 4) * 3</code></li>
+</ul></li>
+<li><code>&lt;-</code>: This is an assignment tool that allows us to store calculations, vectors, datasets, and more as <em>objects</em> in R.
+<ul>
+<li>Example: <code>sum53 &lt;- 5 + 3</code> creates an object called <code>sum53</code> that stores the calculation on the right.</li>
+</ul></li>
+<li><code>[]</code>: Brackets are used to extract specific components of objects we create. The number(s) inside the brackets tell us which entries to extract.
+<ul>
+<li>Example: <code>Outcome[2]</code> will tell us to extract the second entry in the object <code>Outcome</code></li>
+<li>Note: when we use datasets, the brackets will have two entries, one corresponding to the row entry and one corresponding to the column. Example <code>turnout[1,2]</code> means the entry in the first row and second column.</li>
+</ul></li>
+</ul>
+<p><em>Functions</em> We have already started using a number of <em>functions</em> in R, which are operations we ask R to do for us, such as creating vectors, importing data, or summarizing data by finding the mean, range, etc. Functions come in the same format, which starts with the function name followed by parentheses. Example: <code>mean()</code>. Each function then takes a particular input(s). When you “run” a line of code with a function, R applies the function to the input.</p>
+<ul>
+<li><code>c()</code>: This is a function that combines a set of values into a vector in R. The values can be numbers or text items and should be separated by commas. If text, each text item should be in quotation marks.
+<ul>
+<li>Example: <code>Outcome &lt;- c(3, 4, 6, 2, 1)</code></li>
+<li>Example: <code>People &lt;- c("Sam", "Julie", "Mark")</code></li>
+</ul></li>
+<li><code>mean()</code>, <code>median()</code>, <code>min()</code>, <code>max()</code>, <code>range()</code>: These functions summarize vectors that are numeric/integers in nature.
+<ul>
+<li>Example <code>mean(Outcome)</code> takes the average of the values in the <code>Outcome</code> vector</li>
+</ul></li>
+<li><code>read.csv()</code>: This function loads a rectangular .csv file into R as a data.frame
+<ul>
+<li>Example: <code>turnout &lt;- read.csv("turnout.csv")</code></li>
+<li>Not all datasets will be .csv files. In the future, we will use other functions, such as <code>load()</code> or <code>read.dta()</code> to import datasets of different file types.</li>
+</ul></li>
+</ul>
+<p><em>Dataframes</em></p>
+<p>We have started working with dataframes in R. These objects are rectangular datasets that include a collection of vectors. Every column in a dataframe generally represents a different concept or “variable,” while each row represents a different unit or “observation.”</p>
+<ul>
+<li><code>$</code>: When we are working with vectors that are inside of a dataframe (the columns inside of a dataframe), we use the <code>$</code> to access them.
+<ul>
+<li>Example: <code>turnout$year</code> will show us the values in the <code>year</code> column vector inside our <code>turnout</code> rectangular dataframe</li>
+</ul></li>
+<li><code>nrow()</code>, <code>ncol()</code>, <code>dim()</code>, <code>head()</code>, <code>names()</code>: These functions help us explore the dataframes by telling us the number of rows and columns (the dimensions), giving us a sneak peek of the first 6 rows of the dataframe, or showing us the names of the variables (columns) in the data.
+<ul>
+<li>Example: <code>nrow(turnout)</code></li>
+</ul></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

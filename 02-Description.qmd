@@ -76,13 +76,6 @@ We can extract a particular value within our vector using brackets and the value
 Outcome[10] # what value is in the 10th position?
 ```
 
-We can label our outcomes using `names()`
-
-```{r}
-names(Outcome) <-c("Joe","Sally", "Trevor", "Emily", "Mark",
-                   "Sarah Jane", "Stacey", "Steve", "Phoebe", "Jesse")
-Outcome[10]
-```
 
 We can overwrite whole vectors or values within a vector
 

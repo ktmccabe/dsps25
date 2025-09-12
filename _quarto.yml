@@ -9,6 +9,7 @@ book:
     - index.qmd
     - intro.qmd
     - 02-Description.qmd
+    - 03-CausalityI.qmd
   page-navigation: true
   sidebar:
     style: docked

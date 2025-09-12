@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Causation with Experiments – Data Science for Political Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-Description.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9becf3fbc736aa3d8123452166bd44f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-CausalityI.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causation with Experiments</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science for Political Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Notes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Description.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-CausalityI.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causation with Experiments</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Section Contents</h2>
+   
+  <ul>
+  <li><a href="#what-separates-causation-from-correlation" id="toc-what-separates-causation-from-correlation" class="nav-link active" data-scroll-target="#what-separates-causation-from-correlation"><span class="header-section-number">3.1</span> What separates causation from correlation?</a>
+  <ul>
+  <li><a href="#potential-outcomes-framework" id="toc-potential-outcomes-framework" class="nav-link" data-scroll-target="#potential-outcomes-framework"><span class="header-section-number">3.1.1</span> Potential Outcomes Framework</a></li>
+  <li><a href="#causal-effects" id="toc-causal-effects" class="nav-link" data-scroll-target="#causal-effects"><span class="header-section-number">3.1.2</span> Causal Effects</a></li>
+  <li><a href="#fundamental-problem-of-causal-inference" id="toc-fundamental-problem-of-causal-inference" class="nav-link" data-scroll-target="#fundamental-problem-of-causal-inference"><span class="header-section-number">3.1.3</span> Fundamental Problem of Causal Inference</a></li>
+  </ul></li>
+  <li><a href="#randomized-controlled-trials" id="toc-randomized-controlled-trials" class="nav-link" data-scroll-target="#randomized-controlled-trials"><span class="header-section-number">3.2</span> Randomized Controlled Trials</a>
+  <ul>
+  <li><a href="#experiments-why-randomize" id="toc-experiments-why-randomize" class="nav-link" data-scroll-target="#experiments-why-randomize"><span class="header-section-number">3.2.1</span> Experiments: Why Randomize?</a></li>
+  <li><a href="#experiments-how-to-analyze" id="toc-experiments-how-to-analyze" class="nav-link" data-scroll-target="#experiments-how-to-analyze"><span class="header-section-number">3.2.2</span> Experiments: How to Analyze</a></li>
+  <li><a href="#ingredients-of-an-experiment" id="toc-ingredients-of-an-experiment" class="nav-link" data-scroll-target="#ingredients-of-an-experiment"><span class="header-section-number">3.2.3</span> Ingredients of an Experiment</a></li>
+  </ul></li>
+  <li><a href="#application-is-there-racial-discrimination-in-the-labor-market" id="toc-application-is-there-racial-discrimination-in-the-labor-market" class="nav-link" data-scroll-target="#application-is-there-racial-discrimination-in-the-labor-market"><span class="header-section-number">3.3</span> Application: Is there racial discrimination in the labor market?</a>
+  <ul>
+  <li><a href="#variable-classes" id="toc-variable-classes" class="nav-link" data-scroll-target="#variable-classes"><span class="header-section-number">3.3.1</span> Variable classes</a></li>
+  </ul></li>
+  <li><a href="#making-tables" id="toc-making-tables" class="nav-link" data-scroll-target="#making-tables"><span class="header-section-number">3.4</span> Making tables</a>
+  <ul>
+  <li><a href="#crosstabulation" id="toc-crosstabulation" class="nav-link" data-scroll-target="#crosstabulation"><span class="header-section-number">3.4.1</span> Crosstabulation</a></li>
+  </ul></li>
+  <li><a href="#conditional-means" id="toc-conditional-means" class="nav-link" data-scroll-target="#conditional-means"><span class="header-section-number">3.5</span> Conditional Means</a></li>
+  <li><a href="#relational-operators-in-r" id="toc-relational-operators-in-r" class="nav-link" data-scroll-target="#relational-operators-in-r"><span class="header-section-number">3.6</span> Relational Operators in R</a></li>
+  <li><a href="#subsetting-data-in-r" id="toc-subsetting-data-in-r" class="nav-link" data-scroll-target="#subsetting-data-in-r"><span class="header-section-number">3.7</span> Subsetting data in R</a>
+  <ul>
+  <li><a href="#getting-booooooooolean" id="toc-getting-booooooooolean" class="nav-link" data-scroll-target="#getting-booooooooolean"><span class="header-section-number">3.7.1</span> Getting Booooooooolean</a></li>
+  </ul></li>
+  <li><a href="#creating-new-variables-using-conditional-statements" id="toc-creating-new-variables-using-conditional-statements" class="nav-link" data-scroll-target="#creating-new-variables-using-conditional-statements"><span class="header-section-number">3.8</span> Creating New Variables using Conditional statements</a>
+  <ul>
+  <li><a href="#ifelse-statements" id="toc-ifelse-statements" class="nav-link" data-scroll-target="#ifelse-statements"><span class="header-section-number">3.8.1</span> ifelse statements</a></li>
+  </ul></li>
+  <li><a href="#types-of-experiments" id="toc-types-of-experiments" class="nav-link" data-scroll-target="#types-of-experiments"><span class="header-section-number">3.9</span> Types of Experiments</a></li>
+  <li><a href="#wrapping-up-causation-with-experiments" id="toc-wrapping-up-causation-with-experiments" class="nav-link" data-scroll-target="#wrapping-up-causation-with-experiments"><span class="header-section-number">3.10</span> Wrapping Up Causation with Experiments</a>
+  <ul>
+  <li><a href="#summary-of-r-tools-in-this-section" id="toc-summary-of-r-tools-in-this-section" class="nav-link" data-scroll-target="#summary-of-r-tools-in-this-section"><span class="header-section-number">3.10.1</span> Summary of R tools in this section</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="causation1" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causation with Experiments</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Recall that we said, four primary goals of social science include:</p>
+<ul>
+<li><strong>Describe</strong> and measure
+<ul>
+<li>Has the U.S. population increased?</li>
+</ul></li>
+<li><strong>Explain</strong>, evaluate, and recommend (study of causation)
+<ul>
+<li>Does expanding Medicaid improve health outcomes?</li>
+</ul></li>
+<li><strong>Predict</strong>
+<ul>
+<li>Who will win the next election?</li>
+</ul></li>
+<li><strong>Discover</strong>
+<ul>
+<li>How do policies diffuse across states?</li>
+</ul></li>
+</ul>
+<p>In this section, we start to explore the goal of explanation–making causal claims.</p>
+<section id="what-separates-causation-from-correlation" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-separates-causation-from-correlation"><span class="header-section-number">3.1</span> What separates causation from correlation?</h2>
+<p>Here’s an example. In 2016, researchers at the <a href="https://www.nytimes.com/interactive/2016/12/26/upshot/duck-dynasty-vs-modern-family-television-maps.html">NY Times</a> noticed that areas in the country where the television show <em>Duck Dynasty</em> was popular also tended to support Donald Trump at higher rates.</p>
+<p><img src="images/duckdynasty.png" class="img-fluid"></p>
+<p>If we put our social scientist hat on, we might want to distinguish whether this is a causal or, more likely, just a correlational relationship:</p>
+<ul>
+<li>Correlation: Areas that watch Duck Dynasty are more likely to support Trump (degree to which two variables “move together”)</li>
+<li>Causality: Watching Duck Dynasty (vs.&nbsp;not watching) increases your support of Trump.</li>
+</ul>
+<p>Causal Question: Does the manipulation of one factor (the treatment), (holding everything else constant), cause a change in an outcome?</p>
+<section id="potential-outcomes-framework" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="potential-outcomes-framework"><span class="header-section-number">3.1.1</span> Potential Outcomes Framework</h3>
+<p>When studying causal relationships, we distinguish two concepts:</p>
+<ul>
+<li>treatment: variable whose change may produce a change in the outcome (e.g., watching vs.&nbsp;not watching <em>Duck Dynasty</em>)</li>
+<li>outcome (<span class="math inline">\(Y\)</span>): what may change as a result (e.g., their support for Trump)</li>
+</ul>
+<p>We imagine two states of the world or “potential outcomes.”</p>
+<ul>
+<li><span class="math inline">\(Y(1)\)</span>: the outcome if the treatment is administered (e.g., watching the show)</li>
+<li><span class="math inline">\(Y(0)\)</span>: the outcome if the treatment is NOT administered or maybe something else is (e.g., not watching the show)</li>
+</ul>
+<p>Political Science Example: How does voter turnout (<span class="math inline">\(Y\)</span>) change as a result of varying whether someone receives a mail-in ballot (the treatment)?</p>
+<ul>
+<li><span class="math inline">\(Y(\text{sent a mail-in ballot})\)</span>: do you vote or not</li>
+<li><span class="math inline">\(Y(\text{not sent a mail-in ballot})\)</span>: do you vote or not</li>
+</ul>
+<p>We compare your likelihood of turning out to vote in a world where you did receive a mail-in ballot vs.&nbsp;a counterfactual state of the world in which you did not receive a mail-in ballot, generally assuming that this is the only thing that is different between these two potential states of the world.</p>
+<p>In many cases in social science, we might start by observing some connection in the real world. To make a causal claim, we then have to imagine what that counterfactual state of the world would be. Examples:</p>
+<p>Causal Question: Does the minimum wage increase the unemployment rate?</p>
+<ul>
+<li>(Hypothetical) Factual: An unemployment rate went up after the minimum wage increased</li>
+<li>Implied Counterfactual: Would the unemployment rate have gone up, had the minimum wage increase not occurred?</li>
+</ul>
+<p>Causal Question: Does the gender of a political messenger influence the persuasiveness of the message?</p>
+<ul>
+<li>(Hypothetical) Factual: Suppose a political messenger perceived as a man had a somewhat persuasive effect delivering a message on abortion.</li>
+<li>Implied Counterfactual: Would a political messenger perceived as a woman have a similar or different persuasive effect?</li>
+</ul>
+<p>We use causal logic all of the time outside of social science.</p>
+<p>For example, many viewers get angry after watching the movie <a href="https://www.youtube.com/watch?v=3gK_2XdjOdY"><em>Titanic</em></a> because they believe Jack did not have to die. We can place their claims in our causal framework:</p>
+<p><img src="images/titanicdoor.jpeg" class="img-fluid"></p>
+<ul>
+<li>Outcome: Jack Surviving the Titanic</li>
+<li>Potential Outcomes in two states of the world
+<ul>
+<li>Rose did not share the floating door, and Jack died.</li>
+<li>Counterfactual question: If Rose had shared the floating door, would Jack have lived?</li>
+</ul></li>
+</ul>
+<p>In <a href="https://www.bitbybitbook.com/en/1st-ed/running-experiments/"><em>Bit by Bit</em></a>, Matt Salganik notes that sometimes cause-and-effect questions are implicit. For example, in more general questions about maximization of some performance metric, we might want to compare several alternatives:</p>
+<p>The question “What color should the donate button be on an NGO’s website?” is really lots of questions about the effect of different button colors on donations.</p>
+<ul>
+<li>Factual: A voter donates some amount with a black button</li>
+<li>Counterfactual: What would a voter donate if the button were blue?</li>
+<li>Counterfactual: What would a voter donate if the button were red?</li>
+</ul>
+<p>What other causal questions might social scientists or data scientists ask?</p>
+</section>
+<section id="causal-effects" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="causal-effects"><span class="header-section-number">3.1.2</span> Causal Effects</h3>
+<p>When we are conducting a causal analysis, we will want to estimate a causal effect.</p>
+<ul>
+<li>Causal effects are all about ideal comparisons between treated vs.&nbsp;untreated</li>
+</ul>
+<p>A causal effect is the change in the outcome Y that is caused by a change in the treatment variable.</p>
+<ul>
+<li><span class="math inline">\(Y(1) - Y(0)\)</span> = causal effect or “treatment effect”</li>
+<li>e.g., Donation if contacted - Donation if not contacted</li>
+</ul>
+<p>We often want to know the <strong>average treatment effect</strong> in some population, not just the causal effect for a single individual. Here, we might ask, on average, how much would our outcome change if our units were treated instead of untreated. To do so, we simply sum up all of the causal effects and divide them by the number of units in our population.</p>
+<ul>
+<li><span class="math inline">\(\frac{1}{N} \sum_{i=1}^N (Y_i (1)-Y_i (0))\)</span> = “average treatment effect” (ATE)
+<ul>
+<li>e.g., Average donations if contacted - Average donations if not contacted</li>
+</ul></li>
+</ul>
+<p>Note: If the math above is helpful, you can use it. If it is difficult to read, focus on the plain language definitions that go before it. The notation here is less important than the conceptual understanding.</p>
+</section>
+<section id="fundamental-problem-of-causal-inference" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="fundamental-problem-of-causal-inference"><span class="header-section-number">3.1.3</span> Fundamental Problem of Causal Inference</h3>
+<p>The problem: Fundamental Problem of Causal Inference</p>
+<p>What makes the evaluation of causal claims difficult, is that in the real world, we suffer from the fundamental problem of causal inference:</p>
+<ul>
+<li>For any individual, we only get to see (observe) the result from one state of the world
+<ul>
+<li>This makes that subtraction of potential outcomes impossible.</li>
+</ul></li>
+</ul>
+<p>(Unless we are in <a href="https://www.youtube.com/watch?v=5E0M6Rh9qpg">Groundhog Day</a>)</p>
+</section>
+</section>
+<section id="randomized-controlled-trials" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="randomized-controlled-trials"><span class="header-section-number">3.2</span> Randomized Controlled Trials</h2>
+<p>One approach for addressing the fundamental problem of causal inference is to simulate two potential states of the world through random assignment: Randomized Controlled Trials / Experiments</p>
+<p>Experiments approximate an ideal factual vs.&nbsp;counterfactual comparison</p>
+<ul>
+<li>We randomly assign one group to receive a “treatment” and another not to receive a treatment (the control)
+<ul>
+<li>There can be more than two groups. The key is that each group varies (is manipulated) in some way.</li>
+</ul></li>
+<li>When treatment assignment is <strong>randomized</strong>, the only thing that distinguishes the treatment group from the control group, besides the treatment itself, is chance.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/betweensub.png" class="img-fluid figure-img"></p>
+<figcaption>Salganik Bit by Bit Chapter 4.4</figcaption>
+</figure>
+</div>
+<p>This allows us to compare the average outcomes between groups in order to estimate our causal effects (more on this below).</p>
+<section id="experiments-why-randomize" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="experiments-why-randomize"><span class="header-section-number">3.2.1</span> Experiments: Why Randomize?</h3>
+<p>Randomization is essential for being able to <em>identify</em> and <em>isolate</em> the causal effect of the treatment on the outcome.</p>
+<p>Without randomization, there may be several reasons why two groups differ beyond the treatment of interest.</p>
+<ul>
+<li>For example, if we randomly assigned half of Rutgers seniors to go to a Sabrina Carpenter concert and half to go to a Bruce Springsteen concert we would expect the groups to have about equal proportions of female students, average age, racial composition, majors, etc.
+<ul>
+<li>(If we didn’t randomly assign, and just let people “select” into watching a particular concert, the groups could look very different.)</li>
+</ul></li>
+</ul>
+<p>But because we randomized assignment, on average, we’d expect the two groups to be identical except for the treatment– in this case, which concert they attended.</p>
+<ul>
+<li>Great news! This means any differences in the outcomes between the two groups can be attributed to the treatment. So if we wanted to see if going to a Bruce Springsteen show leads people to hold more favorable opinions of New Jersey, we could compare the average attitudes toward NJ among seniors who attended the show vs.&nbsp;attended the Carpenter show.</li>
+</ul>
+</section>
+<section id="experiments-how-to-analyze" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="experiments-how-to-analyze"><span class="header-section-number">3.2.2</span> Experiments: How to Analyze</h3>
+<p>Difference in Means: We compare each group’s average outcome by subtracting one from the other to estimate the average treatment effect (ATE) aka the average causal effect of the treatment.</p>
+<ul>
+<li><span class="math inline">\(\widehat{ATE} = \bar{Y}(treatment) - \bar{Y}(control)\)</span></li>
+</ul>
+<p>This is an estimate of, on average, how much our outcome would change if units went from being untreated to treated.</p>
+<ul>
+<li>E.g., on average how much a person donates to a campaign if contacted by phone compared to if not contacted by phone.</li>
+</ul>
+</section>
+<section id="ingredients-of-an-experiment" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="ingredients-of-an-experiment"><span class="header-section-number">3.2.3</span> Ingredients of an Experiment</h3>
+<p>From <a href="https://www.bitbybitbook.com/en/1st-ed/running-experiments/"><em>Bit by Bit</em></a></p>
+<p><img src="images/bitbybitexp.png" class="img-fluid"></p>
+<p>For every experiment, you should be able to</p>
+<ul>
+<li>State the causal question or relationship of interest</li>
+<li>Describe how the experiment will be implemented (e.g., recruitment of subjects)</li>
+<li>Identify and describe the randomization into treatment group(s) and control group and what happens in each group</li>
+<li>Identify the outcome of interest, how it is measured</li>
+<li>Evaluate the relevant comparison (between two different experimental conditions)</li>
+</ul>
+<p>We will turn to an example in the next section.</p>
+</section>
+</section>
+<section id="application-is-there-racial-discrimination-in-the-labor-market" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="application-is-there-racial-discrimination-in-the-labor-market"><span class="header-section-number">3.3</span> Application: Is there racial discrimination in the labor market?</h2>
+<p>Marianne Bertrand and Sendhil Mullainathan. 2004. “Are Emily and Greg more employable than Lakisha and Jamal? A field experiment on labor market discrimination.”</p>
+<p>“We perform a field experiment to measure racial discrimination in the labor market. We respond with fictitious resumes to help-wanted ads in Boston and Chicago newspapers.”</p>
+<ul>
+<li>Recruitment: Construct resumes to send to ads</li>
+<li>Randomization: To manipulate perception of race, each resume is (randomly) assigned</li>
+<li>Treatment: either a very African American sounding name</li>
+<li>Control: or a very White sounding name</li>
+<li>Outcome: Does the resume receive a callback?</li>
+<li>Comparison: Callback rates for African American (sounding) names vs.&nbsp;White (sounding) names (the difference in means between groups)</li>
+</ul>
+<p><em>For a video explainer of the code in this section, see below. The video only discusses the code. Use the notes and lecture discussion for additional context. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)</em></p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/LeJkRydMruM" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Let’s load the data. Note: When we have variables that are text-based categories, we may want to tell R to treat these “strings” of text information as factor variables, a particular type of variable that represents data as a set of nominal (unordered) or ordinal (ordered) categories. We do this with the <code>stringsAsFactors</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"resume.csv"</span>, <span class="at">stringsAsFactors =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">stringsAsFactors =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Variables and Description</p>
+<ul>
+<li><code>firstname</code>: first name of the fictitious job applicant</li>
+<li><code>sex</code>: sex of applicant (female or male)</li>
+<li><code>race</code>: race of applicant (black or white)</li>
+<li><code>call</code>: whether a callback was made (1 = yes, 0 = no)</li>
+</ul>
+<p>The data contain 4870 resumes and 4 variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(resume) <span class="co"># number of rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4870</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(resume) <span class="co"># number of columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(resume) <span class="co"># number of rows and columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4870    4</code></pre>
+</div>
+</div>
+<p>Note: These data look a little different from what we used last week. For example, the <code>sex</code> and <code>race</code> variables contain words, not numbers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resume)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  firstname    sex  race call
+1   Allison female white    0
+2   Kristen female white    0
+3   Lakisha female black    0
+4   Latonya female black    0
+5    Carrie female white    0
+6       Jay   male white    0</code></pre>
+</div>
+</div>
+<section id="variable-classes" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="variable-classes"><span class="header-section-number">3.3.1</span> Variable classes</h3>
+<p>We can check the class of each variable: Look, we have a new type, a “factor” variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(resume<span class="sc">$</span>firstname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(resume<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(resume<span class="sc">$</span>race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(resume<span class="sc">$</span>call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<p>We have now encountered <code>numeric, character</code>, and <code>factor</code> vectors and/or variables in R. Note: This is simply how R understands them. Sometimes R can get it wrong. For example, if we write:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>somenumbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(somenumbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>Because we put our numbers in quotation marks, R thinks the values in <code>somenumbers</code> are text. The number “3” might as well be the word “blue” for all R knows. Fortunately, we can easily switch between classes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>somenumbers <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(somenumbers)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(somenumbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Here, we used <code>as.numeric()</code> to overwrite and change the character vector into a numeric vector.</p>
+<p>Rules of Thumb</p>
+<ul>
+<li>Usually, we want <code>character</code> variables to store text (e.g., open-ended survey responses)</li>
+<li>We want <code>numeric</code> variables to store numbers.</li>
+<li>Usually, we want <code>factor</code> variables to store categories.
+<ul>
+<li>Within R, factor variables assign a number to each category, which is given a label or <code>level</code> in the form of text.</li>
+<li>Categories might be ordinal or “ordered” (e.g., Very likely, Somewhat likely, Not likely) or</li>
+<li>Unordered (e.g., “male”, “female”)</li>
+<li>R won’t know if a factor variable is ordered or unordered. Alas, we have to be smarter than R.</li>
+<li>R might think you have a character variable when you want it to be a factor or the reverse.
+<ul>
+<li>That’s when <code>as.factor()</code> and <code>as.character()</code> are useful.</li>
+</ul></li>
+</ul></li>
+<li>Always check <code>class()</code> to find out the variable type</li>
+</ul>
+</section>
+</section>
+<section id="making-tables" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="making-tables"><span class="header-section-number">3.4</span> Making tables</h2>
+<p>A nice thing about numeric and factor variables is we can use the <code>table</code> command to see how many observations in our data fall into each category or numerical value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example: how many black vs. white sounding resumes</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(resume<span class="sc">$</span>race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+black white 
+ 2435  2435 </code></pre>
+</div>
+</div>
+<p>As mentioned, <code>factor</code> variables have levels:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(resume<span class="sc">$</span>race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "black" "white"</code></pre>
+</div>
+</div>
+<section id="crosstabulation" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="crosstabulation"><span class="header-section-number">3.4.1</span> Crosstabulation</h3>
+<p>We can also use the <code>table</code> command to show a crosstabulation: a table that displays the frequency of observations across two variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example: how many black vs. white sounding resumes by call backs</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## We can label the two dimensions of the table with the =</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">calledback =</span> resume<span class="sc">$</span>call, <span class="at">race =</span> resume<span class="sc">$</span>race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          race
+calledback black white
+         0  2278  2200
+         1   157   235</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="conditional-means" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="conditional-means"><span class="header-section-number">3.5</span> Conditional Means</h2>
+<p>Recall how to take a mean of a variable in our data. For example, let’s take the mean of the variable <code>call</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(resume<span class="sc">$</span>call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08049281</code></pre>
+</div>
+</div>
+<p>This gives us the average callbacks (or callback rate) for everyone in our data. In experiments, we want to take the mean for a specific group within our data– the treatment group, and then the mean for the control group.</p>
+<p>Somehow, we have to identify, within our data, which rows were part of the treatment group and which were a part of the control group. In this study, we want to identify resumes with an assigned name perceived to be black vs.&nbsp;perceived to be white. This is in our <code>race</code> variable.</p>
+<p>We will cover a couple of tools to do this, with the first being <code>tapply</code>.</p>
+<p>To find how the average of one variable (e.g., our outcome- the callback rate) varies across different categories of our factor variable, we use <code>tapply()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## take the mean of input1 by categories of input2</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="do">## mean of the call variable conducted separately by race</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(resume<span class="sc">$</span>call, <span class="at">INDEX=</span>resume<span class="sc">$</span>race, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     black      white 
+0.06447639 0.09650924 </code></pre>
+</div>
+</div>
+<p>This tells us the callback rate for each group of people in our data. That’s not the only way to do this, however. We can also use the tools below.</p>
+</section>
+<section id="relational-operators-in-r" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="relational-operators-in-r"><span class="header-section-number">3.6</span> Relational Operators in R</h2>
+<p>Goal: Compare callback rates for white sounding names to black sounding names, so we need to be able to filter by race.</p>
+<p>Good news: We have several relational operators in R that evaluate logical statements:</p>
+<ul>
+<li><code>==, &lt;, &gt;, &lt;=, &gt;=, !=</code></li>
+<li>We have a statement and R evaluates it as <code>TRUE</code> or <code>FALSE</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for each observation, does the value of race equal "black"?</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>By putting this logical statement within <code>[ ]</code>, we are asking R to take the <code>mean()</code> of the variable <code>resume$call</code> for the subset of observations for which this logical statement is <code>TRUE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(resume<span class="sc">$</span>call[resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06447639</code></pre>
+</div>
+</div>
+<p>Ultimately, each of these paths has led us to a place where we can estimate the average treatment effect by calculation the difference in means: the difference in callback rates for black and white applicants.</p>
+<p>We said the ATE = <span class="math inline">\(\bar{Y}(treatment) - \bar{Y}(control)\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">mean</span>(resume<span class="sc">$</span>call[resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span>]) <span class="sc">-</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(resume<span class="sc">$</span>call[resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"white"</span>])</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.03203285</code></pre>
+</div>
+</div>
+<p>How can we interpret this? Do white applicants have an advantage?</p>
+</section>
+<section id="subsetting-data-in-r" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="subsetting-data-in-r"><span class="header-section-number">3.7</span> Subsetting data in R</h2>
+<p>Subsetting Dataframes in R</p>
+<p>Maybe we are interested in differences in callbacks for females. One approach for looking at the treatment effect for female applicants, only, is to subset our data to include only female names.</p>
+<ul>
+<li>To do this, we will assign a new <code>data.frame</code> object that keeps only those rows where <code>sex == "female"</code> and retains all columns</li>
+<li>Below are two approaches for this subsetting, one that uses brackets and one that uses the <code>subset</code> function</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## option one</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>females <span class="ot">&lt;-</span> resume[resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"female"</span>, ]</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="do">## option two using subset()- preferred</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>females <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, sex <span class="sc">==</span> <span class="st">"female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have subset the data, this simplifies estimating the ATE for female applicants only.</p>
+<p>We said the ATE = <span class="math inline">\(\bar{Y}(treatment) - \bar{Y}(control)\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ate.females <span class="ot">&lt;-</span> <span class="fu">mean</span>(females<span class="sc">$</span>call[females<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span>]) <span class="sc">-</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(females<span class="sc">$</span>call[females<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"white"</span>])</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ate.females</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.03264689</code></pre>
+</div>
+</div>
+<section id="getting-booooooooolean" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="getting-booooooooolean"><span class="header-section-number">3.7.1</span> Getting Booooooooolean</h3>
+<p>We can make this slightly more complex by adding more criteria. Let’s say we wanted to know the callback rates for just female black (sounding) names.</p>
+<ul>
+<li>R allows use to use <code>&amp;</code> (and) and <code>|</code> (or)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>femaleblack <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, sex <span class="sc">==</span> <span class="st">"female"</span> <span class="sc">&amp;</span> race <span class="sc">==</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We could now find the callback rate for Black females using the tools from above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(femaleblack<span class="sc">$</span>call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06627784</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="creating-new-variables-using-conditional-statements" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="creating-new-variables-using-conditional-statements"><span class="header-section-number">3.8</span> Creating New Variables using Conditional statements</h2>
+<p><em>Note: We will cover each of these tools in this section, time permitting. Otherwise, we will return to it in a future section.</em></p>
+<p>We can instead create a new variable in our main dataframe. Let’s make a variable that takes the value 1 if a name is female and black sounding and 0, otherwise</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize a new variable called femaleblackname</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>resume<span class="sc">$</span>femaleblackname <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign a 1 to our new variable where sex is female and race is black</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>resume<span class="sc">$</span>femaleblackname[resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"female"</span> <span class="sc">&amp;</span> resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign a 0 if sex is not female OR if race is not black</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>resume<span class="sc">$</span>femaleblackname[resume<span class="sc">$</span>sex <span class="sc">!=</span> <span class="st">"female"</span> <span class="sc">|</span> resume<span class="sc">$</span>race <span class="sc">!=</span> <span class="st">"black"</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can check our work</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">name =</span> resume<span class="sc">$</span>firstname, <span class="at">femaleblack =</span> resume<span class="sc">$</span>femaleblackname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          femaleblack
+name         0   1
+  Aisha      0 180
+  Allison  232   0
+  Anne     242   0
+  Brad      63   0
+  Brendan   65   0
+  Brett     59   0
+  Carrie   168   0
+  Darnell   42   0
+  Ebony      0 208
+  Emily    227   0
+  Geoffrey  59   0
+  Greg      51   0
+  Hakim     55   0
+  Jamal     61   0
+  Jay       67   0
+  Jermaine  52   0
+  Jill     203   0
+  Kareem    64   0
+  Keisha     0 183
+  Kenya      0 196
+  Kristen  213   0
+  Lakisha    0 200
+  Latonya    0 230
+  Latoya     0 226
+  Laurie   195   0
+  Leroy     64   0
+  Matthew   67   0
+  Meredith 187   0
+  Neil      76   0
+  Rasheed   67   0
+  Sarah    193   0
+  Tamika     0 256
+  Tanisha    0 207
+  Todd      68   0
+  Tremayne  69   0
+  Tyrone    75   0</code></pre>
+</div>
+</div>
+<p>Let’s say we wanted to know the callback rates for just female black (sounding) names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(femaleblack<span class="sc">$</span>call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06627784</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(resume<span class="sc">$</span>call[resume<span class="sc">$</span>femaleblackname <span class="sc">==</span> <span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06627784</code></pre>
+</div>
+</div>
+<p>BINGO: two ways to do the same thing.</p>
+<section id="ifelse-statements" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="ifelse-statements"><span class="header-section-number">3.8.1</span> ifelse statements</h3>
+<p>Remember how we created the variable <code>femaleblack</code>, well there is another way to do that in R using what are called conditional statements with <code>ifelse()</code>.</p>
+<ul>
+<li>Can be read: If this relational statement is <code>TRUE</code>, I assign you A, otherwise I assign you B</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>resume<span class="sc">$</span>femaleblackname <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"female"</span> <span class="sc">&amp;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                                   resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Can be read: If sex is female and race is black, give the observation in the new variable a 1, otherwise give it a 0.</p>
+<p>Like most things, we can also get more complicated here. Let’s say we wanted to create a variable that indicated both race and sex.</p>
+<ul>
+<li>Can be read: If this relational statement is <code>TRUE</code>, I assign you A,</li>
+<li>Otherwise if this second relational statement is <code>TRUE</code>, I assign you B,</li>
+<li>Otherwise if this third relational statement is <code>TRUE</code>, I assign you C,</li>
+<li>Otherwise I assign you D</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>resume<span class="sc">$</span>racesex <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"female"</span> <span class="sc">&amp;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                                   resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"black"</span>, <span class="st">"FemaleBlack"</span>, </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"female"</span> <span class="sc">&amp;</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                                   resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"white"</span>, <span class="st">"FemaleWhite"</span>,</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">ifelse</span>(resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span> <span class="sc">&amp;</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                                   resume<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"white"</span>, <span class="st">"MaleWhite"</span>, <span class="st">"MaleBlack"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note: what you assign can be numeric or text.</p>
+</section>
+</section>
+<section id="types-of-experiments" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="types-of-experiments"><span class="header-section-number">3.9</span> Types of Experiments</h2>
+<p>Experiments can vary:</p>
+<ul>
+<li>Setting: Lab, Survey, Field</li>
+<li>Mode: Analog vs.&nbsp;Digital</li>
+<li>And in Validity
+<ul>
+<li>Internal: were the processes conducted in a correct, reliable way?</li>
+<li>External: can we generalize from the experiment to the real world, or would the results change?</li>
+<li>Context: Would people act the same way outside of the experiment?</li>
+<li>Recruitment: Are the people in our experiment representative of the people we care about?</li>
+<li>Construct
+<ul>
+<li>Treatment: Is the experimental treatment similar to what people see in the real world?</li>
+<li>Outcome: Is the outcome something we care about in the real world? Are we measuring it in a realistic, accurate way?</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Review <a href="https://www.bitbybitbook.com/en/1st-ed/running-experiments/"><em>Bit by Bit</em></a> chapter 4 for more examples of social science experiments.</p>
+<p><strong><em>Example: Televised Incivility, Trust and Emotions (Mutz and Reeves)</em></strong></p>
+<p><img src="images/arousal.png" class="img-fluid" style="width:50.0%"></p>
+<p>Participants sat alone in a room with electrodes attached to their hands to measure skin conductance. Subjects viewed 20 minutes of a political debate created for the experiment, which varied in civility and politeness. Results showed respondents had more of an emotional response to the uncivil condition and expressed less trust in politicians.</p>
+<p><strong><em>Example: Online Survey Experiment</em></strong></p>
+<p><em>Audience Costs</em> (Tomz)</p>
+<p>A country sent its military to take over a neighboring country. The attacking country was led by a [dictator, who invaded <strong><em>OR</em></strong> democratically elected government, which invaded] [to get more power and resources <strong><em>OR</em></strong> because of a longstanding historical feud.</p>
+<p>The attacking country had a [strong military, so it would <strong><em>OR</em></strong> weak military, so it would not] have taken a major effort for the United States to help push them out.</p>
+<p>A victory by the attacking country would [hurt <strong><em>OR</em></strong> not affect] the safety and economy of the United States.</p>
+<ul>
+<li>Participants provided a different version of the vignette above, and a reaction by the president</li>
+<li>Presidential approval varies depending on the president’s response and the nature of the situation</li>
+</ul>
+<p><strong><em>Example: Digital Field Experiments in Campaigns</em></strong></p>
+<p>Example: A/B Testing in Campaigns</p>
+<p><img src="images/whichsubject.png" class="img-fluid"></p>
+<p>Emails are virtually costless. Very easy to ask: Are people more likely to open them with X subject or Y subject or Z subject?</p>
+</section>
+<section id="wrapping-up-causation-with-experiments" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="wrapping-up-causation-with-experiments"><span class="header-section-number">3.10</span> Wrapping Up Causation with Experiments</h2>
+<p>In this section, we have discussed what it means to make a causal claim, why it is essentially impossible to make causal comparisons in real life due to the fundamental problem of causal inferences, and how experiments can help us make comparisons that approximate our causal ideals.</p>
+<p>In the next section, we start to examine how to visualize data.</p>
+<section id="summary-of-r-tools-in-this-section" class="level3" data-number="3.10.1">
+<h3 data-number="3.10.1" class="anchored" data-anchor-id="summary-of-r-tools-in-this-section"><span class="header-section-number">3.10.1</span> Summary of R tools in this section</h3>
+<p>Here are some of the R tools we used in this section:</p>
+<ul>
+<li><code>table()</code>: this function summarizes the frequency of observations that take a particular value. The input is one or more variables in your data.
+<ul>
+<li>E.g., <code>table(resume$sex)</code> or <code>table(resume$sex, resume$call)</code></li>
+</ul></li>
+<li><code>tapply()</code>: this function applies a given operation like <code>mean</code> to whichever variable is in the first position, separately or “conditionally” by different values of the variable in the second “index” position.
+<ul>
+<li>E.g., <code>tapply(resume$call, INDEX=resume$race, mean)</code> finds the average callbacks for applicants separately for different races of applicants in the data.</li>
+</ul></li>
+<li><code>== &gt; &lt; &gt;= &lt;= !=</code>: Relational operators help us set up “logical statements” in R that are evaluated as <code>TRUE</code> or <code>FALSE</code>
+<ul>
+<li>E.g., <code>resume$race == "black"</code> evaluates whether for each observation in the race column is “black” in which case the statement is <code>TRUE</code> or not black, in which case the statement is <code>FALSE</code></li>
+<li>E.g., <code>resume$call &lt; 1</code> evaluates whether for each observation in the call column has a value less than one in which case the statement is <code>TRUE</code> or not less than 1, in which case the statement is <code>FALSE</code></li>
+<li>We can then isolate certain parts of columns using relational operators and the brackets <code>[]</code>. For example we can take the mean callbacks for applicants who are black using <code>mean(resume$call[resume$race == "black"])</code></li>
+</ul></li>
+<li><code>&amp;</code> and <code>|</code>: These are boolean operators that allow us to combine multiple relational operators using an AND statement (<code>&amp;</code>) or an OR statement <code>|</code>. Note the bar is a bar that is usually above your backslash key and not a capitalized i.
+<ul>
+<li>E.g., <code>mean(resume$call[resume$race == "black" &amp; resume$sex == "female"])</code></li>
+</ul></li>
+<li><code>subset()</code>: We can subset whole rows of our data using this function. It takes two inputs– the first is the name of the original dataframe, and the second is a relational statement. Usually we store this output in R by assigning the results to a new object, a dataframe that contains only those rows for which the logical statement using the relational operators is true. E.g., <code>females &lt;- subset(resume, sex == "female")</code> subsets our data to keep only those rows where applicants were female.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-Description.html" class="pagination-link" aria-label="Description">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

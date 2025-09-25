@@ -214,8 +214,20 @@ window.Quarto = {
   <li><a href="#saving-plots" id="toc-saving-plots" class="nav-link" data-scroll-target="#saving-plots"><span class="header-section-number">4.3.1</span> Saving Plots</a></li>
   <li><a href="#creating-new-variables" id="toc-creating-new-variables" class="nav-link" data-scroll-target="#creating-new-variables"><span class="header-section-number">4.3.2</span> Creating New Variables</a></li>
   </ul></li>
-  <li><a href="#common-r-plotting-functions-and-arguments" id="toc-common-r-plotting-functions-and-arguments" class="nav-link" data-scroll-target="#common-r-plotting-functions-and-arguments"><span class="header-section-number">4.4</span> Common R plotting functions and arguments</a></li>
-  <li><a href="#a-note-on-ggplot" id="toc-a-note-on-ggplot" class="nav-link" data-scroll-target="#a-note-on-ggplot"><span class="header-section-number">4.5</span> A note on <code>ggplot</code></a></li>
+  <li><a href="#application-changing-minds-on-gay-marriage" id="toc-application-changing-minds-on-gay-marriage" class="nav-link" data-scroll-target="#application-changing-minds-on-gay-marriage"><span class="header-section-number">4.4</span> Application: Changing Minds on Gay Marriage</a>
+  <ul>
+  <li><a href="#recall-creating-new-variables" id="toc-recall-creating-new-variables" class="nav-link" data-scroll-target="#recall-creating-new-variables"><span class="header-section-number">4.4.1</span> Recall: Creating new variables</a></li>
+  <li><a href="#recall-using-ifelse-to-create-new-variable" id="toc-recall-using-ifelse-to-create-new-variable" class="nav-link" data-scroll-target="#recall-using-ifelse-to-create-new-variable"><span class="header-section-number">4.4.2</span> Recall: Using ifelse to create new variable</a></li>
+  <li><a href="#calculating-the-average-treatment-effect" id="toc-calculating-the-average-treatment-effect" class="nav-link" data-scroll-target="#calculating-the-average-treatment-effect"><span class="header-section-number">4.4.3</span> Calculating the Average Treatment Effect</a></li>
+  <li><a href="#visualize-means-in-a-barplot" id="toc-visualize-means-in-a-barplot" class="nav-link" data-scroll-target="#visualize-means-in-a-barplot"><span class="header-section-number">4.4.4</span> Visualize means in a barplot</a></li>
+  </ul></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots"><span class="header-section-number">4.5</span> Scatterplots</a></li>
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms"><span class="header-section-number">4.6</span> Histograms</a>
+  <ul>
+  <li><a href="#happy-research-ending" id="toc-happy-research-ending" class="nav-link" data-scroll-target="#happy-research-ending"><span class="header-section-number">4.6.1</span> Happy research ending</a></li>
+  </ul></li>
+  <li><a href="#common-r-plotting-functions-and-arguments" id="toc-common-r-plotting-functions-and-arguments" class="nav-link" data-scroll-target="#common-r-plotting-functions-and-arguments"><span class="header-section-number">4.7</span> Common R plotting functions and arguments</a></li>
+  <li><a href="#a-note-on-ggplot" id="toc-a-note-on-ggplot" class="nav-link" data-scroll-target="#a-note-on-ggplot"><span class="header-section-number">4.8</span> A note on <code>ggplot</code></a></li>
   </ul>
 </nav>
 </nav>
@@ -547,8 +559,295 @@ Concrete  Placebo   Status
 </div>
 </section>
 </section>
-<section id="common-r-plotting-functions-and-arguments" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="common-r-plotting-functions-and-arguments"><span class="header-section-number">4.4</span> Common R plotting functions and arguments</h2>
+<section id="application-changing-minds-on-gay-marriage" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="application-changing-minds-on-gay-marriage"><span class="header-section-number">4.4</span> Application: Changing Minds on Gay Marriage</h2>
+<p>We now turn to a study that asks the question</p>
+<ul>
+<li>Research Question Can we effectively persuade people to change their minds?
+<ul>
+<li><em>Contact Hypothesis</em>: outgroup hostility diminishes through extended positive contact</li>
+</ul></li>
+</ul>
+<p>The authors conduct two randomized control trials in Los Angeles</p>
+<ul>
+<li><em>Target population</em>: voters in Los Angeles</li>
+<li><em>Recruitment</em>: select people from a registered voter list</li>
+<li><em>Randomized treatment conditions</em>:
+<ul>
+<li>Canvassers have a conversation about same-sex marriage vs.</li>
+<li>Recycling scripts (placebo)</li>
+<li>Control group: no canvassing</li>
+</ul></li>
+<li><em>Outcome measures</em>:
+<ul>
+<li>Feeling towards gay couples (survey responses over multiple waves)</li>
+</ul></li>
+<li><em>Comparison</em>
+<ul>
+<li>Compare average change in feelings between treatment conditions</li>
+</ul></li>
+</ul>
+<p>Let’s load the data. Data available through QSS. See QSS Chapter 2 for additional discussion.</p>
+<ul>
+<li><code>study</code>: Which study is the data from (<code>1</code> = Study1, <code>2</code> = Study2)</li>
+<li><code>treatment</code>: Five possible treatment assignment options</li>
+<li><code>therm1</code>: Survey thermometer rating of feeling towards gay couples in waves 1 (0–100) (asked before people were canvassed)</li>
+<li><code>therm2</code>: Survey thermometer rating of feeling towards gay couples in waves 2 (0–100) (asked after people were canvassed)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>marriage <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"gayreshaped.csv"</span>, <span class="at">stringsAsFactors =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## How many rows and columns</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(marriage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11948     6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## How many observations in each treatment group, in each study</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(marriage<span class="sc">$</span>treatment, marriage<span class="sc">$</span>study)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                
+                                                    1    2
+  No Contact                                     5238 1203
+  Recycling Script by Gay Canvasser              1046    0
+  Recycling Script by Straight Canvasser         1039    0
+  Same-Sex Marriage Script by Gay Canvasser      1151 1238
+  Same-Sex Marriage Script by Straight Canvasser 1033    0</code></pre>
+</div>
+</div>
+<p>For a video explainer of the code for the barplot, scatter plot and histogram created with this application, see below. The video only discusses the code. Use the notes and lecture discussion for additional context. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/ukexpAulAAk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Let’s focus on study 1 only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>marriage1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(marriage, study <span class="sc">==</span>  <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have to do some work to prepare our outcome and treatment conditions.</p>
+<p>In experiments, we compare the mean from the treatment group(s) <span class="math inline">\(\bar{Y}(1)\)</span> to the control <span class="math inline">\(\bar{Y}(0)\)</span> on some outcome</p>
+<ul>
+<li>Here are outcome is Change in Support for gay couples: Wave 2 - Wave 1 feeling thermometer scores</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>outcome <span class="ot">&lt;-</span> marriage1<span class="sc">$</span>therm2 <span class="sc">-</span> marriage1<span class="sc">$</span>therm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="recall-creating-new-variables" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="recall-creating-new-variables"><span class="header-section-number">4.4.1</span> Recall: Creating new variables</h3>
+<p>Let’s create a new variable <code>treatmentnew</code> that collapses the two Recycling and Same-Sex marriage conditions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew[marriage1<span class="sc">$</span>treatment <span class="sc">==</span> <span class="st">"No Contact"</span>] <span class="ot">&lt;-</span> <span class="st">"No Contact"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew[marriage1<span class="sc">$</span>treatment <span class="sc">==</span> <span class="st">"Recycling Script by Gay Canvasser"</span> <span class="sc">|</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                         marriage1<span class="sc">$</span>treatment <span class="sc">==</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Recycling Script by Straight Canvasser"</span>] <span class="ot">&lt;-</span> <span class="st">"Recycling"</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew[marriage1<span class="sc">$</span>treatment <span class="sc">==</span> <span class="st">"Same-Sex Marriage Script by Gay Canvasser"</span> <span class="sc">|</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                         marriage1<span class="sc">$</span>treatment <span class="sc">==</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Same-Sex Marriage Script by Straight Canvasser"</span>] <span class="ot">&lt;-</span> <span class="st">"Marriage"</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(marriage1<span class="sc">$</span>treatmentnew)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(marriage1<span class="sc">$</span>treatmentnew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Marriage No Contact  Recycling 
+      2184       5238       2085 </code></pre>
+</div>
+</div>
+</section>
+<section id="recall-using-ifelse-to-create-new-variable" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="recall-using-ifelse-to-create-new-variable"><span class="header-section-number">4.4.2</span> Recall: Using ifelse to create new variable</h3>
+<p>An alternative way we could create a variable is to use <code>ifelse</code></p>
+<p>Let’s try another way using the <code>ifelse</code> command.</p>
+<ul>
+<li>Can be read: If this relational statement is <code>TRUE</code>, I assign you A (in this case “No Contact”), otherwise (<code>ifelse()</code>)</li>
+<li>if this alternative relational statement is <code>TRUE</code>, I assign you B (in this case “Recycling”), otherwise (<code>ifelse()</code>)</li>
+<li>if this alternative relational statement is <code>TRUE</code>, I assign you C (in this case “Marriage”), otherwise</li>
+<li>If all of those were <code>FALSE</code> I assign you D (in this case an <code>NA</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(marriage1<span class="sc">$</span>treatment <span class="sc">==</span> <span class="st">"No Contact"</span>, <span class="st">"No Contact"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(marriage1<span class="sc">$</span>treatment <span class="sc">==</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Recycling Script by Gay Canvasser"</span> <span class="sc">|</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                                           marriage1<span class="sc">$</span>treatment <span class="sc">==</span>  </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Recycling Script by Straight Canvasser"</span>,  </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"Recycling"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">ifelse</span>(marriage1<span class="sc">$</span>treatment <span class="sc">==</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Same-Sex Marriage Script by Gay Canvasser"</span> <span class="sc">|</span>  </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                                            marriage1<span class="sc">$</span>treatment <span class="sc">==</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Same-Sex Marriage Script by Straight Canvasser"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Marriage"</span>, </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                                        <span class="cn">NA</span>)))</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>marriage1<span class="sc">$</span>treatmentnew2 <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(marriage1<span class="sc">$</span>treatmentnew2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculating-the-average-treatment-effect" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="calculating-the-average-treatment-effect"><span class="header-section-number">4.4.3</span> Calculating the Average Treatment Effect</h3>
+<p>We now have our outcome and our treatment conditions. In an experiment, we want to look at the difference in means between conditions. Let’s calculate the means.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>outs <span class="ot">&lt;-</span> <span class="fu">tapply</span>(marriage1<span class="sc">$</span>outcome, marriage1<span class="sc">$</span>treatmentnew, mean, <span class="at">na.rm=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note: Sometimes data include missing cells. In R, these have an <code>NA</code>. To ignore these when calculating a mean, we add <code>na.rm = T</code> to the <code>mean()</code> or <code>tapply()</code> functions.</p>
+</section>
+<section id="visualize-means-in-a-barplot" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="visualize-means-in-a-barplot"><span class="header-section-number">4.4.4</span> Visualize means in a barplot</h3>
+<p>Let’s also add a line at 0 using <code>abline()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(outs,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">"black"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span>  <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="co"># y-axis dimensions</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="cn">NA</span>, <span class="co"># removes bar borders</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Change in FT W2-W1 by Type of Treatment"</span>, <span class="co"># plot title</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.main =</span> .<span class="dv">8</span>, <span class="co"># size of plot title</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Mean Change in FT W2-W1"</span>, <span class="co"># yaxis label</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.lab =</span> .<span class="dv">8</span>,<span class="co"># size of yaxis label</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">1</span>) <span class="co"># controls angle of axis labels</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">2</span>) <span class="co"># adds horizontal line at 0 with dashes </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Visualization_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>How should we interpret these results?</p>
+<ul>
+<li>In the Marriage condition, it looks like on average, views toward gay couples became warmer (the bar is positive) after the conversations with canvassers about same-sex marriage.</li>
+<li>In contrast, the views of people in the Recycling or No Contact conditions did not change much and if anything, became slightly colder.</li>
+<li>Comparing between these bars, then, it seems like there is an “average treatment effect” given that the change in the Marriage condition was different from the Recycling an No Contact control groups.</li>
+</ul>
+</section>
+</section>
+<section id="scatterplots" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="scatterplots"><span class="header-section-number">4.5</span> Scatterplots</h2>
+<p>It turns out that study was completely fabricated, and the article was eventually <a href="https://www.newyorker.com/science/maria-konnikova/how-a-gay-marriage-study-went-wrong">retracted</a>.</p>
+<p>How did people know? Well a team of researchers became suspicious based on exploratory analyses they conducted with the data. Let’s do a few of these to learn about scatterplots and histograms.</p>
+<p>Scatter plots show the relationship between two numeric variables.</p>
+<p>A common way to describe and quantify a relationship is through correlation.</p>
+<ul>
+<li>Correlation: When <span class="math inline">\(x\)</span> changes, <span class="math inline">\(y\)</span> also changes by a fixed proportion
+<ul>
+<li>Asks: If you are a certain degree above the mean of <span class="math inline">\(x\)</span>, are you similarly that much above the mean of <span class="math inline">\(y\)</span>?</li>
+<li>Positive correlation: data cloud slopes up;</li>
+<li>Negative correlation: data cloud slopes down;</li>
+<li>High positive or negative correlation: data cluster tightly around a sloped line</li>
+<li>Not affected by changes of scale: cm vs.&nbsp;inch, etc.</li>
+</ul></li>
+</ul>
+<p>Range of Correlation is between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span></p>
+<ul>
+<li>Look at the graphs below for examples of high and low positive and negative correlations.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/corrdummies.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>From <em>R for Dummies</em></figcaption>
+</figure>
+</div>
+<p>The <code>plot()</code> function in R works using x and y coordinates.</p>
+<ul>
+<li>We have to tell R precisely at which x- and y- coordinates to place points (e.g., place a point at <code>x=20</code> and <code>y=40</code>)</li>
+<li>In practice, we will generally supply R with a vector of x-coordindates and a vector of corresponding y-coordinates.</li>
+</ul>
+<p>To illustrate a scatterplot, we will examine the relationship between the Wave 1 and Wave 2 feeling thermometer scores in the field experiment, for just the control “No Contact” condition.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Subset data to look at control only</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>controlonly <span class="ot">&lt;-</span> <span class="fu">subset</span>(marriage1, treatment <span class="sc">==</span> <span class="st">"No Contact"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the <code>plot()</code>, we supply the x and y vectors.</p>
+<ul>
+<li><code>xlim</code> and <code>ylim</code> specify the range of the x and y axis.</li>
+<li><code>pch</code> is the point type. You can play around with that number to view different plot types</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>controlonly<span class="sc">$</span>therm1, <span class="at">y=</span>controlonly<span class="sc">$</span>therm2, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Relationship between W1 and  W2"</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Wave 1"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Wave 2"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Visualization_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The correlation looks extremely high! It is positively sloped and tightly clustered.</p>
+<p>In fact, if we use R’s function to quantify a correlation between two variables, we will see it is a correlation above .99, very close to the maximum value.</p>
+<ul>
+<li>By default, R calculate the “pearson” correlation coefficient, a number that will be between -1 and 1. It represents the strength of the linear association between two variables.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## use = "pairwise" means to use all observations where neither variable has missing NA data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(marriage1<span class="sc">$</span>therm1, marriage1<span class="sc">$</span>therm2, <span class="at">use =</span> <span class="st">"pairwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.995313</code></pre>
+</div>
+</div>
+<p>This high correlation was unusual for this type of data.</p>
+<ul>
+<li>Feeling thermometers suffer from low reliability. How a person answers the question at one point in time (perhaps 83) in Wave 1 often differs from the numbers they say when asked again at a future point in time in Wave 2. A person’s responses often aren’t that stable.</li>
+<li>Because there was such a high correlation, it suggested that the data might not have been generated by real human responses</li>
+</ul>
+</section>
+<section id="histograms" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="histograms"><span class="header-section-number">4.6</span> Histograms</h2>
+<p>The researchers later discovered the Wave 1 data was suspiciously correlated with an existing survey: 2012 CCAP.</p>
+<ul>
+<li>They believe the researcher likely used CCAP for Wave 1 - used survey responses from real humans that took a real survey – but not the humans that the researcher claimed to interview in the experiment.</li>
+<li>Then the researcher generated the Wave 2 data by adding random noise to the Wave 1 data</li>
+<li>Part of why they believe this has to do with a histogram plot they generated to compare Waves 1 and 2</li>
+</ul>
+<p>A histogram is a useful plot for summarizing the distribution of a single variable.</p>
+<ul>
+<li>It shows the frequency of observations (e.g., the number of survey respondents) who give an answer within a particular interval of numeric values</li>
+</ul>
+<p>Because a histogram is a single variable summary, we just supply R with the numeric variable we want to summarize.</p>
+<ul>
+<li>The new argument here <code>breaks</code> tells R how many of the individual rectangles we want. You can play around with that number to see how the plot changes.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="at">x=</span>controlonly<span class="sc">$</span>therm1, <span class="at">breaks=</span><span class="dv">50</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"W1 Histogram"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Visualization_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="at">x=</span>controlonly<span class="sc">$</span>therm2,<span class="at">breaks=</span><span class="dv">50</span>,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"W2 Histogram"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-Visualization_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The researchers noticed that the heaping patterns were different between Wave 1 and Wave 2.</p>
+<ul>
+<li>When real humans answer these types of feeling thermometer questions, we often see heaping (tall spikes) at values of 0, 50, and 100. Humans tend to gravitate toward those nice round numbers to anchor their responses. In addition, often researchers might recode people with missing responses (people who skip a question), as having a score of 50, increasing the number at that point.
+<ul>
+<li>Wave 1 has a lot of this heaping– look at the higher bars around 0, 50, and 100, suggesting a lot of survey respondents gave those answers.</li>
+<li>However, Wave 2 has less heaping, particularly at 50. This suggested to the researchers that the Wave 2 data were likely generated by a computer and not real humans</li>
+</ul></li>
+</ul>
+<section id="happy-research-ending" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="happy-research-ending"><span class="header-section-number">4.6.1</span> Happy research ending</h3>
+<p>While the original article was retracted</p>
+<ul>
+<li>Researchers who found irregularities received funding to conduct similar studies with real data this time</li>
+<li>Multiple publications suggest the canvassing approach was effective:
+<ul>
+<li>Broockman and Kalla. 2016. “Durably reducing transphobia: A field experiment on door-to-door canvassing” Science 352 no. 6282.</li>
+<li>Broockman and Kalla. 2020. “Reducing exclusionary attitudes through interpersonal conversation: evidence from three field experiments.” American Political Science Review</li>
+<li>Kalla and Broockman. 2021. “Which narrative strategies durably reduce prejudice? Evidence from field and survey experiments supporting the efficacy of perspective-getting.” American Journal of Political Science. Forthcoming.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="common-r-plotting-functions-and-arguments" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="common-r-plotting-functions-and-arguments"><span class="header-section-number">4.7</span> Common R plotting functions and arguments</h2>
 <p>Here is a refresher of several of the functions and arguments we have come across.</p>
 <p>Create a plot</p>
 <ul>
@@ -591,8 +890,8 @@ Concrete  Placebo   Status
 <li><code>points()</code>: Adds points to a plot at specific x- and y- locations. Inputs are much like <code>plot</code></li>
 </ul>
 </section>
-<section id="a-note-on-ggplot" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="a-note-on-ggplot"><span class="header-section-number">4.5</span> A note on <code>ggplot</code></h2>
+<section id="a-note-on-ggplot" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="a-note-on-ggplot"><span class="header-section-number">4.8</span> A note on <code>ggplot</code></h2>
 <p>R has a number of open-source packages that people can use to expand the set of capabilities for visualization and analysis. These can be installed through RStudio. We will look at one of these packages: <code>ggplot2</code>.</p>
 <p><strong><em>Using ggplot will be extra-credit at this point in the course. We may return to it later in the semester as part of the main curriculum. Reviewing this section of the notes is optional.</em></strong></p>
 <p>The “gg” in ggplot2 stands for the “Grammar of Graphics.” This program provides another framework for creating figures in R. According to Hadley Wickham, “ggplot2 provides beautiful, hassle-free plots that take care of fiddly details like drawing legends.”</p>
@@ -602,27 +901,27 @@ Concrete  Placebo   Status
 <li>If RStudio is our smartphone, we install a package like you install an app on the phone. You only have to do this once, though occasionally you may want or need to update the installation to a new version.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run this line in your R console</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run this line in your R console</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>On a smartphone, every time you want to use an app after you have installed it, you have to open the app. Similarly, every time we want to open a package in RStudio, we have to open it by using the <code>library()</code> command</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add and run this line in your R script, above the code where you will use functions from the package</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add and run this line in your R script, above the code where you will use functions from the package</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The main plotting function in <code>ggplot2</code> is the <code>ggplot()</code> function. It will give you access to barplots, boxplots, scatterplots, histograms, etc.</p>
 <ul>
 <li>The syntax within this package is a little different from the base R plotting functions. We will investigate below. For now, here is an example of using <code>ggplot</code> to create a boxplot using the experiment on social status from earlier in this section.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>status, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>econcon)) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>status, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>econcon)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-Visualization_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-Visualization_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -644,25 +943,25 @@ Concrete  Placebo   Status
 <li>We will color in the boxes based on the collapsed condition variable.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>status, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>econcon, <span class="at">fill=</span>conditionnew)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Specifies plot type. E.g., also have geom_point(), geom_bar()</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Note many arguments are similar to other R functions but the syntax is a little different</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Economic Views by Experimental Condition"</span>)<span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Economic Views"</span>)<span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Experimental Condition"</span>)<span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Changes the overall theme (i.e., color scheme, borders, etc.)</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>status, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>econcon, <span class="at">fill=</span>conditionnew)) <span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Specifies plot type. E.g., also have geom_point(), geom_bar()</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Note many arguments are similar to other R functions but the syntax is a little different</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Economic Views by Experimental Condition"</span>)<span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Economic Views"</span>)<span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Experimental Condition"</span>)<span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Changes the overall theme (i.e., color scheme, borders, etc.)</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-Visualization_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-Visualization_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"myboxplot.pdf"</span>, <span class="at">width=</span><span class="dv">7</span>, <span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"myboxplot.pdf"</span>, <span class="at">width=</span><span class="dv">7</span>, <span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

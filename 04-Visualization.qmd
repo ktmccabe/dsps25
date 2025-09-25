@@ -287,6 +287,256 @@ barplot(freqobs,
         las = 1) # controls angle of axis labels
 ```
 
+
+## Application: Changing Minds on Gay Marriage
+
+We now turn to a study that asks the question
+
+-   Research Question Can we effectively persuade people to change their minds?
+    -   *Contact Hypothesis*: outgroup hostility diminishes through extended positive contact
+
+The authors conduct two randomized control trials in Los Angeles
+
+-   *Target population*: voters in Los Angeles
+-   *Recruitment*: select people from a registered voter list
+-   *Randomized treatment conditions*:
+    -   Canvassers have a conversation about same-sex marriage vs.
+    -   Recycling scripts (placebo)
+    -   Control group: no canvassing
+-   *Outcome measures*:
+    -   Feeling towards gay couples (survey responses over multiple waves)
+-   *Comparison*
+    -   Compare average change in feelings between treatment conditions
+
+Let's load the data. Data available through QSS. See QSS Chapter 2 for additional discussion.
+
+-   `study`: Which study is the data from (`1` = Study1, `2` = Study2)
+-   `treatment`: Five possible treatment assignment options
+-   `therm1`: Survey thermometer rating of feeling towards gay couples in waves 1 (0--100) (asked before people were canvassed)
+-   `therm2`: Survey thermometer rating of feeling towards gay couples in waves 2 (0--100) (asked after people were canvassed)
+
+```{r, echo=F}
+marriage <- read.csv("data/gayreshaped.csv", stringsAsFactors = T)
+```
+
+```{r, eval=F}
+marriage <- read.csv("gayreshaped.csv", stringsAsFactors = T)
+```
+
+```{r}
+## How many rows and columns
+dim(marriage)
+
+## How many observations in each treatment group, in each study
+table(marriage$treatment, marriage$study)
+```
+
+For a video explainer of the code for the barplot, scatter plot and histogram created with this application, see below. The video only discusses the code. Use the notes and lecture discussion for additional context. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)
+
+{{< video src="https://www.youtube.com/watch?v=ukexpAulAAk" >}}
+
+Let's focus on study 1 only.
+
+```{r}
+marriage1 <- subset(marriage, study ==  1)
+```
+
+We have to do some work to prepare our outcome and treatment conditions.
+
+In experiments, we compare the mean from the treatment group(s) $\bar{Y}(1)$ to the control $\bar{Y}(0)$ on some outcome
+
+-   Here are outcome is Change in Support for gay couples: Wave 2 - Wave 1 feeling thermometer scores
+
+```{r}
+marriage1$outcome <- marriage1$therm2 - marriage1$therm1
+```
+
+### Recall: Creating new variables
+
+Let's create a new variable `treatmentnew` that collapses the two Recycling and Same-Sex marriage conditions.
+
+```{r}
+marriage1$treatmentnew <- NA
+marriage1$treatmentnew[marriage1$treatment == "No Contact"] <- "No Contact"
+marriage1$treatmentnew[marriage1$treatment == "Recycling Script by Gay Canvasser" |
+                         marriage1$treatment == 
+                         "Recycling Script by Straight Canvasser"] <- "Recycling"
+marriage1$treatmentnew[marriage1$treatment == "Same-Sex Marriage Script by Gay Canvasser" |
+                         marriage1$treatment ==
+                         "Same-Sex Marriage Script by Straight Canvasser"] <- "Marriage"
+marriage1$treatmentnew <- as.factor(marriage1$treatmentnew)
+
+table(marriage1$treatmentnew)
+```
+
+### Recall: Using ifelse to create new variable
+
+An alternative way we could create a variable is to use `ifelse`
+
+Let's try another way using the `ifelse` command.
+
+-   Can be read: If this relational statement is `TRUE`, I assign you A (in this case "No Contact"), otherwise (`ifelse()`)
+-   if this alternative relational statement is `TRUE`, I assign you B (in this case "Recycling"), otherwise (`ifelse()`)
+-   if this alternative relational statement is `TRUE`, I assign you C (in this case "Marriage"), otherwise
+-   If all of those were `FALSE` I assign you D (in this case an `NA`)
+
+```{r}
+marriage1$treatmentnew2 <- ifelse(marriage1$treatment == "No Contact", "No Contact",
+                                  ifelse(marriage1$treatment == 
+                                           "Recycling Script by Gay Canvasser" |
+                                           marriage1$treatment ==  
+                                           "Recycling Script by Straight Canvasser",  
+                                         "Recycling",
+                                    ifelse(marriage1$treatment ==
+                                        "Same-Sex Marriage Script by Gay Canvasser" |  
+                                            marriage1$treatment ==
+                                        "Same-Sex Marriage Script by Straight Canvasser",
+                                        "Marriage", 
+                                        NA)))
+marriage1$treatmentnew2 <- as.factor(marriage1$treatmentnew2)
+```
+
+### Calculating the Average Treatment Effect
+
+We now have our outcome and our treatment conditions. In an experiment, we want to look at the difference in means between conditions. Let's calculate the means.
+
+```{r}
+outs <- tapply(marriage1$outcome, marriage1$treatmentnew, mean, na.rm=T)
+```
+
+Note: Sometimes data include missing cells. In R, these have an `NA`. To ignore these when calculating a mean, we add `na.rm = T` to the `mean()` or `tapply()` functions.
+
+### Visualize means in a barplot
+
+Let's also add a line at 0 using `abline()`
+
+```{r}
+barplot(outs,
+        col="black",
+        ylim =  c(-2, 2), # y-axis dimensions
+        border = NA, # removes bar borders
+        main = "Change in FT W2-W1 by Type of Treatment", # plot title
+        cex.main = .8, # size of plot title
+        ylab = "Mean Change in FT W2-W1", # yaxis label
+        cex.lab = .8,# size of yaxis label
+        las = 1) # controls angle of axis labels
+abline(h=0, lty=2, col = "red", lwd=2) # adds horizontal line at 0 with dashes 
+
+```
+
+How should we interpret these results?
+
+-   In the Marriage condition, it looks like on average, views toward gay couples became warmer (the bar is positive) after the conversations with canvassers about same-sex marriage.
+-   In contrast, the views of people in the Recycling or No Contact conditions did not change much and if anything, became slightly colder.
+-   Comparing between these bars, then, it seems like there is an "average treatment effect" given that the change in the Marriage condition was different from the Recycling an No Contact control groups.
+
+## Scatterplots
+
+It turns out that study was completely fabricated, and the article was eventually [retracted](https://www.newyorker.com/science/maria-konnikova/how-a-gay-marriage-study-went-wrong).
+
+How did people know? Well a team of researchers became suspicious based on exploratory analyses they conducted with the data. Let's do a few of these to learn about scatterplots and histograms.
+
+Scatter plots show the relationship between two numeric variables.
+
+A common way to describe and quantify a relationship is through correlation.
+
+-   Correlation: When $x$ changes, $y$ also changes by a fixed proportion
+    -   Asks: If you are a certain degree above the mean of $x$, are you similarly that much above the mean of $y$?
+    -   Positive correlation: data cloud slopes up;
+    -   Negative correlation: data cloud slopes down;
+    -   High positive or negative correlation: data cluster tightly around a sloped line
+    -   Not affected by changes of scale: cm vs. inch, etc.
+
+Range of Correlation is between $-1$ and $1$
+
+-   Look at the graphs below for examples of high and low positive and negative correlations.
+
+![From *R for Dummies*](images/corrdummies.png){width="60%"}
+
+
+The `plot()` function in R works using x and y coordinates.
+
+-   We have to tell R precisely at which x- and y- coordinates to place points (e.g., place a point at `x=20` and `y=40`)
+-   In practice, we will generally supply R with a vector of x-coordindates and a vector of corresponding y-coordinates.
+
+To illustrate a scatterplot, we will examine the relationship between the Wave 1 and Wave 2 feeling thermometer scores in the field experiment, for just the control "No Contact" condition.
+
+```{r}
+## Subset data to look at control only
+controlonly <- subset(marriage1, treatment == "No Contact")
+```
+
+In the `plot()`, we supply the x and y vectors.
+
+-   `xlim` and `ylim` specify the range of the x and y axis.
+-   `pch` is the point type. You can play around with that number to view different plot types
+
+```{r}
+plot(x=controlonly$therm1, y=controlonly$therm2, 
+     main = "Relationship between W1 and  W2",
+     xlab = "Wave 1", xlim = c(0, 100),
+     ylab = "Wave 2", ylim = c(0, 100),
+     pch = 20)
+```
+
+The correlation looks extremely high! It is positively sloped and tightly clustered.
+
+In fact, if we use R's function to quantify a correlation between two variables, we will see it is a correlation above .99, very close to the maximum value.
+
+-   By default, R calculate the "pearson" correlation coefficient, a number that will be between -1 and 1. It represents the strength of the linear association between two variables.
+
+```{r}
+## use = "pairwise" means to use all observations where neither variable has missing NA data
+cor(marriage1$therm1, marriage1$therm2, use = "pairwise")
+```
+
+This high correlation was unusual for this type of data.
+
+-   Feeling thermometers suffer from low reliability. How a person answers the question at one point in time (perhaps 83) in Wave 1 often differs from the numbers they say when asked again at a future point in time in Wave 2. A person's responses often aren't that stable.
+-   Because there was such a high correlation, it suggested that the data might not have been generated by real human responses
+
+## Histograms
+
+The researchers later discovered the Wave 1 data was suspiciously correlated with an existing survey: 2012 CCAP.
+
+-   They believe the researcher likely used CCAP for Wave 1 - used survey responses from real humans that took a real survey -- but not the humans that the researcher claimed to interview in the experiment.
+-   Then the researcher generated the Wave 2 data by adding random noise to the Wave 1 data
+-   Part of why they believe this has to do with a histogram plot they generated to compare Waves 1 and 2
+
+A histogram is a useful plot for summarizing the distribution of a single variable.
+
+-   It shows the frequency of observations (e.g., the number of survey respondents) who give an answer within a particular interval of numeric values
+
+Because a histogram is a single variable summary, we just supply R with the numeric variable we want to summarize.
+
+-   The new argument here `breaks` tells R how many of the individual rectangles we want. You can play around with that number to see how the plot changes.
+
+```{r}
+hist(x=controlonly$therm1, breaks=50,
+     main = "W1 Histogram", ylim = c(0,1000))
+hist(x=controlonly$therm2,breaks=50,
+     main = "W2 Histogram", ylim = c(0,1000))  
+```
+
+The researchers noticed that the heaping patterns were different between Wave 1 and Wave 2.
+
+-   When real humans answer these types of feeling thermometer questions, we often see heaping (tall spikes) at values of 0, 50, and 100. Humans tend to gravitate toward those nice round numbers to anchor their responses. In addition, often researchers might recode people with missing responses (people who skip a question), as having a score of 50, increasing the number at that point.
+    -   Wave 1 has a lot of this heaping-- look at the higher bars around 0, 50, and 100, suggesting a lot of survey respondents gave those answers.
+    -   However, Wave 2 has less heaping, particularly at 50. This suggested to the researchers that the Wave 2 data were likely generated by a computer and not real humans
+
+### Happy research ending
+
+While the original article was retracted
+
+-   Researchers who found irregularities received funding to conduct similar studies with real data this time
+-   Multiple publications suggest the canvassing approach was effective:
+    -   Broockman and Kalla. 2016. "Durably reducing transphobia: A field experiment on door-to-door canvassing" Science 352 no. 6282.
+    -   Broockman and Kalla. 2020. "Reducing exclusionary attitudes through interpersonal conversation: evidence from three field experiments." American Political Science Review
+    -   Kalla and Broockman. 2021. "Which narrative strategies durably reduce prejudice? Evidence from field and survey experiments supporting the efficacy of perspective-getting." American Journal of Political Science. Forthcoming.
+
+
+
+
 ## Common R plotting functions and arguments
 
 Here is a refresher of several of the functions and arguments we have come across.

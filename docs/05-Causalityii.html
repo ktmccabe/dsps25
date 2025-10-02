@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Causality with Non-Experimental Data – Data Science for Political Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-Visualization.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9becf3fbc736aa3d8123452166bd44f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-Causalityii.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Causality with Non-Experimental Data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science for Political Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Notes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Description.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-CausalityI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causation with Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Causalityii.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Causality with Non-Experimental Data</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Section Contents</h2>
+   
+  <ul>
+  <li><a href="#why-cant-we-always-experiment" id="toc-why-cant-we-always-experiment" class="nav-link active" data-scroll-target="#why-cant-we-always-experiment"><span class="header-section-number">5.1</span> Why can’t we always experiment?</a>
+  <ul>
+  <li><a href="#what-can-we-do-instead" id="toc-what-can-we-do-instead" class="nav-link" data-scroll-target="#what-can-we-do-instead"><span class="header-section-number">5.1.1</span> What can we do instead?</a></li>
+  </ul></li>
+  <li><a href="#causal-identification-strategies" id="toc-causal-identification-strategies" class="nav-link" data-scroll-target="#causal-identification-strategies"><span class="header-section-number">5.2</span> Causal Identification Strategies</a>
+  <ul>
+  <li><a href="#causal-claims-from-before-vs.-after-comparisons" id="toc-causal-claims-from-before-vs.-after-comparisons" class="nav-link" data-scroll-target="#causal-claims-from-before-vs.-after-comparisons"><span class="header-section-number">5.2.1</span> Causal claims from before vs.&nbsp;after comparisons</a></li>
+  </ul></li>
+  <li><a href="#three-common-identification-strategies" id="toc-three-common-identification-strategies" class="nav-link" data-scroll-target="#three-common-identification-strategies"><span class="header-section-number">5.3</span> Three Common Identification Strategies</a>
+  <ul>
+  <li><a href="#threats-to-cross-section-designs" id="toc-threats-to-cross-section-designs" class="nav-link" data-scroll-target="#threats-to-cross-section-designs"><span class="header-section-number">5.3.1</span> Threats to Cross-Section Designs</a></li>
+  <li><a href="#threats-to-before-after-designs" id="toc-threats-to-before-after-designs" class="nav-link" data-scroll-target="#threats-to-before-after-designs"><span class="header-section-number">5.3.2</span> Threats to Before-After Designs</a></li>
+  <li><a href="#threats-to-diff-in-diff-designs" id="toc-threats-to-diff-in-diff-designs" class="nav-link" data-scroll-target="#threats-to-diff-in-diff-designs"><span class="header-section-number">5.3.3</span> Threats to Diff-in-Diff Designs</a></li>
+  </ul></li>
+  <li><a href="#application-economic-effects-of-basque-terrorism" id="toc-application-economic-effects-of-basque-terrorism" class="nav-link" data-scroll-target="#application-economic-effects-of-basque-terrorism"><span class="header-section-number">5.4</span> Application: Economic Effects of Basque Terrorism</a>
+  <ul>
+  <li><a href="#applying-3-identification-strategies" id="toc-applying-3-identification-strategies" class="nav-link" data-scroll-target="#applying-3-identification-strategies"><span class="header-section-number">5.4.1</span> Applying 3 Identification Strategies</a></li>
+  </ul></li>
+  <li><a href="#placebo-tests" id="toc-placebo-tests" class="nav-link" data-scroll-target="#placebo-tests"><span class="header-section-number">5.5</span> Placebo Tests</a></li>
+  <li><a href="#wrapping-up-causality" id="toc-wrapping-up-causality" class="nav-link" data-scroll-target="#wrapping-up-causality"><span class="header-section-number">5.6</span> Wrapping Up Causality</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="causalityii" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Causality with Non-Experimental Data</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this section, we continue to evaluate causal claims, but this time we will not have the benefit of experiments.</p>
+<p><strong><em>Recall: What are causal claims?</em></strong></p>
+<p>Let’s put this into our causal potential outcomes framework.</p>
+<ul>
+<li>Does manipulating one factor (a “treatment”) cause a change in an outcome? (<span class="math inline">\(Y_i(1) - Y_i(0)\)</span>)</li>
+</ul>
+<p><strong>Example</strong>: Can you cause your favorite sports team to win a game by an action that you take (e.g., wearing a particular shirt, eating a particular snack, etc.)?</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/QvtkLXmO9Jg" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<ul>
+<li>But we have a problem: the fundamental problem of causal inference
+<ul>
+<li>Can’t simultaneously both be treated and untreated - e.g., you can;t turn around and not turn around when watching the game.</li>
+</ul></li>
+</ul>
+<p>Due to this problem, we have to find ways around estimating causal effects.</p>
+<ul>
+<li>In an earlier section, we discussed using experiments.</li>
+<li>Here we discuss making constructing comparisons with non-experimental data.</li>
+</ul>
+<p>When we make a comparison, we have to think about our counterfactual states of the world.</p>
+<p>Here was the Rams vs.&nbsp;Eagles scoreline</p>
+<p><img src="images/eaglesrams.png" class="img-fluid"> It was 19-7, with the Eagles losing at halftime, a -12 difference. The causal claim is that the actions of Hannah and Kylie caused the Eagles to win.</p>
+<p>In the state of the world where they turned around at halftime, the Eagles won by 7. To estimate the causal effect, we need to build a causal comparison:</p>
+<ul>
+<li><p>In the state of the world where they did not turn around, what would the difference have been?</p>
+<ul>
+<li>We cannot actually observe this, but what might be a way to guess what this scoreline could have been? Brainstorm!</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-Causalityii_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="why-cant-we-always-experiment" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="why-cant-we-always-experiment"><span class="header-section-number">5.1</span> Why can’t we always experiment?</h2>
+<p>Example: Do political leaders tend to matter for democracy?</p>
+<ul>
+<li>Our outcome: how democratic nations are</li>
+<li>Our causal effect of interest:
+<ul>
+<li>On average, how democratic nations are with their current leaders -</li>
+<li>On average, how democratic nations would be with different leaders</li>
+</ul></li>
+<li>Possible Experimental Designs to randomly assign half of countries to receive a different political leader
+<ul>
+<li>Rig elections? (I.e., Election fraud- Illegal, unethical)</li>
+</ul></li>
+</ul>
+<p>We have problems!!</p>
+<section id="what-can-we-do-instead" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="what-can-we-do-instead"><span class="header-section-number">5.1.1</span> What can we do instead?</h3>
+<p>Let’s say we want to make a causal claim about the effect of one variable on an outcome, but we can’t think of an experimental design that will help us estimate this.</p>
+<p>What do you do?</p>
+</section>
+</section>
+<section id="causal-identification-strategies" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="causal-identification-strategies"><span class="header-section-number">5.2</span> Causal Identification Strategies</h2>
+<p>Our goal: Try to “identify” the causal effect of one variable on an outcome.</p>
+<ul>
+<li>Use data we have (that exist out in the world)</li>
+<li>Compare those who are “treated” to a relevant comparison group who is not treated</li>
+</ul>
+<p>However, we can’t randomize treatment so….</p>
+<ul>
+<li>We do our best to try to choose a good comparison (one very similar to the treatment group, but happens not to be treated)</li>
+</ul>
+<p>We want to rule out all possible confounding variables and “alternative explanations” for the outcomes we observed.</p>
+<section id="causal-claims-from-before-vs.-after-comparisons" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="causal-claims-from-before-vs.-after-comparisons"><span class="header-section-number">5.2.1</span> Causal claims from before vs.&nbsp;after comparisons</h3>
+<p><strong><em>What types of research questions could these trends generate?</em></strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-Causalityii_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What would you want to know about how movement has changed over time. Think about examples of causal claims you might make:</p>
+<p>So what can we do to test causal claims?</p>
+<ul>
+<li>What is the fundamental problem of causal inference in this case?</li>
+<li>Can we do an experiment?</li>
+<li>Researchers try to form comparison groups, in a strategic way, with the data they have (i.e., “observational” or “non-experimental” data).</li>
+<li>Because they cannot randomly assign two different experiences of the world, instead they choose two cases or two groups of cases that
+<ul>
+<li>Seem extremely similar except</li>
+<li>One has the treatment of interest, and one does not</li>
+</ul></li>
+</ul>
+<p><strong>Example: Before vs.&nbsp;After Comparison</strong></p>
+<p>Let’s examine social mobility just before vs.&nbsp;just after the federal announcement of social distancing guidelines to stop the spread of COVID-19.</p>
+<ul>
+<li>To do so, we will draw a vertical line at March 2020
+<ul>
+<li>Note we use <code>abline(v=)</code> to indicate a vertical line at a location to cross the x-axis</li>
+</ul></li>
+</ul>
+<p>This is the 15th entry in our vector, which means at point 15 on the x-axis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mobilitybymonthNE[<span class="st">"2020-03"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 2020-03 
+34.55917 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mobilitybymonthNE[<span class="dv">15</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 2020-03 
+34.55917 </code></pre>
+</div>
+</div>
+<ul>
+<li>We will also add text to inform views what that line represents
+<ul>
+<li>Note we use <code>text(x= , y=, labels)</code> to indicate where to put text</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mobilitybymonthNE),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y=</span>mobilitybymonthNE,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">"l"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Social Mobility by Month and Region"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Twitter Social Mobility Index"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">""</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">las=</span><span class="dv">1</span>, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd=</span><span class="dv">2</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">bty=</span><span class="st">"n"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt=</span><span class="st">"n"</span>) <span class="co"># removes original x-axis</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Add line to the plot </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mobilitybymonthSO),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">y=</span>mobilitybymonthSO, <span class="at">col=</span><span class="st">"red3"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">## add the axis the "1" means x-axis. A "2" would create a y-axis</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mobilitybymonthNE), </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels=</span><span class="fu">names</span>(mobilitybymonthNE), <span class="at">las=</span><span class="dv">2</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">## add dashed blue vertical line</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">15</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">"dodgerblue"</span>, <span class="at">lwd=</span><span class="fl">1.5</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">## add text near the line</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="do">## the \n breaks the text into different lines</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="dv">15</span>, <span class="at">y=</span><span class="dv">65</span>, <span class="at">labels =</span> <span class="st">"Federal </span><span class="sc">\n</span><span class="st"> Announcement"</span>, <span class="at">cex=</span>.<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-Causalityii_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We see mobility does appear to be lower after the announcement relative to before the announcement. Is this causal?</p>
+<ul>
+<li>Assumption: We would want to be able to argue that social mobility in the weeks following the announcement (after time period) would look similar to social mobility in the weeks prior to the announcement (before period) <strong>if not for the federal announcement</strong>
+<ul>
+<li>That the before vs.&nbsp;after time periods would be similar in any meaningful way if not for the presence of the treatment in the after period.</li>
+</ul></li>
+</ul>
+<p>Does this seem like a plausible argument? Could other things (confounders) occurring around the time of the federal announcement also have caused the steep decline in social mobility?</p>
+<ul>
+<li>If we think something else happened around the same time that might have caused mobility to go down anyway, then we may be doubtful that this is a <em>causal</em> effect.</li>
+</ul>
+</section>
+</section>
+<section id="three-common-identification-strategies" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="three-common-identification-strategies"><span class="header-section-number">5.3</span> Three Common Identification Strategies</h2>
+<p>Example: Does drinking Sprite make a person a better basketball player? (Inspired by 1990s commercial where a kid believes drinking Sprite will cause him to play basketball better.)</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/zbavu2Al-ME" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<ul>
+<li><strong>Cross-section comparison</strong>: Compare Grant Hill (who drinks Sprite) to others (who don’t)</li>
+<li><strong>Before-and-after</strong>: Compare Grant Hill after he started drinking Sprite to Grant Hill before</li>
+<li><strong>Difference-in-differences</strong>: Compare Grant Hill before and after drinking Sprite and subtract from this the difference for some other person (who never drank Sprite) during the same two periods</li>
+</ul>
+<p>(Note: “drinking Sprite” is our treatment.)</p>
+<section id="threats-to-cross-section-designs" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="threats-to-cross-section-designs"><span class="header-section-number">5.3.1</span> Threats to Cross-Section Designs</h3>
+<p><strong><em>Assumption</em></strong>: Must assume no confounders and any alternative explanations related to differences between the treated and control subjects that also relate to the outcome. The Threat: Your two groups may differ in ways beyond the “treatment” in ways that are relevant to the outcome you care about.</p>
+<ul>
+<li>Compare Grant Hill, a tall NBA player who currently drinks Sprite (treatment group) to</li>
+<li>Yourself, assuming you and they do not drink Sprite (control group)</li>
+<li>Compare your basketball skill levels (the outcome).</li>
+<li>Suppose Grant Hill is better (a positive treatment effect).
+<ul>
+<li>Can we conclude Sprite <em>causes</em> a person to be a better player?</li>
+</ul></li>
+</ul>
+<p>Nope, because other things that affect basketball talent differ between you and Grant Hill, and these things, not Sprite, may explain the difference in basketball talent.</p>
+<p>Moreover, even if we compared just among NBA players (Grant Hill vs.&nbsp;non-Sprite drinking players of his era), it’s possible that Sprite targeted all-stars to recruit to drink Sprite. In this way, pre-existing basketball talent (a <em>confounder</em>) both explains why Grant Hill drank Sprite (relates to the treatment) and explains his higher level of basketball talent (relates to the outcome) in the time period after drinking Sprite.</p>
+<ul>
+<li>For a cross-sectional comparison to be plausible, we need to choose a very similar comparison in order to isolate the treatment as the main variable that is causing a change in an outcome.</li>
+</ul>
+</section>
+<section id="threats-to-before-after-designs" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="threats-to-before-after-designs"><span class="header-section-number">5.3.2</span> Threats to Before-After Designs</h3>
+<p><strong><em>Assumption</em></strong>: Must assume no confounding time trend. Threat: Something else may be changing over time, aside from the treatment, that is affecting your outcome.</p>
+<ul>
+<li>Compare Grant Hill in the years after he started drinking Sprite (treated) to</li>
+<li>Grant Hill the years before he started drinking Sprite (control)</li>
+<li>Compare his basketball skill levels (outcome).</li>
+<li>Suppose Grant Hill after Sprite is better (a positive treatment effect).</li>
+<li>Can we conclude Sprite causes a person to be a better player?</li>
+</ul>
+<p>Not if something else Grant Hill started doing during that time period made him better (e.g., maybe during that time the NBA provided higher quality coaches and trainers, and everyone (including Grant Hill) got better).</p>
+<ul>
+<li>You want your treatment to be the only thing relevant to basketball talent changing over time.</li>
+</ul>
+</section>
+<section id="threats-to-diff-in-diff-designs" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="threats-to-diff-in-diff-designs"><span class="header-section-number">5.3.3</span> Threats to Diff-in-Diff Designs</h3>
+<p><strong><em>Assumption</em></strong>: Must assume parallel trends: That in the absence of treatment, your treatment group would have changed in the same way as your control</p>
+<ul>
+<li>Compare Grant Hill in the years before vs.&nbsp;after he started drinking Sprite to Grant Hill’s teammate, who never drank sprite, in the same two time periods (before Hill drinks Sprite vs.&nbsp;after Hill drinks Sprite)</li>
+<li>Compare the <strong>change in each player’s basketball skill levels</strong>. Suppose Grant Hill’s skills increased to a greater degree than his teammate’s over the same time period.</li>
+<li>Can we conclude Sprite causes a person to be a better player?</li>
+</ul>
+<p>If we are confident that Grant Hill did not have a unique (non-Sprite) advantage over that time period relative to other players, then our assumption might be plausible– that Grant Hill and other players would have experienced a similar growth in their skills if not for Grant Hill getting the extra benefit of Sprite.</p>
+<p>Instead, if, for example, Grant Hill got a new trainer during this period AND his teammate did not, then we might have expected Grant Hill to see more improvement even if he didn’t start drinking Sprite. A violation of the parallel trends assumption!</p>
+<ul>
+<li>Causality is hard!</li>
+</ul>
+</section>
+</section>
+<section id="application-economic-effects-of-basque-terrorism" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="application-economic-effects-of-basque-terrorism"><span class="header-section-number">5.4</span> Application: Economic Effects of Basque Terrorism</h2>
+<p>Research Question: What is the economic impact of terrorism?</p>
+<ul>
+<li>Factual (<span class="math inline">\(Y(1)\)</span>): Economy given Basque region hit with terrorism in early 1970s
+<ul>
+<li>From 1973 to late 1990s, ETA killed almost 800 people</li>
+<li>Activity localized to Basque area</li>
+</ul></li>
+<li>Counterfactual (<span class="math inline">\(Y(0)\)</span>): How would Basque economy have fared in the absence of the terrorism?
+<ul>
+<li>Basque was the 3rd richest region in Spain at onset</li>
+<li>Dropped to the 6th position by late 1990s</li>
+<li>Would this fall have happened in the absence of terrorism?</li>
+</ul></li>
+</ul>
+<p>Problem: We can’t observe the counterfactual. We can’t go back in time to manipulate the experience of terrorism.</p>
+<section id="applying-3-identification-strategies" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="applying-3-identification-strategies"><span class="header-section-number">5.4.1</span> Applying 3 Identification Strategies</h3>
+<ul>
+<li>Compare Basque to others after 1973 (Cross-section comparison)</li>
+<li>Compare Basque before and after 1973 (Before-and-after)</li>
+<li>Compare others before and after 1973 and subtract the difference from Basque’s difference (Difference-in-differences)</li>
+</ul>
+<p>For a video explainer of the code for this application, see below. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/E4PqZgcv5IQ" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>basque <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"basque.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(basque)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     region year   gdpcap
+1 Andalucia 1955 1.688732
+2 Andalucia 1956 1.758498
+3 Andalucia 1957 1.827621
+4 Andalucia 1958 1.852756
+5 Andalucia 1959 1.878035
+6 Andalucia 1960 2.010140</code></pre>
+</div>
+</div>
+<p>Variables</p>
+<ul>
+<li><code>region</code>: 17 regions including Basque</li>
+<li><code>year</code>: 1955 – 1997</li>
+<li><code>gdpcap</code>: real GDP per capita (in 1986 USD, thousands)</li>
+</ul>
+<p>Subset Basque Data into Four Groups</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Basque before terrorism</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>basqueBefore <span class="ot">&lt;-</span> <span class="fu">subset</span>(basque, (year <span class="sc">&lt;</span> <span class="dv">1973</span>) <span class="sc">&amp;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                            (region <span class="sc">==</span> <span class="st">"Basque Country"</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Basque after terrorism</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>basqueAfter <span class="ot">&lt;-</span> <span class="fu">subset</span>(basque, (year <span class="sc">&gt;=</span> <span class="dv">1973</span>) <span class="sc">&amp;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                           (region <span class="sc">==</span> <span class="st">"Basque Country"</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## others before terrorism</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>othersBefore <span class="ot">&lt;-</span> <span class="fu">subset</span>(basque, (year <span class="sc">&lt;</span> <span class="dv">1973</span>) <span class="sc">&amp;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                            (region <span class="sc">!=</span> <span class="st">"Basque Country"</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">## others after terrorism</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>othersAfter <span class="ot">&lt;-</span> <span class="fu">subset</span>(basque, (year <span class="sc">&gt;=</span> <span class="dv">1973</span>) <span class="sc">&amp;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                           (region <span class="sc">!=</span> <span class="st">"Basque Country"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is the economic impact of terrorism?</p>
+<p>Cross-section comparison</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(basqueAfter<span class="sc">$</span>gdpcap) <span class="sc">-</span> <span class="fu">mean</span>(othersAfter<span class="sc">$</span>gdpcap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.132917</code></pre>
+</div>
+</div>
+<p>Before-and-after design</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(basqueAfter<span class="sc">$</span>gdpcap) <span class="sc">-</span> <span class="fu">mean</span>(basqueBefore<span class="sc">$</span>gdpcap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.678146</code></pre>
+</div>
+</div>
+<p>Difference-in-Differences design</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>treatDiff <span class="ot">&lt;-</span> <span class="fu">mean</span>(basqueAfter<span class="sc">$</span>gdpcap) <span class="sc">-</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(basqueBefore<span class="sc">$</span>gdpcap)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>controlDiff <span class="ot">&lt;-</span> <span class="fu">mean</span>(othersAfter<span class="sc">$</span>gdpcap) <span class="sc">-</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(othersBefore<span class="sc">$</span>gdpcap)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>treatDiff <span class="sc">-</span> controlDiff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.48316</code></pre>
+</div>
+</div>
+<p>Here is a way to visualize this difference-in-differences. Our estimated causal effect is the difference between the observed post-1973 economy in the Basque region <code>mean(basqueAfter$gdpcap)</code> and what we assume the economy <strong>would have been</strong> in the absence of terrorism (the treatment) using the dotted line– adding the control group’s trajectory to the pre-1973 Basque economy <code>(mean(basqueBefore$gdpcap) + controlDiff)</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-Causalityii_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What should we conclude from each approach?</p>
+<ul>
+<li>Each approach resulted in a different estimate of the impact of terrorism on the economy. We should choose the approach for which we think the underlying assumptions are most plausible.</li>
+</ul>
+</section>
+</section>
+<section id="placebo-tests" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="placebo-tests"><span class="header-section-number">5.5</span> Placebo Tests</h2>
+<p>Which Results Should We Believe? Role of Placebo Tests</p>
+<p>Cross-section comparison</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## were there pre-existing differences between the groups?</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(basqueBefore<span class="sc">$</span>gdpcap) <span class="sc">-</span> <span class="fu">mean</span>(othersBefore<span class="sc">$</span>gdpcap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.616077</code></pre>
+</div>
+</div>
+<p>Before-and-After design</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## was there a change in a group we don't think should have changed?</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(othersAfter<span class="sc">$</span>gdpcap) <span class="sc">-</span> <span class="fu">mean</span>(othersBefore<span class="sc">$</span>gdpcap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.161306</code></pre>
+</div>
+</div>
+<p>What about the Difference-in-Differences design?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## here we go back in time even further to examine "pre-treatment" trends</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="do">## we want them to be similar</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>(basqueBefore<span class="sc">$</span>gdpcap[basqueBefore<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1972</span>] <span class="sc">-</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a> basqueBefore<span class="sc">$</span>gdpcap[basqueBefore<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1955</span>]) <span class="sc">-</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">mean</span>(othersBefore<span class="sc">$</span>gdpcap[othersBefore<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1972</span>]) <span class="sc">-</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">mean</span>(othersBefore<span class="sc">$</span>gdpcap[othersBefore<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1955</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07147071</code></pre>
+</div>
+</div>
+<p>These “placebo” checks are closest to zero for diff-in-diff, so we may believe that the most.</p>
+<p><em>Thanks to Will Lowe and QSS for providing the foundations for this example</em></p>
+</section>
+<section id="wrapping-up-causality" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="wrapping-up-causality"><span class="header-section-number">5.6</span> Wrapping Up Causality</h2>
+<p>Do you get this joke?</p>
+<p><img src="images/causality-cartoon.png" class="img-fluid"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-Visualization.html" class="pagination-link" aria-label="Visualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualization</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

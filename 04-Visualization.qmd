@@ -537,6 +537,319 @@ While the original article was retracted
 
 
 
+
+
+
+## Line Plots
+
+In this application, we will create a line plot in R. Line plots are built very similarly to scatterplots. We provide R an input of values for the x-axis and corresponding values on the y-axis.
+
+For example, if we wanted to plot the US life expectancy for the past few years from 2018-2023 from , we could do the following based on data from the National Center for Health Statistics https://www.cdc.gov/nchs/fastats/life-expectancy.htm:
+
+```{r}
+years <- c(2018, 2019, 2020, 2021, 2022, 2023)
+yvalues <- c(78.7, 78.8, 77, 76.4, 77.5, 78.4)
+
+## Key to making this a line plot is type="l"
+plot(x=years,
+     y=yvalues,
+     type="l",
+     main="US Life Expectancy by year",
+     xlab = "Year",
+     ylab = "Life Expectancy at birth",
+     las=2 ) # orientation of axis labels
+```
+
+```{r}
+## Alternate approach is to customize axis
+plot(x=1:6,
+     y=yvalues,
+     type="l",
+     main="US Life Expectancy by year",
+     xlab = "Year",
+     ylab = "Life Expectancy at birth",
+     las=2, # orientation of axis labels
+     xaxt="n") # remove original axis
+axis(1, at=1:6, labels = years) # label points only at relevant ticks
+```
+
+The two vectors of values may come from variables in your data or may come from calculations you make using those variables.
+
+Let's do a more complex example and break this down step by step.
+
+## Application: Trends during COVID
+
+Since the onset of the pandemic in 2020, researchers have evaluated attitudinal and behavioral responses to policy changes, political messages, and COVID case/hospitalization/death rates.
+
+-   Survey data on attitudes and self-reported behavior
+-   Health care provider administrative data
+-   Mobile phone data to track locations
+-   Social media data to track attitudes and mobility
+
+***Example: Using Survey data from over 1.1 million responses*** to measure concern about the coronavirus over time.
+
+-   Clinton, Joshua, et al. "[Partisan pandemic: How partisanship and public health concerns affect individuals' social mobility during COVID-19](https://www.science.org/doi/10.1126/sciadv.abd7204)." Science advances 7.2 (2021): eabd7204.
+
+![](images/covidsurvey.png)
+
+***Example: Using the geotracking data of 15 million smartphones*** per day to compute percentage reduction in general movement and visiting non-essential services relative to before COVID-19 (before March 9).
+
+-   Gollwitzer, Anton, et al. "[Partisan differences in physical distancing are linked to health outcomes during the COVID-19 pandemic](https://www.nature.com/articles/s41562-020-00977-7)." Nature human behaviour 4.11 (2020): 1186-1197.
+
+![](images/covidphone.png)
+
+
+
+***Example: Using Twitter geolocation data*** to track how much movement users have by looking at the distances from all locations where a given user has tweeted.
+
+-   Paiheng Xu, Mark Dredze, David A Broniatowski. "[The Twitter Social Mobility Index: Measuring Social Distancing Practices from Geolocated Tweets](https://socialmobility.covid19dataresources.org/)." Journal of Medical Internet Research (JMIR), 2020.
+
+![](images/covidtwitter.png)
+
+
+
+We will use the Twitter social mobility index to study how the movement of geo-located Twitter users changed from 2019 into April 2022.
+
+-   We will compare this movement for users located in the Northeast vs. South
+
+Each row of the dataset represents a week of the year. Each column represents a particular geography for which social mobility was calculated by the researchers.
+
+-   `Dates` indicates the date
+-   `Northeast`: social mobility data for those in the northeast of the U.S.
+-   `South`: social mobility data for those in the south of the U.S.
+
+```{r}
+## Load the data from the author Mark Dredze's website
+covid <- read.csv("https://raw.githubusercontent.com/mdredze/covid19_social_mobility.github.io/master/data/longitudinal_compiled.csv")
+```
+
+Just like we have encountered numeric, factor, and character variables, R also has the ability to treat variables specifically as dates. We will want R to treat the date variable we read in as a date, and not as raw text or some other variable type. To do this, we will use the `as.Date` function.
+
+```{r}
+## Date variable original format and class
+range(covid$Dates)
+head(covid$Dates)
+class(covid$Dates)
+
+## Convert to class Date
+covid$Dates <- as.Date(covid$Date)
+head(covid$Dates)
+class(covid$Dates)
+```
+
+The researchers continue to add to these data. Let's look at the portion of data from 2019 to April 2022.
+
+-   Note the use of `as.Date` again to make sure R knows our text should be treated as a date
+-   Note the use of the greater than or equal to `>=` and less than or equal signs `<=` to specify which rows we want to keep in the data. We want rows that are in dates after January 1, 2019 and (`&`) on or before April 25, 2022.
+
+```{r}
+covidsub <- subset(covid, Dates >= as.Date("2019-01-01") &
+                     Dates <= as.Date("2022-04-25"))
+```
+
+These data are collected by week. That is very detailed. While that may be useful, let us create another variable that contains just the month and year, which will allow us to calculate the average per month. With a date variable, we can use the `format` function to change the format to just year and month.
+
+```{r}
+covidsub$monthyear <- format(covidsub$Dates, "%Y-%m")
+range(covidsub$monthyear)
+```
+
+Where we are going ...
+
+```{r, echo=F}
+mobilitybymonthNE <- tapply(covidsub$Northeast, covidsub$monthyear, mean,
+                          na.rm=T)
+
+mobilitybymonthSO <- tapply(covidsub$South, covidsub$monthyear, mean,
+                          na.rm=T)
+
+plot(x=1:length(mobilitybymonthNE),y=mobilitybymonthNE,
+     type="l", pch=15,
+     main="Avg. Social Mobility by Month and Region",
+     ylab="Twitter Social Mobility Index",
+     xlab="",
+     ylim = c(0, 80), las=1,
+     lwd=2,
+     bty="n",
+     xaxt="n")
+lines(x=1:length(mobilitybymonthSO),y=mobilitybymonthSO, col="red3", lwd=2)
+axis(1, at = 1:length(mobilitybymonthNE), 
+     labels= names(mobilitybymonthNE), 
+     las=2, cex.axis=.7)
+legend("bottomleft",  col=c("red3", "black"), 
+       c("South", "Northeast"), cex = .7, lty=1,lwd=2,
+       bty="n")
+```
+
+Starting from basics ... 
+
+-   Let's first create a scatterplot by providing R with our two variables
+-   In a trend/line plot, we want each month on the x-axis
+-   We want our outcome on the y-axis, in this case, average social mobility by month
+-   Ultimately we will want to compare the Northeast with the South. We will plot one line at a time, starting with the Northeast
+
+We first need to find the average by month. Recall our `tapply()` function.
+
+```{r}
+mobilitybymonthNE <- tapply(covidsub$Northeast, covidsub$monthyear, mean,
+                          na.rm=T)
+
+mobilitybymonthSO <- tapply(covidsub$South, covidsub$monthyear, mean,
+                          na.rm=T)
+```
+
+Let's look at the output for the Northeast. Each value is what we ultimately want on the y-axis-- the average social mobility in a given month.
+
+```{r}
+mobilitybymonthNE
+```
+
+We want to plot them each at their own point on the x-axis, from the first month to the last month. We can start by creating a vector of the same length as we have months:
+
+```{r}
+1:length(mobilitybymonthNE)
+```
+
+These become our two inputs in the plot.
+
+```{r}
+plot(x=1:length(mobilitybymonthNE),
+     y=mobilitybymonthNE, pch=16) # pch is point type
+```
+
+We now transform it to a line by specifying `type="l"`
+
+-   By default, R creates a plot with `type=p` for points. R also has `type=b` which has both a line and points.
+
+```{r}
+plot(x=1:length(mobilitybymonthNE),
+     y=mobilitybymonthNE, type="l") # makes it a line
+```
+
+Let us change the aesthetics a bit by adding labels and removing the border with `bty="n"`.
+
+```{r}
+plot(x=1:length(mobilitybymonthNE),
+     y=mobilitybymonthNE,
+     type="l", 
+     main="Social Mobility by Month and Region",
+     ylab="Twitter Social Mobility Index",
+     xlab="",
+     ylim = c(0, 80), # y-axis limits
+     las=1, # orientation of axis labels
+     lwd=2, # line width
+     bty="n") # removes border
+```
+
+Let's add a comparison line with the `lines()` function to look at trends for the south.
+
+-   Note that this is outside of the `plot()` function, but the inputs are very similar. We supply a set of x and y coordindates.
+
+```{r}
+plot(x=1:length(mobilitybymonthNE),
+     y=mobilitybymonthNE,
+     type="l", 
+     main="Social Mobility by Month and Region",
+     ylab="Twitter Social Mobility Index",
+     xlab="",
+     ylim = c(0, 80), # y-axis limits
+     las=1, # orientation of axis labels
+     lwd=2, # line width
+     bty="n") # removes border
+## Add line to the plot 
+lines(x=1:length(mobilitybymonthSO),
+     y=mobilitybymonthSO, col="red3", lwd=2)
+```
+
+Let's create our own axis for the plot to add detail. To do this, we add `xaxt` to the `plot` function and then use `axis()` below the function.
+
+The labels we will add are the actual months in the data. These happen to be the labels or `names` of our vectors:
+
+```{r}
+names(mobilitybymonthNE)
+```
+
+```{r}
+plot(x=1:length(mobilitybymonthNE),
+     y=mobilitybymonthNE,
+     type="l", 
+     main="Social Mobility by Month and Region",
+     ylab="Twitter Social Mobility Index",
+     xlab="",
+     ylim = c(0, 80),
+     las=1, 
+     lwd=2, 
+     bty="n",
+     xaxt="n") # removes original x-axis
+## Add line to the plot 
+lines(x=1:length(mobilitybymonthSO),
+     y=mobilitybymonthSO, col="red3", lwd=2)
+## add the axis the "1" means x-axis. A "2" would create a y-axis
+axis(1, at = 1:length(mobilitybymonthNE), 
+     labels=names(mobilitybymonthNE), las=2)
+```
+
+Finally, let's add a `legend()`. Now we're here!
+
+```{r}
+plot(x=1:length(mobilitybymonthNE),
+     y=mobilitybymonthNE,
+     type="l", 
+     main="Social Mobility by Month and Region",
+     ylab="Twitter Social Mobility Index",
+     xlab="",
+     ylim = c(0, 80),
+     las=1, 
+     lwd=2, 
+     bty="n",
+     xaxt="n") # removes original x-axis
+## Add line to the plot 
+lines(x=1:length(mobilitybymonthSO),
+     y=mobilitybymonthSO, col="red3", lwd=2)
+## add the axis the "1" means x-axis. A "2" would create a y-axis
+axis(1, at = 1:length(mobilitybymonthNE), 
+     labels=names(mobilitybymonthNE), las=2)
+
+## Add legend, "bottomleft" indicates where on the plot to locate it
+## Could use "topright" instead, for example
+legend("bottomleft",  col=c("red3", "black"), 
+       c("South", "Northeast"), 
+       cex = .7, # size of legend
+       lwd=2,
+       bty="n")
+```
+
+## Visual tips and tricks
+
+Recall we said the goals of visualization are to communicate information
+
+-   Transparently (show me the data!)
+-   Quickly
+-   Simply
+-   Accurately
+-   And with a little work: beautifully
+
+What NOT to communicate?
+
+![](images/honestrunway.jpeg){width="70%"}
+
+
+
+Claus Wilke provides an overview of rules of thumb to fall when creating a data visualization on the Serial Mentor [website](https://serialmentor.com/dataviz/).
+
+An example is below
+
+![](images/ugbadwrong.png)
+
+
+
+Overall, the best thing to do is to look at your visual from a consumer's [point of view](https://www.youtube.com/watch?v=nQJEp-k-ogs&ab_channel=ArianaGrandeVevo). You want your visuals to be intuitive enough for a viewer to be able to interpret it without too much help from you or explanatory text elsewhere in a paper or presentation. Our goal is to help consumers of our data understand the main takeaways of our research easily and accurately.
+
+-   We want to make sure our visuals always have informative labels that a lay person can understand (instead of technical variable names, we can use plain language)
+    -   We may need to add a legend or additional text to a visual to help with this
+-   We want to choose colors to convey information. We want to avoid colors that are hard to see or might distract consumers.
+-   The axis dimensions should not be misleading. If the goal is to compare two or more plots to each other, we would want them to have similar axes, for example.
+
 ## Common R plotting functions and arguments
 
 Here is a refresher of several of the functions and arguments we have come across.
@@ -641,4 +954,42 @@ ggplot(data=status, mapping = aes(x=condition, y=econcon, fill=conditionnew)) +
   theme(legend.position="bottom")
 ggsave("myboxplot.pdf", width=7, height=5)
 
+```
+
+Here is an example of a histogram from the application on views toward gay couples.
+
+```{r}
+ggplot(controlonly, aes(x=therm1)) +
+  geom_histogram(binwidth = 1) +
+  ggtitle("W1 Histogram") +
+  theme_minimal()
+```
+
+Instead of displaying multiple categories through different shapes or colors, we could also create multiple mini plots instead. This is done through `facet`. Let's look at a histogram for each condition for the thermometers in wave 2.
+
+```{r}
+ggplot(marriage1, aes(x=therm2)) +
+  geom_histogram(binwidth = 1) +
+  ggtitle("W2 Histogram by Condition") +
+  xlab("Feeling Thermometer Wave 2")+
+  theme_bw()+
+  facet_wrap(~treatmentnew)
+```
+
+We can similarly create a scatter and line plot. Let's use the social mobility data. Here we see `geom_point` and `geom_line`.
+
+```{r}
+## Scatterplot
+ggplot(covidsub, aes(x=Dates, y=avg_USA)) +
+  geom_point() +
+  ggtitle("Average Social Mobility in US") +
+  xlab("Date")+
+  ylab("Avg Social Mobility")
+
+## Line plot
+ggplot(covidsub, aes(x=Dates, y=avg_USA)) +
+  geom_line() +
+  ggtitle("Average Social Mobility in US") +
+  xlab("Date")+
+  ylab("Avg Social Mobility")
 ```

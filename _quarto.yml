@@ -11,6 +11,7 @@ book:
     - 02-Description.qmd
     - 03-CausalityI.qmd
     - 04-Visualization.qmd
+    - 05-Causalityii.qmd
   page-navigation: true
   sidebar:
     style: docked

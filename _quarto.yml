@@ -12,6 +12,7 @@ book:
     - 03-CausalityI.qmd
     - 04-Visualization.qmd
     - 05-Causalityii.qmd
+    - 06-Loops.qmd
   page-navigation: true
   sidebar:
     style: docked

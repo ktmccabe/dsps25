@@ -1,0 +1,514 @@
+# Loops in R {#loops}
+
+In this brief section, we will go over conducting loops in R.
+
+Loops are a tool in R that are useful for situations where we want to do something over and over and over and ... over again, where we just change something small each time.
+
+A quick example using the Basque data from the previous section:
+
+```{r, include=F}
+basque <- read.csv("data/basque.csv", stringsAsFactors = T)
+```
+
+```{r, eval=FALSE}
+basque <- read.csv("basque.csv", stringsAsFactors = T)
+```
+
+Let's say I wanted to know the GDP for each region for the earliest year they are in the data.
+
+```{r}
+regionsubset <- subset(basque, region == "Andalucia")
+regionsubset$gdpcap[regionsubset$year == min(regionsubset$year)]
+
+## Repeat for a new region
+regionsubset <- subset(basque, region == "Aragon")
+regionsubset$gdpcap[regionsubset$year == min(regionsubset$year)]
+
+## Repeat for a new region
+regionsubset <- subset(basque, region == "Baleares")
+regionsubset$gdpcap[regionsubset$year == min(regionsubset$year)]
+```
+
+Ughhh can we automate this? we have 17 regions!!!
+
+```{r}
+unique(basque$region)
+```
+
+Where we will be going by the end of this section:
+
+```{r}
+gdpminyear <- rep(NA, 17) # empty "container" vector
+regions <- unique(basque$region) # what we iterate through
+names(gdpminyear) <- unique(basque$region) # labels for our output
+
+for(i in 1:17){
+  regionsubset <- subset(basque, region == regions[i])
+  gdpminyear[i] <- regionsubset$gdpcap[regionsubset$year == 
+                                         min(regionsubset$year)]
+}
+head(gdpminyear) # output
+```
+
+We got all of the answers with just one chunk of code!
+
+## The anatomy of a loop
+
+*A short video introduction to the anatomy of a loop* {{< video src="https://www.youtube.com/watch?v=RDsnhVpM1To" >}}
+
+In many situations, we want to repeat the same calculations with different inputs. Loops allow you to avoid writing many similar code chunks.
+
+-   The function `for(i in X){}}` will create a loop in your programming code where `i` is a counter and
+-   `X` is a placeholder for a vector for the possible values of the counter.
+
+We use the following syntax:
+
+`for (i in X) {`
+
+`command1...`
+
+`command2...`
+
+`...`
+
+`}`
+
+to indicate we want to repeat command1 and command2 and .... as many commands as we want, for each `i` in the set of possible values for `i` stored in `X`.
+
+### The key parts of a loop
+
+The meat: the command or set of commands you want to do over and over.
+
+```{r}
+## the meat
+result <- 6 + 2
+result <- 8 + 2
+result <- 4 + 2
+result <- 7 + 2
+result <- 11 + 2
+```
+
+Note the pattern: we take some number and + 2 each time.
+
+-   It is the number that is changing -\> what we will iterate.
+
+For a loop, you want to:
+
+1.  The Meat: Write down the code for one version.
+
+```{r}
+result <- 6 + 2
+```
+
+2.  The Bread: Embed this code in the loop syntax (`for(i in X){}`)
+
+```{r, eval=F}
+for(i in X){
+    result <- 6 + 2
+    }
+```
+
+3.  Create a vector that contains the values you want to loop through
+
+```{r}
+somenumbers <- c(6, 8, 4, 7, 11)
+```
+
+4.  Create a storage vector that will contain the results
+
+```{r}
+result <- rep(NA, length(somenumbers))
+```
+
+5.  Modify the meat and bread to iterate by using `[i]`, and replace `X`.
+
+```{r}
+for(i in 1:length(somenumbers)){
+  result[i] <- somenumbers[i] + 2
+}
+```
+
+```         
+  where `1:length(somenumbers)` reflects possible values `i` will take 
+```
+
+```{r}
+1:length(somenumbers)
+```
+
+### A short example
+
+Let's put these parts together:
+
+Suppose we want to add 2 to a set of numbers `c(6, 8, 4, 7, 11)`
+
+```{r}
+somenumbers <- c(6, 8, 4, 7, 11) # iteration vector
+result <- rep(NA, length(somenumbers)) # container vector
+
+for(i in 1:length(somenumbers)){
+  result[i] <- somenumbers[i] + 2
+}
+result
+```
+
+How does this work? Every iteration, the value of i changes.
+
+-   For example, when `i` is 1, we take the first value in our `somenumbers` vector `somenumbers[1]`, add 2 to it, and store it in the first position of our container vector `result[1]`. When `i` is 2, we switch the number in the brackets to 2, corresponding to the second entry in each vector, and so on.
+
+```{r}
+# Suppose i is 1
+result[1] <- somenumbers[1] + 2
+result[1]
+
+# Suppose i is 2
+result[2] <- somenumbers[2] + 2
+result[2]
+
+# Suppose i is 3
+result[3] <- somenumbers[3] + 2
+result[3]
+```
+
+### Troubleshooting a loop
+
+The inside part of the loop should run if we set `i` to a particular value.
+
+```{r}
+i <- 1
+result[i] <- somenumbers[i] + 2
+```
+
+If you get an error here, there is something wrong with the meat! (and not necessarily the loop)
+
+```{r}
+result[i]
+```
+
+For example, if we had a typo, we'd get an error. Try running the below!
+
+```{r, eval=F}
+i <- 1
+result[i] <- somenumberz[i] + 2
+```
+
+### Your turn
+
+Using a loop, for each value in our poll results, add 10 and divide by 100. Store in a vector called `adjustedpollresults`.
+
+```{r}
+pollresults <- c(70, 40, 45, 60, 43, 80, 23)
+```
+
+Remember the steps:
+
+1.  The Meat: Write down the code for one version.
+2.  The Bread: Embed this code in the loop syntax (`for(i in X){}`)
+3.  Create a vector that contains the values you want to loop through (here it's `pollresults`)
+4.  Create a storage vector that will contain the results (here it's `adjustedpollresults`)
+5.  Modify the meat and bread to iterate by using `[i]` and replace `X`.
+
+<details>
+
+<summary>Try on your own, then expand for the solution.</summary>
+
+```{r}
+pollresults <- c(70, 40, 45, 60, 43, 80, 23)
+adjustedpollresults <- rep(NA, length(pollresults))
+
+for(i in 1:length(pollresults)){
+  adjustedpollresults[i] <- (pollresults[i] + 10)/100 
+}
+adjustedpollresults
+```
+
+</details>
+
+## Application: U.S. Supreme Court
+
+*A video explainer of the loop in this section using a similar dataset that goes through 2020. We now have data going through 2023!* {{< video src="https://www.youtube.com/watch?v=Ij9YWgUQg_s" >}}
+
+The Court has changed a lot recently in its composition (and will continue to do so).
+
+<center>![](images/sccourt6.jpeg){width="40%"} ![](images/sccourt.jpg){width="35%"}</center>
+
+<center>![](images/sccourt5.jpeg){width="40%"}</center>
+
+<center>![](images/sc24.jpg){width="40%"}</center>
+
+Ideology on the U.S. Supreme Court over the past decade:
+
+-   With Justice Anthony Kennedy out, Kavanaugh in, did the Court have a Conservative shift?
+-   What about with the death of Ruth Bader Ginsburg and confirmation of Amy Coney Barrett?
+-   What about with the introduction of Justice Kentanji Brown Jackson?
+
+Many people predicted it would. See this [FiveThirtyEight article](https://fivethirtyeight.com/features/how-kavanaugh-will-change-the-supreme-court/) as an example. The graph from the article shows Kavanaugh's predicted ideology.
+
+![](images/kav.png){width="50%"}
+
+![](images/kavcourt.png)
+
+We will explore how the Court has changed ideologically, with a focus on how the location of the median U.S. Supreme Court Justice shifted over time.
+
+Why does the median matter? A refresher on the Court
+
+-   President nominates the justice. Senate must confirm.
+-   Justices serve lifetime appointments.
+-   Trump nominated Gorsuch, following Scalia death, confirmed 2017.
+-   Trump nominated Kavanaugh, following Kennedy retirement, confirmed 2018.
+-   The Court typically has 9 justices, so whichever justice is the median in terms of ideology, can act as the "swing" vote in cases where the Court is divided
+    -   Anthony Kennedy was often the "swing" justice for a decade.
+-   With Kennedy out, the prediction was that the Court would return to similar balance as when O'Connor was the median.
+-   In 2020, Ruth Bader Ginsburg died and Amy Coney Barrett was confirmed to Court late that year, likely shifting the Court again.
+-   We don't yet have a lot of data on changes to the Court that have come about since Justice Ketanji Brown Jackson was confirmed following the retirement of Justice Breyer, but we can examine changes to the court median through 2023.
+
+Let's load and explore our data.
+
+-   `term`: is the year of the SC (1991-2023 except for 2005),
+-   `justiceName`: contains the name of the Justice, and\
+-   `post_mn`: includes the "ideal point"-- this is the estimated ideology
+
+Martin-Quinn Scores assess ideology based on how judges "cluster" together in their voting patterns. Every Justice gets an ideology score, and this score can change each SC term (year) they are on the Court. Higher scores are more conservative justices, and lower, more liberal. More information is available at the [MQScores website](http://mqscores.lsa.umich.edu/measures.php)
+
+```{r, include=F}
+justices <- read.csv("data/justices25.csv", stringsAsFactors = T)
+```
+
+```{r, eval=F}
+justices <- read.csv("justices25.csv", stringsAsFactors = T)
+
+## alternative
+justices <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/justices25.csv", stringsAsFactors = T)
+```
+
+We are going to make the name variable a character class. This will make R treat the names as raw text rather than valued categories. This will be useful later on in the application.
+
+```{r}
+## justice Name as character
+justices$justiceName <- as.character(justices$justiceName)
+```
+
+We can use `tapply()` to see the median "ideal point" (ideology score) each term in our data.
+
+```{r}
+## Note: we use tapply like before but replace mean with median
+medians <- tapply(justices$post_mn, justices$term, median)
+
+plot(x =names(medians),
+     y= medians, 
+    ylim = c(-.4, 1),
+     type = "b",
+    cex=1.5,
+     ylab="Conservatism",
+     xlab="Term",
+     main="Median of US Supreme Court over Time")
+```
+
+We see a conservative shift at the end of the plot. However, we cannot tell from this specific data result whether this represents a shift within a particular justice's ideology or a shift in which justice has become the median, due perhaps, to the change in the Court's composition.
+
+***We need to find which justice is the median!***
+
+Loops to the rescue!
+
+We will start our process by defining the meat of the operation.
+
+-   We want to find the median SC Justice for each term. To get started, let's pretend we only have to find the median Supreme Court Justice for one term.
+
+```{r}
+SCterms <- sort(unique(justices$term))
+SCterms
+```
+
+Note that where you have a vector where some entries in the vector are repeated (such as terms on the Supreme Court), you can extract the unique elements of that vector using the `unique()` function. You can also `sort()` them in numeric or alphabetical order. This won't be necessary most times.
+
+First, let's think about how we would do this for just one of the Supreme Court terms. Well we would first subset our data frame to contain only that one Supreme Court term.
+
+```{r}
+## Example for the first term
+SCterms[1]
+
+## Subset data to include only rows from 1991
+subterm <- subset(justices, term == 1991)
+```
+
+Then, we would take the median of these ideal points
+
+```{r}
+median.ip <- median(subterm$post_mn)
+```
+
+Finally, we would figure out which justice has this median.
+
+```{r}
+result <- subterm$justiceName[subterm$post_mn == median.ip]
+result
+```
+
+Now let's put it into our loop syntax
+
+```{r, eval=F}
+# for(i  in . . . ){
+#  subterm <- subset(justices, term == 1991)
+#  median.ip <- median(subterm$post_mn)
+#  result <- subterm$justiceName[subterm$post_mn == median.ip]
+#}
+```
+
+Now, we need our container vector and iteration vectors.
+
+```{r}
+SCterms <- sort(unique(justices$term))
+results <- rep(NA, length(SCterms))
+names(results) <- SCterms
+```
+
+Finally, we would modify our loop syntax with `i` and `[i]`
+
+```{r}
+for(i  in 1:length(SCterms)){
+  subterm <- subset(justices, term == SCterms[i])
+  median.ip <- median(subterm$post_mn)
+  results[i] <- subterm$justiceName[subterm$post_mn == median.ip]
+}
+```
+
+Did it work?
+
+```{r}
+results
+```
+
+Our evidence aligns with others:
+
+![](images/sccourt2.png)
+
+### Troubleshooting the loop
+
+Recall, the inside part of the loop should run if we set `i` to a particular value.
+
+```{r}
+  i <- 1
+  subterm <- subset(justices, term == SCterms[i])
+  median.ip <- median(subterm$post_mn)
+  results[i] <- subterm$justiceName[subterm$post_mn == median.ip]
+  
+  results[i]
+```
+
+We are in good shape! If we had a typo, we'd get an error message there, and that would be a sign that we need to work on the inside part of the code before putting it back into the loop structure.
+
+### Visualizing the Results
+
+To get a bit more practice with plots, let's visualize the results and make our interpretations.
+
+```{r}
+medians <- tapply(justices$post_mn, justices$term, median)
+plot(x =names(medians),
+     y= medians, 
+     ylim = c(-.4, 1),
+     type = "b",
+     cex=1.5,
+     ylab="Conservatism",
+     xlab="Term",
+     main="Median of US Supreme Court over Time")
+
+## Add the names to the plot
+## Note: we want to make sure medians and results are in the same order for this to work
+text(x=names(results), y=(medians - .14), labels=results, cex=.35)
+```
+
+We have now used the `text()` function. Similar to plot, the `text()` takes a set of x and y coordinates that tells R the location of where you want to add a piece(s) of text to the plot. The third input is the actual text.
+
+Why did the Court shift more conservative at the end of the time trend?
+
+-   Well we see that Justice Roberts and then Justice Kavanaugh became the median!
+
+![[FiveThirtyEight](https://fivethirtyeight.com/features/the-supreme-courts-conservative-supermajority-is-just-beginning-to-flex-its-muscles)](images/sccourt3.png)
+
+As [FiveThirtyEight](https://fivethirtyeight.com/features/roberts-is-the-new-swing-justice-that-doesnt-mean-hes-becoming-more-liberal/) notes, just because Justice Roberts is the new median, does not mean he has become more liberal. The Court composition is shifting, and the MQ scores also depend on the issues being heard before the Court.
+
+![](images/sccourt.png)
+
+Recall, the Martin-Quinn scores measure justice ideology based on voting patterns. What are the strengths and weaknesses of using this type of information to score the ideology of a justice?
+
+### Enhancing the plot
+
+Let's make the plot more beautiful by color coding.
+
+```{r}
+medians <- tapply(justices$post_mn, justices$term, median)
+plot(x =names(medians),
+     y= medians, 
+     ylim = c(-.4, 1),
+     type = "b",
+     ylab="Conservatism",
+     xlab="Term",
+     main="Median of US Supreme Court over Time",
+     xaxt="n", ## removes the x-axis
+     las=1)
+
+## Adds text
+text(x=names(results), y=(medians - .14), results, cex=.35)
+
+## Adds color-coded points on top of existing points
+points(x =names(medians),
+     y= medians,
+     
+     ## Adds colors according to how results is coded
+     col= ifelse(results == "AMKennedy", "orange", 
+                 ifelse(results =="SDOConnor", "light blue", 
+                        ifelse(results == "JGRoberts", "purple",
+                        "red3"))), 
+     pch=15, # point type- squares 
+     cex=1.5) # size of points
+
+## Adds custom x-axis at the specific years included in names(medians)
+axis(1, names(medians), cex.axis=.6)
+```
+
+We have used the `points()` function. This adds an additional layer of points to a plot. It works much like the `plot` function in that in takes a set of x and y coordinates.
+
+We could change the look of the plot even more by adding a legend and altering the borders and look of the plot.
+
+```{r, warning=F}
+medians <- tapply(justices$post_mn, justices$term, median)
+plot(x =names(medians),
+     y= medians, 
+     ylim = c(-.4, 1),
+     type = "b",
+     ylab="Conservatism",
+     xlab="Term",
+     main="Median of US Supreme Court over Time",
+     xaxt="n", # removes x axis
+     las=1, # changes the orientation of the axis labels
+     lwd=2, # increases the thickness of the lines
+     tick=F, # removes the tick marks from the axis
+     bty="n") # removes the plot border
+
+## adds horizontal dashed gray lines
+abline(h=seq(-.4, 1, .2), lty=2, col="light gray")
+
+## Adds a legend
+legend("bottomleft", pch=15, col = c("orange", "light blue", "purple", "red3"),
+       c("Kennedy", "O'Connor", "Roberts", "Kavanaugh"), bty="n")
+
+## Adds the color-coded points
+points(x =names(medians), y= medians,
+          col= ifelse(results == "AMKennedy", "orange", 
+                 ifelse(results =="SDOConnor", "light blue", 
+                        ifelse(results == "JGRoberts", "purple",
+                        "red3"))), 
+     pch=15, cex=2)
+
+## Adds our custom x-axis
+axis(1, names(medians), cex.axis=.6, tick=F)
+```
+
+### Wrapping Up
+
+We have calculated and visualized how the median U.S. Supreme Court Justice and Justice's ideology has changed over the past three decades.
+
+-   This gave us additional practice with loops and visualization
+-   We also gained exposure to an example of how political scientists take a large amount of information-- votes on all Supreme Court cases-- and try to summarize it using a single number that represents how liberal or conservative a justice is
+
+This type of information can be used for many social science goals: 1) To describe trends in the Court 2) To help explain why the Court has voted a particular way on recent cases 3) To predict how the Court will vote in the future as new justices arrive.

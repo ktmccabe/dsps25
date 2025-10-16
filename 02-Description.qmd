@@ -76,7 +76,6 @@ We can extract a particular value within our vector using brackets and the value
 Outcome[10] # what value is in the 10th position?
 ```
 
-
 We can overwrite whole vectors or values within a vector
 
 ```{r}
@@ -160,14 +159,13 @@ Note that the below is also equivalent to the mean
 sumofvalues / numberofvalues
 ```
 
-
 ## Combining vectors into a dataframe
 
 When we know multiple things about a person (or any type of "unit"), it can be helpful to organize them so it is easier to access all of the information from the same place. This will take us to our first experience working with "dataframes," a type of rectangular data object.
 
 We will first manually create a dataframe, and in future sections, we will load pre-existing datasets as dataframe objects.
 
-We can use the `data.frame(tag = value)` function to create a rectangular dataset by supplying multiple labels or "tags," followed by a vector of the values associated with those tags. The tags become the column names of the dataframe. 
+We can use the `data.frame(tag = value)` function to create a rectangular dataset by supplying multiple labels or "tags," followed by a vector of the values associated with those tags. The tags become the column names of the dataframe.
 
 This is easiest to understand when you see it in practice. We will supply the tags "Outcome" and "People" as column names, and for each, the vectors containing the values.
 
@@ -180,9 +178,7 @@ surveyresults <- data.frame(Outcome = c(0,0,0,0,1,1,0,1,0,1),
 surveyresults
 ```
 
-
 Note that this has created a single object called `surveyresults`.
-
 
 ```{r}
 ## Object type
@@ -194,7 +190,6 @@ nrow(surveyresults)
 ## ## How many variables (the columns)?
 ncol(surveyresults)
 ```
-
 
 In a dataframe, we can still access a single column of values using the syntax `dataframename$columnname`
 
@@ -210,7 +205,6 @@ We can even take the `mean()` of these columns in the same way we did above outs
 ## Taking the mean
 mean(surveyresults$Outcome)
 ```
-
 
 ## Summing up univariate description
 

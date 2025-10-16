@@ -287,7 +287,6 @@ barplot(freqobs,
         las = 1) # controls angle of axis labels
 ```
 
-
 ## Application: Changing Minds on Gay Marriage
 
 We now turn to a study that asks the question
@@ -453,7 +452,6 @@ Range of Correlation is between $-1$ and $1$
 
 ![From *R for Dummies*](images/corrdummies.png){width="60%"}
 
-
 The `plot()` function in R works using x and y coordinates.
 
 -   We have to tell R precisely at which x- and y- coordinates to place points (e.g., place a point at `x=20` and `y=40`)
@@ -534,12 +532,6 @@ While the original article was retracted
     -   Broockman and Kalla. 2020. "Reducing exclusionary attitudes through interpersonal conversation: evidence from three field experiments." American Political Science Review
     -   Kalla and Broockman. 2021. "Which narrative strategies durably reduce prejudice? Evidence from field and survey experiments supporting the efficacy of perspective-getting." American Journal of Political Science. Forthcoming.
 
-
-
-
-
-
-
 ## Line Plots
 
 In this application, we will create a line plot in R. Line plots are built very similarly to scatterplots. We provide R an input of values for the x-axis and corresponding values on the y-axis.
@@ -598,15 +590,11 @@ Since the onset of the pandemic in 2020, researchers have evaluated attitudinal 
 
 ![](images/covidphone.png)
 
-
-
 ***Example: Using Twitter geolocation data*** to track how much movement users have by looking at the distances from all locations where a given user has tweeted.
 
 -   Paiheng Xu, Mark Dredze, David A Broniatowski. "[The Twitter Social Mobility Index: Measuring Social Distancing Practices from Geolocated Tweets](https://socialmobility.covid19dataresources.org/)." Journal of Medical Internet Research (JMIR), 2020.
 
 ![](images/covidtwitter.png)
-
-
 
 We will use the Twitter social mobility index to study how the movement of geo-located Twitter users changed from 2019 into April 2022.
 
@@ -681,7 +669,7 @@ legend("bottomleft",  col=c("red3", "black"),
        bty="n")
 ```
 
-Starting from basics ... 
+Starting from basics ...
 
 -   Let's first create a scatterplot by providing R with our two variables
 -   In a trend/line plot, we want each month on the x-axis
@@ -833,15 +821,11 @@ What NOT to communicate?
 
 ![](images/honestrunway.jpeg){width="70%"}
 
-
-
 Claus Wilke provides an overview of rules of thumb to fall when creating a data visualization on the Serial Mentor [website](https://serialmentor.com/dataviz/).
 
 An example is below
 
 ![](images/ugbadwrong.png)
-
-
 
 Overall, the best thing to do is to look at your visual from a consumer's [point of view](https://www.youtube.com/watch?v=nQJEp-k-ogs&ab_channel=ArianaGrandeVevo). You want your visuals to be intuitive enough for a viewer to be able to interpret it without too much help from you or explanatory text elsewhere in a paper or presentation. Our goal is to help consumers of our data understand the main takeaways of our research easily and accurately.
 

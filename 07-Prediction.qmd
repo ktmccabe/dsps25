@@ -1,0 +1,226 @@
+# Prediction {#prediction}
+
+In this section, we move to our next social science goal
+
+-   Describe
+-   Explain, evaluate, and recommend $\rightarrow$ Causality
+-   ***Predict***
+-   Discover
+
+Most of the tools we have been working on thus far have focused on first describing our data and then conducting tests through different types of comparisons and visualizations, in order to assess a deductive hypothesis, explaining the relationship between two variables.
+
+Now we turn to a different goal.
+
+Recall the difference between Correlation vs. Causality using our graphic showing the popularity of *Duck Dynasty* in different parts of the country. In 2016, researchers at the [NY Times](https://www.nytimes.com/interactive/2016/12/26/upshot/duck-dynasty-vs-modern-family-television-maps.html) noticed that areas in the country where the television show Duck Dynasty was popular also tended to support Donald Trump at higher rates.
+
+![](images/duckdynasty.png){width="70%"}
+
+For those used to working with the goal of explanation, shifting to prediction and classification may mean we need to shift what types of information we think is important.
+
+-   Correlation: Areas that watch Duck Dynasty are more likely to support Trump (degree to which two variables \`\`move together")
+-   Causality: Watching Duck Dynasty (vs. not watching) causes you to support Trump.
+
+If we were interested in the goal of explaining voting decisions (what causes someone to vote a certain way?), we might not care if someone watches the show. However, if we were just interested in predicting vote share or voting decisions, a strong correlation could still be useful. Without spending a single dollar on surveying a community, we might have a general sense of their support for a candidate.
+
+## Prediction Overview
+
+Our goal: Predict (estimate/guess) some unknown using information we have as accurately and precisely as possible
+
+-   Prediction could involve estimating a numeric outcome. Alternatively, prediction also involves classification-- predicting a categorical outcome (e.g., prediction of who wins vs. who loses).
+
+Some political science examples of this might include
+
+1.  Categorizing comments on social media as being toxic/nasty/uncivil
+
+![Wired](images/instagramhate.png)
+
+2.  Detecting Fake news and misinformation
+
+![PBS](images/fakenewsai.png)
+
+3.  Forecasting election results
+
+![](images/forecast24.png)
+
+Other examples
+
+-   Trying to detect hate speech online
+-   Predicting where or when an attack might occur
+-   Trying to classify a large amount of text into subject or topic categories for analysis
+
+What other types of things might we try to predict or classify in political science?
+
+## Process of Prediction
+
+Predict (estimate/guess) some unknown using information we have -- and do so as accurately and precisely as possible.
+
+1.  Choose an approach
+    -   Using an observed (known) measure as a direct proxy to predict an outcome
+    -   Using one or more observed (known) measures in a regression model to predict an outcome
+    -   (Beyond the course) Using a statistical model to select the measures to use for predicting an outcome
+2.  Assess accuracy and precision
+    -   Prediction error: $Prediction - Truth$
+    -   Bias: Average prediction error: $\text{mean}(Prediction - Truth)$
+        -   A prediction is \`unbiased' if the bias is zero (If the prediction is on average true)
+    -   Root-mean squared error: $\sqrt{\text{mean}((Prediction - Truth)^2)}$
+        -   Like \`absolute' error-- the average magnitude of the prediction error
+        -   the typical distance the prediction is from the truth
+    -   Confusion Matrix
+        -   A cross-tab of predictions you got correct vs. predictions you got wrong (misclassified)
+        -   Gives you true positives and true negatives vs. false positives and false negatives
+3.  Iterate to improve the prediction/classification
+    -   Often, we repeat steps 1-3 until we are confident in your method for predicting.
+4.  Danger Zone: Eventually, after you have tested the approach and are satisfied with the accuracy, you may start applying it to new data for which you do not know the right answer.
+
+## Example: Forecasting 2024 US Election based on 2020 Results
+
+Let's try to predict the 2024 election results using just the 2020 results.
+
+*For a video explainer of the code for a similar application, see below. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)*
+
+{{< video src="https://www.youtube.com/watch?v=zWDxZogRwOs" >}}
+
+```{r, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+
+
+
+
+library(tidyverse)
+elecresults <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/election-results/refs/heads/main/election_results_presidential.csv")
+elecresults24 <- elecresults %>%
+  filter(
+    cycle == 2024,
+    stage == "general",
+    candidate_name %in% c("Donald Trump", "Kamala Harris"),
+    ballot_party %in% c("DEM", "REP"),
+    state != "Puerto Rico"
+  ) %>%
+  select(state_abbrev, state, candidate_name, percent) %>%
+  pivot_wider(
+    names_from = candidate_name,
+    values_from = percent,
+    names_sep = "_"
+  ) 
+elecresults24$dem_percent2024 <- elecresults24$`Kamala Harris`/100
+elecresults24$rep_percent2024 <- elecresults24$`Donald Trump`/100
+elecresults24 <- elecresults24 %>% select(-c(`Kamala Harris`, `Donald Trump`))
+ev_table <- tribble(
+    ~state_abbrev, ~ev_total,
+    "AL", 9,  "AK", 3,  "AZ", 11, "AR", 6,  "CA", 54,
+    "CO", 10, "CT", 7,  "DE", 3,  "DC", 3,  "FL", 30,
+    "GA", 16, "HI", 4,  "ID", 4,  "IL", 19, "IN", 11,
+    "IA", 6,  "KS", 6,  "KY", 8,  "LA", 8,  "ME", 2, "M1", 1, "M2", 1,
+    "MD", 10, "MA", 11, "MI", 15, "MN", 10, "MS", 6,
+    "MO", 10, "MT", 4,  "NE", 2, "N1", 1, "N2", 1, "N3", 1,  "NV", 6,  "NH", 4,
+    "NJ", 14, "NM", 5,  "NY", 28, "NC", 16, "ND", 3,
+    "OH", 17, "OK", 7,  "OR", 8,  "PA", 19, "RI", 4,
+    "SC", 9,  "SD", 3,  "TN", 11, "TX", 40, "UT", 6,
+    "VT", 3,  "VA", 13, "WA", 12, "WV", 4,  "WI", 10,
+    "WY", 3
+  ) %>%
+  distinct(state_abbrev, .keep_all = TRUE) 
+
+elecresults24 <- merge(elecresults24, ev_table, by="state_abbrev")
+
+
+results2020$state_abbrev <- ifelse(results2020$stateid == "NE1", "N1",
+                                   ifelse(results2020$stateid == "NE2", "N2",
+                                          ifelse(results2020$stateid == "NE3", "N3",
+                                                 ifelse(results2020$stateid == "ME2", "M2",
+                                                        ifelse(results2020$stateid == "ME1", "M1",
+                                                               as.character(results2020$stateid) )))))
+results2020$called2016 <- ifelse(results2020$margin2016 <0, "R", "D")
+results2020$called2020 <- results2020$called
+results2020$dem_percent2020 <- results2020$dem_percent
+results2020$rep_percent2020 <- results2020$rep_percent
+
+results2020sub <- results2020 %>% select(state_abbrev, called2020,
+                                         dem_percent2020,
+                                         rep_percent2020,
+                                         called2016)
+table(results2020$called2016, results2020$called)
+elecresults24 <- merge(elecresults24, results2020sub, by="state_abbrev")
+
+
+elecresults24$called2024 <- ifelse(elecresults24$rep_percent2024 > elecresults24$dem_percent2024, "R","D")
+
+write.csv(elecresults24, "data/elecresults24.csv")
+```
+
+```{r, include=F}
+results2024 <- read.csv("data/elecresults24.csv", stringsAsFactors = T)
+```
+
+```{r, eval=F}
+results2024 <- read.csv("elecresults24.csv", stringsAsFactors = T)
+```
+
+Variables
+
+-   `state_abbrev`: state or state and district
+-   `called2024`: result of 2024 election, R or D
+-   `called2020`: result of 2020 election, R or D
+-   `called2016`: result of 2016 election, R or D
+-   `dem_percent24`: percentage for the Democratic candidate
+-   `rep_percent24`: percentage for the Republican candidate
+-   `dem_percent20`: percentage for the Democratic candidate
+-   `rep_percent20`: percentage for the Republican candidate
+-   `ev_total`: Electoral votes associated with a state/ district of a state during the 2024 election
+
+![](images/results24map.png){width="80%"}
+
+```{r}
+sum(results2024$ev_total[results2024$called2024 == "R"])
+sum(results2024$ev_total[results2024$called2024 == "D"])
+```
+
+### Choose Approach
+
+1)  Choose an approach: Using an observed (known) measure as a direct proxy to predict an outcome
+
+-   Let's use the 2020 result as a direct proxy to predict 2024.
+
+```{r}
+results2024$predicted2024 <- results2024$called2020
+```
+
+### Assess Accuracy
+
+2)  Assess accuracy
+
+What proportion of states did we get correct?
+
+```{r}
+mean(results2024$predicted2024 == results2024$called2024)
+```
+
+Classification
+
+We want to correctly predict the winner of each state
+
+Prediction of binary outcome variable = classification problem
+
+-   true positive: correctly predicting Biden to be the winner
+-   false positive: incorrectly predicting Biden to be the winner (misclassification)
+-   true negative: correctly predicting Biden to be the loser
+-   false negative: incorrectly predicting Biden to be the loser (misclassification)
+
+We define one outcome as the "positive" and one as the "negative." Here we will say a Biden win is the positive and a Trump win is the negative. You could flip this and make a Trump win the positive and a Biden win the negative. This terminology comes from settings where there is a more objective positive vs. negative result (e.g., a positive medical test result) than most social science settings. The key thing is that we are trying to identify different types of correct classifications vs. misclassifications.
+
+Confusion Matrix: Tells us how we went right, how we went wrong.
+
+```{r}
+table(predicted=results2024$predicted2024, actual = results2024$called2024)
+```
+
+Which states did we get wrong?
+
+```{r}
+results2024$state_abbrev[results2024$predicted2024 != results2024$called2024]
+```
+
+### Iterate to improve predictions
+
+Start back at step one. We continue to repeat steps 1 and 2 until we are confident in our predictions.
+
+How could we improve our predictions of elections? What other information could we use?

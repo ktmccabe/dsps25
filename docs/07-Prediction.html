@@ -228,7 +228,8 @@ window.Quarto = {
   <ul>
   <li><a href="#choose-approach" id="toc-choose-approach" class="nav-link" data-scroll-target="#choose-approach"><span class="header-section-number">7.3.1</span> Choose Approach</a></li>
   <li><a href="#assess-accuracy" id="toc-assess-accuracy" class="nav-link" data-scroll-target="#assess-accuracy"><span class="header-section-number">7.3.2</span> Assess Accuracy</a></li>
-  <li><a href="#iterate-to-improve-predictions" id="toc-iterate-to-improve-predictions" class="nav-link" data-scroll-target="#iterate-to-improve-predictions"><span class="header-section-number">7.3.3</span> Iterate to improve predictions</a></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">7.3.3</span> Classification</a></li>
+  <li><a href="#iterate-to-improve-predictions" id="toc-iterate-to-improve-predictions" class="nav-link" data-scroll-target="#iterate-to-improve-predictions"><span class="header-section-number">7.3.4</span> Iterate to improve predictions</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -358,7 +359,7 @@ window.Quarto = {
 </div>
 <p>Variables</p>
 <ul>
-<li><code>state_abbrev</code>: state or state and district</li>
+<li><code>state_abbrev</code> and <code>state</code>: state or state and district</li>
 <li><code>called2024</code>: result of 2024 election, R or D</li>
 <li><code>called2020</code>: result of 2020 election, R or D</li>
 <li><code>called2016</code>: result of 2016 election, R or D</li>
@@ -403,16 +404,18 @@ window.Quarto = {
 <pre><code>[1] 0.8928571</code></pre>
 </div>
 </div>
-<p>Classification</p>
+</section>
+<section id="classification" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="classification"><span class="header-section-number">7.3.3</span> Classification</h3>
 <p>We want to correctly predict the winner of each state</p>
 <p>Prediction of binary outcome variable = classification problem</p>
 <ul>
-<li>true positive: correctly predicting Biden to be the winner</li>
-<li>false positive: incorrectly predicting Biden to be the winner (misclassification)</li>
-<li>true negative: correctly predicting Biden to be the loser</li>
-<li>false negative: incorrectly predicting Biden to be the loser (misclassification)</li>
+<li><strong>true positive</strong>: correctly predicting Biden to be the winner</li>
+<li><strong>false positive </strong>: incorrectly predicting Biden to be the winner (misclassification)</li>
+<li><strong>true negative </strong>: correctly predicting Biden to be the loser</li>
+<li><strong>false negative </strong>: incorrectly predicting Biden to be the loser (misclassification)</li>
 </ul>
-<p>We define one outcome as the “positive” and one as the “negative.” Here we will say a Biden win is the positive and a Trump win is the negative. You could flip this and make a Trump win the positive and a Biden win the negative. This terminology comes from settings where there is a more objective positive vs.&nbsp;negative result (e.g., a positive medical test result) than most social science settings. The key thing is that we are trying to identify different types of correct classifications vs.&nbsp;misclassifications.</p>
+<p>We define one outcome as the “positive” and one as the “negative.” For now, we will say a Trump win is the positive and a Harris win is the negative. You could flip this and make a Harris win the positive and a Trump win the negative. This terminology comes from settings where there is a more objective positive vs.&nbsp;negative result (e.g., a positive medical test result) than most social science settings. <strong>The key thing is that we are trying to identify different types of correct classifications vs.&nbsp;misclassifications.</strong></p>
 <p>Confusion Matrix: Tells us how we went right, how we went wrong.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">predicted=</span>results2024<span class="sc">$</span>predicted2024, <span class="at">actual =</span> results2024<span class="sc">$</span>called2024)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -425,15 +428,16 @@ predicted  D  R
 </div>
 <p>Which states did we get wrong?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>results2024<span class="sc">$</span>state_abbrev[results2024<span class="sc">$</span>predicted2024 <span class="sc">!=</span> results2024<span class="sc">$</span>called2024]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>results2024<span class="sc">$</span>state[results2024<span class="sc">$</span>predicted2024 <span class="sc">!=</span> results2024<span class="sc">$</span>called2024]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] AZ GA MI NV PA WI
-56 Levels: AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA M1 ... WY</code></pre>
+<pre><code>[1] Arizona      Georgia      Michigan     Nevada       Pennsylvania
+[6] Wisconsin   
+56 Levels: Alabama Alaska Arizona Arkansas California Colorado ... Wyoming</code></pre>
 </div>
 </div>
 </section>
-<section id="iterate-to-improve-predictions" class="level3" data-number="7.3.3">
-<h3 data-number="7.3.3" class="anchored" data-anchor-id="iterate-to-improve-predictions"><span class="header-section-number">7.3.3</span> Iterate to improve predictions</h3>
+<section id="iterate-to-improve-predictions" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="iterate-to-improve-predictions"><span class="header-section-number">7.3.4</span> Iterate to improve predictions</h3>
 <p>Start back at step one. We continue to repeat steps 1 and 2 until we are confident in our predictions.</p>
 <p>How could we improve our predictions of elections? What other information could we use?</p>
 

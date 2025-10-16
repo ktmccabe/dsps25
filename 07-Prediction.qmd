@@ -157,7 +157,7 @@ results2024 <- read.csv("elecresults24.csv", stringsAsFactors = T)
 
 Variables
 
--   `state_abbrev`: state or state and district
+-   `state_abbrev` and `state`: state or state and district
 -   `called2024`: result of 2024 election, R or D
 -   `called2020`: result of 2020 election, R or D
 -   `called2016`: result of 2016 election, R or D
@@ -194,18 +194,18 @@ What proportion of states did we get correct?
 mean(results2024$predicted2024 == results2024$called2024)
 ```
 
-Classification
+### Classification
 
 We want to correctly predict the winner of each state
 
 Prediction of binary outcome variable = classification problem
 
--   true positive: correctly predicting Biden to be the winner
--   false positive: incorrectly predicting Biden to be the winner (misclassification)
--   true negative: correctly predicting Biden to be the loser
--   false negative: incorrectly predicting Biden to be the loser (misclassification)
+-   **true positive**: correctly predicting Biden to be the winner
+-    **false positive **: incorrectly predicting Biden to be the winner (misclassification)
+-    **true negative **: correctly predicting Biden to be the loser
+-    **false negative **: incorrectly predicting Biden to be the loser (misclassification)
 
-We define one outcome as the "positive" and one as the "negative." Here we will say a Biden win is the positive and a Trump win is the negative. You could flip this and make a Trump win the positive and a Biden win the negative. This terminology comes from settings where there is a more objective positive vs. negative result (e.g., a positive medical test result) than most social science settings. The key thing is that we are trying to identify different types of correct classifications vs. misclassifications.
+We define one outcome as the "positive" and one as the "negative." For now, we will say a Trump win is the positive and a Harris win is the negative. You could flip this and make a Harris win the positive and a Trump win the negative. This terminology comes from settings where there is a more objective positive vs. negative result (e.g., a positive medical test result) than most social science settings. **The key thing is that we are trying to identify different types of correct classifications vs. misclassifications.**
 
 Confusion Matrix: Tells us how we went right, how we went wrong.
 
@@ -213,10 +213,11 @@ Confusion Matrix: Tells us how we went right, how we went wrong.
 table(predicted=results2024$predicted2024, actual = results2024$called2024)
 ```
 
+
 Which states did we get wrong?
 
 ```{r}
-results2024$state_abbrev[results2024$predicted2024 != results2024$called2024]
+results2024$state[results2024$predicted2024 != results2024$called2024]
 ```
 
 ### Iterate to improve predictions

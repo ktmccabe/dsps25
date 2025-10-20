@@ -153,6 +153,7 @@ results2024 <- read.csv("data/elecresults24.csv", stringsAsFactors = T)
 
 ```{r, eval=F}
 results2024 <- read.csv("elecresults24.csv", stringsAsFactors = T)
+results2024 <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/elecresults24.csv", stringsAsFactors = T)
 ```
 
 Variables
@@ -311,8 +312,10 @@ write.csv(polls24bothsources, "data/polls24bothsources.csv")
 
 ```{r, eval=F}
 polls24 <- read.csv("polls24bothsources.csv")
-
+polls24 <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/polls24bothsources.csv")
 ```
+
+
 
 
 ```{r, include=F}

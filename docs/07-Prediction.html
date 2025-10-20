@@ -366,7 +366,8 @@ window.Quarto = {
 <p><em>For a video explainer of the code for a similar application, see below. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)</em></p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/zWDxZogRwOs" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>results2024 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"elecresults24.csv"</span>, <span class="at">stringsAsFactors =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>results2024 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"elecresults24.csv"</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>results2024 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/elecresults24.csv"</span>, <span class="at">stringsAsFactors =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Variables</p>
 <ul>
@@ -480,7 +481,8 @@ predicted  D  R
 <p>In this next exercise, we will break our prediction activitiy into two sections. For states with polls available, we will make polling-based predictions for every state. For states without polls, we will rely on the 2016 party result as our prediction. We then combine both to get a prediction for the full election.</p>
 <p>Let’s load the data!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>polls24 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"polls24bothsources.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>polls24 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"polls24bothsources.csv"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>polls24 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/polls24bothsources.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Variables</p>
 <ul>

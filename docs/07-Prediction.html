@@ -231,6 +231,17 @@ window.Quarto = {
   <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">7.3.3</span> Classification</a></li>
   <li><a href="#iterate-to-improve-predictions" id="toc-iterate-to-improve-predictions" class="nav-link" data-scroll-target="#iterate-to-improve-predictions"><span class="header-section-number">7.3.4</span> Iterate to improve predictions</a></li>
   </ul></li>
+  <li><a href="#polling-as-predictive" id="toc-polling-as-predictive" class="nav-link" data-scroll-target="#polling-as-predictive"><span class="header-section-number">7.4</span> Polling as Predictive</a>
+  <ul>
+  <li><a href="#choose-an-approach-lets-use-some-polls" id="toc-choose-an-approach-lets-use-some-polls" class="nav-link" data-scroll-target="#choose-an-approach-lets-use-some-polls"><span class="header-section-number">7.4.1</span> Choose an Approach: Let’s use some polls!</a></li>
+  <li><a href="#imagine-the-process-for-one-state" id="toc-imagine-the-process-for-one-state" class="nav-link" data-scroll-target="#imagine-the-process-for-one-state"><span class="header-section-number">7.4.2</span> Imagine the process for one state</a></li>
+  <li><a href="#loop-through-all-states" id="toc-loop-through-all-states" class="nav-link" data-scroll-target="#loop-through-all-states"><span class="header-section-number">7.4.3</span> Loop through all states</a></li>
+  <li><a href="#check-accuracy" id="toc-check-accuracy" class="nav-link" data-scroll-target="#check-accuracy"><span class="header-section-number">7.4.4</span> Check Accuracy</a>
+  <ul class="collapse">
+  <li><a href="#quantitative-measures-of-accuracy" id="toc-quantitative-measures-of-accuracy" class="nav-link" data-scroll-target="#quantitative-measures-of-accuracy"><span class="header-section-number">7.4.4.1</span> Quantitative Measures of Accuracy</a></li>
+  <li><a href="#classification-1" id="toc-classification-1" class="nav-link" data-scroll-target="#classification-1"><span class="header-section-number">7.4.4.2</span> Classification</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -410,12 +421,12 @@ window.Quarto = {
 <p>We want to correctly predict the winner of each state</p>
 <p>Prediction of binary outcome variable = classification problem</p>
 <ul>
-<li><strong>true positive</strong>: correctly predicting Biden to be the winner</li>
-<li><strong>false positive </strong>: incorrectly predicting Biden to be the winner (misclassification)</li>
-<li><strong>true negative </strong>: correctly predicting Biden to be the loser</li>
-<li><strong>false negative </strong>: incorrectly predicting Biden to be the loser (misclassification)</li>
+<li><strong>true positive</strong>: correctly predicting Trump to be the winner</li>
+<li><strong>false positive </strong>: incorrectly predicting Trump to be the winner (misclassification)</li>
+<li><strong>true negative </strong>: correctly predicting Trump to be the loser</li>
+<li><strong>false negative </strong>: incorrectly predicting Trump to be the loser (misclassification)</li>
 </ul>
-<p>We define one outcome as the “positive” and one as the “negative.” For now, we will say a Trump win is the positive and a Harris win is the negative. You could flip this and make a Harris win the positive and a Trump win the negative. This terminology comes from settings where there is a more objective positive vs.&nbsp;negative result (e.g., a positive medical test result) than most social science settings. <strong>The key thing is that we are trying to identify different types of correct classifications vs.&nbsp;misclassifications.</strong></p>
+<p>We define one outcome as the “positive” and one as the “negative.” For now, we will say a Trump win is the positive and a Harris win is the negative. This terminology comes from settings where a positive result just means “an event has occurred” (e.g., a positive medical test result might mean, yes, you broke your leg). You could flip this and make a Harris win the positive and a Trump win the negative as long as you interpret things correctly.</p>
 <p>Confusion Matrix: Tells us how we went right, how we went wrong.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">predicted=</span>results2024<span class="sc">$</span>predicted2024, <span class="at">actual =</span> results2024<span class="sc">$</span>called2024)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -440,8 +451,275 @@ predicted  D  R
 <h3 data-number="7.3.4" class="anchored" data-anchor-id="iterate-to-improve-predictions"><span class="header-section-number">7.3.4</span> Iterate to improve predictions</h3>
 <p>Start back at step one. We continue to repeat steps 1 and 2 until we are confident in our predictions.</p>
 <p>How could we improve our predictions of elections? What other information could we use?</p>
+</section>
+</section>
+<section id="polling-as-predictive" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="polling-as-predictive"><span class="header-section-number">7.4</span> Polling as Predictive</h2>
+<p>Many forecasters use pre-election polls in their models to predict election outcomes. In 2016 and 2020, polling-based forecasts received a lot of criticism</p>
+<p>Prior to the 2016 elections, forecasts that used polls seemed confident that Hillary Clinton would win the election. <a href="https://www.youtube.com/watch?v=zerWCVpXTr8">Political analysts</a> also seemed to think the polls were favorable to Clinton.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clintonupshot.png" class="img-fluid figure-img"></p>
+<figcaption><em>NY Upshot</em></figcaption>
+</figure>
+</div>
+<p>We all know that afterwards, Clinton did not win.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/afterpolls.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption><em>Pew</em></figcaption>
+</figure>
+</div>
+<p>This led public opinion scholars and practitioners to do a deep investigation into the quality of pre-election polling. Like 2016, following the 2020 election, a similar team investigated the quality of pre-election polling in 2020. Here, while many polls pointed to a favorable outcome for Biden, the results seemed closer than one might have anticipated.</p>
+<p><img src="images/aaportitle.png" class="img-fluid"></p>
+<p>The results of these findings are in the <a href="https://www.aapor.org/AAPOR_Main/media/MainSiteFiles/AAPOR-Task-Force-on-2020-Pre-Election-Polling_Report-FNL.pdf">AAPOR report</a>.</p>
+<section id="choose-an-approach-lets-use-some-polls" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="choose-an-approach-lets-use-some-polls"><span class="header-section-number">7.4.1</span> Choose an Approach: Let’s use some polls!</h3>
+<p>We will load polls from the 2024 election cycle. This cycle was unique because we had a change in candidates somewhat late in the campaign. Not all states were able to conduct polls with Harris on the ballot, and even if they did, not all polling aggregators have included data from these polls.</p>
+<p>As a results, our polling dataset is somewhat incomplete. It contains polls only from states we might think are more competitive, or at least, more likely to be polled in an election.</p>
+<p>In this next exercise, we will break our prediction activitiy into two sections. For states with polls available, we will make polling-based predictions for every state. For states without polls, we will rely on the 2016 party result as our prediction. We then combine both to get a prediction for the full election.</p>
+<p>Let’s load the data!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>polls24 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"polls24bothsources.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Variables</p>
+<ul>
+<li><code>Harris</code>, <code>Trump</code>, poll-based percent going for each candidate</li>
+<li><code>state</code>: state or state and district</li>
+<li><code>samplesize</code>: sample size of the poll</li>
+<li><code>sampletype</code>: if it was a poll of likely voters, registered voters, or some other population</li>
+<li><code>daystoelection</code>: how close we are to 11/5/2024</li>
+<li><code>called2024</code>: result of 2024 election, R or D</li>
+<li><code>called2020</code>: result of 2020 election, R or D</li>
+<li><code>called2016</code>: result of 2016 election, R or D</li>
+<li><code>dem_percent24</code>: percentage for the Democratic candidate</li>
+<li><code>rep_percent24</code>: percentage for the Republican candidate</li>
+<li><code>dem_percent20</code>: percentage for the Democratic candidate</li>
+<li><code>rep_percent20</code>: percentage for the Republican candidate</li>
+<li><code>ev_total</code>: Electoral votes associated with a state/ district of a state during the 2024 election</li>
+</ul>
+<p>Let’s make a variable that shows us the predicted margin for Trump based on the poll in a given row, and a variable for the actual margin on Election Day.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>polls24<span class="sc">$</span>pollmargin24 <span class="ot">&lt;-</span> polls24<span class="sc">$</span>Trump <span class="sc">-</span> polls24<span class="sc">$</span>Harris</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>polls24<span class="sc">$</span>resultmargin24 <span class="ot">&lt;-</span> polls24<span class="sc">$</span>rep_percent2024 <span class="sc">-</span> polls24<span class="sc">$</span>dem_percent2024</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s also see what states are in our polling data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Iteration vector</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">unique</span>(polls24<span class="sc">$</span>state)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>states</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Arizona"        "Florida"        "Georgia"        "Iowa"          
+ [5] "Michigan"       "Minnesota"      "Nevada"         "New Hampshire" 
+ [9] "North Carolina" "Pennsylvania"   "Texas"          "Virginia"      
+[13] "Wisconsin"      "California"     "Illinois"       "Maine"         
+[17] "Maine CD-1"     "Maine CD-2"     "Maryland"       "Missouri"      
+[21] "Montana"        "Nebraska"       "Nebraska CD-2"  "New Mexico"    
+[25] "New York"       "Ohio"           "Oregon"         "Tennessee"     
+[29] "Utah"           "Vermont"        "Washington"     "West Virginia" </code></pre>
+</div>
+</div>
+</section>
+<section id="imagine-the-process-for-one-state" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="imagine-the-process-for-one-state"><span class="header-section-number">7.4.2</span> Imagine the process for one state</h3>
+<p>For each state with polling data, we will make our prediction for the election by taking the average of the most recent polls in the state. We will define this as all polls within 15 days of the election, or, if some states only had polls taken much earlier, we will grab whatever the most recent poll’s result was.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Subset to just Arizona</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>states[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Arizona"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(polls24, state <span class="sc">==</span> states[<span class="dv">1</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Further subset to the "latest polls"</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(subdata, daystoelection <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">|</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                      daystoelection <span class="sc">==</span> <span class="fu">min</span>(subdata<span class="sc">$</span>daystoelection) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s extract the actual margin for Trump, the poll-based predicted margin, and finally, let’s assign electoral votes based on our prediction.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the margin for the actual result</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>result.marginAZ <span class="ot">&lt;-</span> <span class="fu">mean</span>(subdata<span class="sc">$</span>resultmargin24)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>result.marginAZ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0552723</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the margin for our prediction</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>polls.marginAZ <span class="ot">&lt;-</span> <span class="fu">mean</span>(subdata<span class="sc">$</span>pollmargin24)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>polls.marginAZ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02588636</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Allocate votes for Biden according to the margin</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>trumpvotesAZ <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">mean</span>(subdata<span class="sc">$</span>pollmargin24) <span class="sc">&gt;</span> <span class="dv">0</span>, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">unique</span>(subdata<span class="sc">$</span>ev_total), <span class="dv">0</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>trumpvotesAZ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div>
+<p>We predicted Trump would win Arizona because the <code>polls.marginAZ</code> is positive. Therefore, we assigned Trump 11 electoral votes in this example.</p>
+</section>
+<section id="loop-through-all-states" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="loop-through-all-states"><span class="header-section-number">7.4.3</span> Loop through all states</h3>
+<p>Now let’s repeat this process for all states.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Iteration vector</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">unique</span>(polls24<span class="sc">$</span>state)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Container vectors</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>polls.margin24 <span class="ot">&lt;-</span> result.margin24 <span class="ot">&lt;-</span> trumpvotes_pred <span class="ot">&lt;-</span> trumpvotes_act <span class="ot">&lt;-</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(states))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(polls.margin24) <span class="ot">&lt;-</span> <span class="fu">names</span>(result.margin24) <span class="ot">&lt;-</span> </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(trumpvotes_pred) <span class="ot">&lt;-</span> <span class="fu">names</span>(trumpvotes_act)  <span class="ot">&lt;-</span><span class="fu">as.character</span>(<span class="fu">unique</span>(states))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Loop</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(states)){</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(polls24, state <span class="sc">==</span> states[i] )</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(subdata, daystoelection <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">|</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                      daystoelection <span class="sc">==</span> <span class="fu">min</span>(subdata<span class="sc">$</span>daystoelection) )</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  result.margin24[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(subdata<span class="sc">$</span>resultmargin24)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  polls.margin24[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(subdata<span class="sc">$</span>pollmargin24)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  trumpvotes_pred[i] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">mean</span>(subdata<span class="sc">$</span>pollmargin24) <span class="sc">&gt;</span> <span class="dv">0</span>, </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">unique</span>(subdata<span class="sc">$</span>ev_total), <span class="dv">0</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  trumpvotes_act[i] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">mean</span>(subdata<span class="sc">$</span>resultmargin24) <span class="sc">&gt;</span> <span class="dv">0</span>, </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">unique</span>(subdata<span class="sc">$</span>ev_total), <span class="dv">0</span>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(trumpvotes_pred) <span class="co"># predicted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 198</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(trumpvotes_act) <span class="co"># predicted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 224</code></pre>
+</div>
+</div>
+<p><strong><em>Less competitive states</em></strong></p>
+<p>We also need to assign Trump votes to states not included in the poll data. Here, we will continue to predict based on the results of the 2020 election.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Subset only states without polling data for Harris</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>elecresults_noncomp <span class="ot">&lt;-</span> <span class="fu">subset</span>(results2024, (<span class="sc">!</span> state <span class="sc">%in%</span> states))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="do">## predicted EV</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>trumpvotes_lesscomp_pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(elecresults_noncomp<span class="sc">$</span>called2020 <span class="sc">==</span> <span class="st">"R"</span>, elecresults_noncomp<span class="sc">$</span>ev_total, <span class="dv">0</span>) </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(trumpvotes_lesscomp_pred) <span class="ot">&lt;-</span> elecresults_noncomp<span class="sc">$</span>state</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="do">## actual EV</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>trumpvotes_lesscomp_result <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(elecresults_noncomp<span class="sc">$</span>called2024 <span class="sc">==</span> <span class="st">"R"</span>, elecresults_noncomp<span class="sc">$</span>ev_total, <span class="dv">0</span>) </span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(trumpvotes_lesscomp_result) <span class="ot">&lt;-</span> elecresults_noncomp<span class="sc">$</span>state</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted Trump votes from less competitive states vs. actual</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(trumpvotes_lesscomp_pred) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 88</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(trumpvotes_lesscomp_result) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 88</code></pre>
+</div>
+</div>
+<p>The overall prediction combines the less competitive and competitive states:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>predictedEV <span class="ot">&lt;-</span> <span class="fu">c</span>(trumpvotes_lesscomp_pred,trumpvotes_pred)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(predictedEV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 286</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>actualEV <span class="ot">&lt;-</span> <span class="fu">c</span>(trumpvotes_lesscomp_result, trumpvotes_act)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(actualEV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 312</code></pre>
+</div>
+</div>
+</section>
+<section id="check-accuracy" class="level3" data-number="7.4.4">
+<h3 data-number="7.4.4" class="anchored" data-anchor-id="check-accuracy"><span class="header-section-number">7.4.4</span> Check Accuracy</h3>
+<section id="quantitative-measures-of-accuracy" class="level4" data-number="7.4.4.1">
+<h4 data-number="7.4.4.1" class="anchored" data-anchor-id="quantitative-measures-of-accuracy"><span class="header-section-number">7.4.4.1</span> Quantitative Measures of Accuracy</h4>
+<p>From the polls, let’s calculate two common measures of prediction error: bias (the average prediction error) and root-mean-squared error (a typical magnitude of the prediction error).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate Bias (Predicted Trump - True Trump)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>predictionerror <span class="ot">&lt;-</span> polls.margin24 <span class="sc">-</span>result.margin24 </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>bias <span class="ot">&lt;-</span> <span class="fu">mean</span>(predictionerror)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>bias</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.03228962</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Root Mean Squared Error</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((predictionerror)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06040716</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Histogram of Prediction Errors to Show Bias</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(predictionerror, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Prediction Error (Predicted Trump Margin - Actual)"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram of Prediction Error in Latest Polls"</span>)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">mean</span>(predictionerror), <span class="at">col=</span><span class="st">"red"</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-Prediction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What do these results suggest about the polls?</p>
+</section>
+<section id="classification-1" class="level4" data-number="7.4.4.2">
+<h4 data-number="7.4.4.2" class="anchored" data-anchor-id="classification-1"><span class="header-section-number">7.4.4.2</span> Classification</h4>
+<p>Instead of quantifying how far we were off, let’s see where we were right vs.&nbsp;where we were wrong.</p>
+<p>Classification</p>
+<ul>
+<li>true positive: correctly predicting Trump to be the winner</li>
+<li>false positive: incorrectly predicting Trump to be the winner</li>
+<li>true negative: correctly predicting Trump to be the loser</li>
+<li>false negative: incorrectly predicting Trump to be the loser</li>
+</ul>
+<p>Confusion Matrix</p>
+<p>Let’s classify our predictions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>actualwins <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(trumpvotes_act <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"Trump Won"</span>, <span class="st">"Harris Won"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>predictedwins <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(trumpvotes_pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"Trump Won"</span>, <span class="st">"Harris Won"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(predictedwins, actualwins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             actualwins
+predictedwins Harris Won Trump Won
+   Harris Won         14         3
+   Trump Won           0        15</code></pre>
+</div>
+</div>
+<p>Where did the polls get it wrong?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>actualwins[actualwins <span class="sc">!=</span> predictedwins]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Michigan   Wisconsin  Maine CD-2 
+"Trump Won" "Trump Won" "Trump Won" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>trumpvotes_act[actualwins <span class="sc">!=</span> predictedwins]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Michigan  Wisconsin Maine CD-2 
+        15         10          1 </code></pre>
+</div>
+</div>
+<p>What’s your conclusion?</p>
+<ul>
+<li>Are the polls alright?</li>
+<li>How could you improve the prediction?</li>
+<li>Wait a second… why even poll?</li>
+</ul>
+<p>Nate Silver’s analysis of the 2025 polls is available here:https://www.natesilver.net/p/so-how-did-the-polls-do-in-2024-its</p>
+<p><img src="images/silver24pollerror.png" class="img-fluid"></p>
 
 
+</section>
 </section>
 </section>
 

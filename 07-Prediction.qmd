@@ -200,12 +200,12 @@ We want to correctly predict the winner of each state
 
 Prediction of binary outcome variable = classification problem
 
--   **true positive**: correctly predicting Biden to be the winner
--    **false positive **: incorrectly predicting Biden to be the winner (misclassification)
--    **true negative **: correctly predicting Biden to be the loser
--    **false negative **: incorrectly predicting Biden to be the loser (misclassification)
+-   **true positive**: correctly predicting Trump to be the winner
+-    **false positive **: incorrectly predicting Trump to be the winner (misclassification)
+-    **true negative **: correctly predicting Trump to be the loser
+-    **false negative **: incorrectly predicting Trump to be the loser (misclassification)
 
-We define one outcome as the "positive" and one as the "negative." For now, we will say a Trump win is the positive and a Harris win is the negative. You could flip this and make a Harris win the positive and a Trump win the negative. This terminology comes from settings where there is a more objective positive vs. negative result (e.g., a positive medical test result) than most social science settings. **The key thing is that we are trying to identify different types of correct classifications vs. misclassifications.**
+We define one outcome as the "positive" and one as the "negative." For now, we will say a Trump win is the positive and a Harris win is the negative.  This terminology comes from settings where a positive result just means "an event has occurred" (e.g., a positive medical test result might mean, yes, you broke your leg).  You could flip this and make a Harris win the positive and a Trump win the negative as long as you interpret things correctly.
 
 Confusion Matrix: Tells us how we went right, how we went wrong.
 
@@ -225,3 +225,302 @@ results2024$state[results2024$predicted2024 != results2024$called2024]
 Start back at step one. We continue to repeat steps 1 and 2 until we are confident in our predictions.
 
 How could we improve our predictions of elections? What other information could we use?
+
+## Polling as Predictive
+
+
+Many forecasters use pre-election polls in their models to predict election outcomes. In 2016 and 2020, polling-based forecasts received a lot of criticism
+
+Prior to the 2016 elections, forecasts that used polls seemed confident that Hillary Clinton would win the election. [Political analysts](https://www.youtube.com/watch?v=zerWCVpXTr8) also seemed to think the polls were favorable to Clinton.
+
+![*NY Upshot*](images/clintonupshot.png)
+
+
+
+We all know that afterwards, Clinton did not win.
+
+![*Pew*](images/afterpolls.png){width="70%"}
+
+
+This led public opinion scholars and practitioners to do a deep investigation into the quality of pre-election polling. Like 2016, following the 2020 election, a similar team investigated the quality of pre-election polling in 2020. Here, while many polls pointed to a favorable outcome for Biden, the results seemed closer than one might have anticipated.
+
+![](images/aaportitle.png)
+
+The results of these findings are in the [AAPOR report](https://www.aapor.org/AAPOR_Main/media/MainSiteFiles/AAPOR-Task-Force-on-2020-Pre-Election-Polling_Report-FNL.pdf).
+
+
+### Choose an Approach: Let's use some polls!
+
+We will load polls from the 2024 election cycle. This cycle was unique because we had a change in candidates somewhat late in the campaign. Not all states were able to conduct polls with Harris on the ballot, and even if they did, not all polling aggregators have included data from these polls.
+
+As a results, our polling dataset is somewhat incomplete. It contains polls only from states we might think are more competitive, or at least, more likely to be polled in an election.
+
+In this next exercise, we will break our prediction activitiy into two sections. For states with polls available, we will make polling-based predictions for every state. For states without polls, we will rely on the 2016 party result as our prediction. We then combine both to get a prediction for the full election.
+
+Let's load the data!
+
+```{r, warning=F, message=F, include=FALSE, echo=FALSE, eval=FALSE}
+
+#original 
+polls24 <- read.csv("https://raw.githubusercontent.com/Lfirenzeg/msds607labs/main/president_polls.csv")
+
+polls24sub <- polls24 %>% filter(office_type == "U.S. President")
+
+polls24sub <- polls24sub %>%
+  filter(
+    candidate_name %in% c("Donald Trump", "Kamala Harris", "Joe Biden"),
+    party %in% c("REP", "DEM"),
+    election_date == "11/5/24",
+    state != "Puerto Rico" & state != ""
+  ) %>%
+  select(state, poll_id, candidate_name, pct, pollster, start_date,
+         election_date, question_id, sample_size, population) %>%
+  pivot_wider(
+    names_from = candidate_name,
+    values_from = pct,
+    names_sep = "_"
+  ) 
+
+polls24sub <- merge(polls24sub, elecresults24, by = "state")
+polls24sub$start_date <- as.Date(polls24sub$start_date, format = "%m/%d/%y")
+polls24sub$daystoelection <- as.Date("11/5/24",  format = "%m/%d/%y") - polls24sub$start_date
+range(polls24sub$daystoelection, na.rm=T)
+polls24sub$Harris <- polls24sub$`Kamala Harris`/100
+polls24sub$Trump <- polls24sub$`Donald Trump`/100
+polls24sub$samplesize <- polls24sub$sample_size 
+polls24sub$sampletype <- polls24sub$population
+polls24sub <- polls24sub %>% select(state, poll_id,Harris, Trump, pollster, daystoelection,election_date, question_id, samplesize,sampletype, colnames(elecresults24))
+
+write.csv(polls24sub, file="polls24sub.csv")
+```
+
+```{r, include=F, eval=F}
+polls24swing <- read.csv("data/silver24.csv")
+polls24all <- read.csv("polls24sub.csv")
+polls24allsub <- subset(polls24all, daystoelection < 200)
+polls24allsub$X <- 1:nrow(polls24allsub)
+polls24swing <- polls24swing %>% select(names(polls24swing)[names(polls24swing) %in% names(polls24allsub) ])
+varnams <- names(polls24allsub)[names(polls24allsub) %in% names(polls24swing)]
+polls24allsub <- polls24allsub %>% select(varnams)
+
+polls24bothsources <- rbind(polls24swing, polls24allsub)
+polls24bothsources <- subset(polls24bothsources, is.na(Harris) == F)
+write.csv(polls24bothsources, "data/polls24bothsources.csv")
+
+```
+
+```{r, eval=F}
+polls24 <- read.csv("polls24bothsources.csv")
+
+```
+
+
+```{r, include=F}
+polls24 <- read.csv("data/polls24bothsources.csv")
+
+```
+
+
+Variables
+
+-   `Harris`, `Trump`, poll-based percent going for each candidate
+-   `state`: state or state and district
+-   `samplesize`: sample size of the poll
+-   `sampletype`: if it was a poll of likely voters, registered voters, or some other population
+-   `daystoelection`: how close we are to 11/5/2024
+-   `called2024`: result of 2024 election, R or D
+-   `called2020`: result of 2020 election, R or D
+-   `called2016`: result of 2016 election, R or D
+-   `dem_percent24`: percentage for the Democratic candidate
+-   `rep_percent24`: percentage for the Republican candidate
+-   `dem_percent20`: percentage for the Democratic candidate
+-   `rep_percent20`: percentage for the Republican candidate
+-   `ev_total`: Electoral votes associated with a state/ district of a state during the 2024 election
+
+
+Let's make a variable that shows us the predicted margin for Trump based on the poll in a given row, and a variable for the actual margin on Election Day.
+
+```{r}
+polls24$pollmargin24 <- polls24$Trump - polls24$Harris
+polls24$resultmargin24 <- polls24$rep_percent2024 - polls24$dem_percent2024
+```
+
+Let's also see what states are in our polling data.
+
+```{r}
+## Iteration vector
+states <- unique(polls24$state)
+states
+```
+
+
+### Imagine the process for one state
+
+For each state with polling data, we will make our prediction for the election by taking the average of the most recent polls in the state. We will define this as all polls within 15 days of the election, or, if some states only had polls taken much earlier, we will grab whatever the most recent poll's result was.
+
+
+```{r}
+## Subset to just Arizona
+states[1]
+
+subdata <- subset(polls24, state == states[1])
+
+## Further subset to the "latest polls"
+subdata <- subset(subdata, daystoelection < 15 | 
+                      daystoelection == min(subdata$daystoelection) )
+```
+
+Now let's extract the actual margin for Trump, the poll-based predicted margin, and finally, let's assign electoral votes based on our prediction.
+
+```{r}
+## Find the margin for the actual result
+result.marginAZ <- mean(subdata$resultmargin24)
+result.marginAZ
+## Find the margin for our prediction
+polls.marginAZ <- mean(subdata$pollmargin24)
+polls.marginAZ
+## Allocate votes for Biden according to the margin
+trumpvotesAZ <- ifelse(mean(subdata$pollmargin24) > 0, 
+                            unique(subdata$ev_total), 0)
+trumpvotesAZ
+```
+
+We predicted Trump would win Arizona  because the `polls.marginAZ` is positive. Therefore, we assigned Trump 11 electoral votes in this example.
+
+### Loop through all states
+
+Now let's repeat this process for all states. 
+
+```{r}
+## Iteration vector
+states <- unique(polls24$state)
+
+## Container vectors
+polls.margin24 <- result.margin24 <- trumpvotes_pred <- trumpvotes_act <- 
+  rep(NA, length(states))
+
+names(polls.margin24) <- names(result.margin24) <- 
+  names(trumpvotes_pred) <- names(trumpvotes_act)  <-as.character(unique(states))
+```
+
+
+```{r}
+## Loop
+for(i in 1:length(states)){
+  subdata <- subset(polls24, state == states[i] )
+  subdata <- subset(subdata, daystoelection < 15 | 
+                      daystoelection == min(subdata$daystoelection) )
+  result.margin24[i] <- mean(subdata$resultmargin24)
+  polls.margin24[i] <- mean(subdata$pollmargin24)
+  trumpvotes_pred[i] <- ifelse(mean(subdata$pollmargin24) > 0, 
+                            unique(subdata$ev_total), 0)
+  trumpvotes_act[i] <- ifelse(mean(subdata$resultmargin24) > 0, 
+                            unique(subdata$ev_total), 0)
+ }
+sum(trumpvotes_pred) # predicted
+sum(trumpvotes_act) # predicted
+
+```
+
+***Less competitive states***
+
+We also need to assign Trump votes to states not included in the poll data. Here, we will continue to predict based on the results of the 2020 election.
+
+```{r}
+## Subset only states without polling data for Harris
+elecresults_noncomp <- subset(results2024, (! state %in% states))
+
+## predicted EV
+trumpvotes_lesscomp_pred <- ifelse(elecresults_noncomp$called2020 == "R", elecresults_noncomp$ev_total, 0) 
+names(trumpvotes_lesscomp_pred) <- elecresults_noncomp$state
+
+## actual EV
+trumpvotes_lesscomp_result <- ifelse(elecresults_noncomp$called2024 == "R", elecresults_noncomp$ev_total, 0) 
+names(trumpvotes_lesscomp_result) <- elecresults_noncomp$state
+
+
+
+# predicted Trump votes from less competitive states vs. actual
+sum(trumpvotes_lesscomp_pred) 
+sum(trumpvotes_lesscomp_result) 
+```
+
+The overall prediction combines the less competitive and competitive states:
+
+```{r}
+predictedEV <- c(trumpvotes_lesscomp_pred,trumpvotes_pred)
+sum(predictedEV)
+actualEV <- c(trumpvotes_lesscomp_result, trumpvotes_act)
+sum(actualEV)
+```
+
+### Check Accuracy
+
+#### Quantitative Measures of Accuracy
+
+From the polls, let's calculate two common measures of prediction error: bias (the average prediction error) and root-mean-squared error (a typical magnitude of the prediction error).
+
+```{r}
+## Calculate Bias (Predicted Trump - True Trump)
+predictionerror <- polls.margin24 -result.margin24 
+bias <- mean(predictionerror)
+bias
+
+## Root Mean Squared Error
+sqrt(mean((predictionerror)^2))
+```
+
+```{r}
+## Histogram of Prediction Errors to Show Bias
+hist(predictionerror, 
+     xlab = "Prediction Error (Predicted Trump Margin - Actual)",
+     main = "Histogram of Prediction Error in Latest Polls")
+abline(v=mean(predictionerror), col="red",lwd=2)
+abline(v=0, col="blue", lwd=2)
+```
+
+What do these results suggest about the polls?
+
+
+#### Classification
+
+Instead of quantifying how far we were off, let's see where we were right vs. where we were wrong.
+
+Classification
+
+-   true positive: correctly predicting Trump to be the winner
+-   false positive: incorrectly predicting Trump to be the winner
+-   true negative: correctly predicting Trump to be the loser
+-   false negative: incorrectly predicting Trump to be the loser
+
+Confusion Matrix
+
+Let's classify our predictions.
+
+```{r}
+actualwins <- ifelse(trumpvotes_act > 0, "Trump Won", "Harris Won")
+predictedwins <- ifelse(trumpvotes_pred > 0, "Trump Won", "Harris Won")
+```
+
+```{r}
+table(predictedwins, actualwins)
+```
+
+Where did the polls get it wrong?
+
+```{r}
+actualwins[actualwins != predictedwins]
+trumpvotes_act[actualwins != predictedwins]
+```
+
+What's your conclusion?
+
+-   Are the polls alright?
+-   How could you improve the prediction?
+-   Wait a second... why even poll?
+
+
+Nate Silver's analysis of the 2025 polls is available here:https://www.natesilver.net/p/so-how-did-the-polls-do-in-2024-its 
+
+![](images/silver24pollerror.png)
+

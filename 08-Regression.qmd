@@ -65,11 +65,15 @@ baseball <- read.csv("baseball.csv")
 head(baseball)
 ```
 
-Runs scored are highly correlated with team wins. What the A's noticed is that a team's On Base Percentage is also highly correlated with runs scored. This aligns with conventional wisdom. Players get a lot of hype when they achieve a high OBP.
+Runs scored are highly correlated with team wins.
 
-![FOX](images/yankdodge.png){width="70%"}
+![](images/ohtani25.png)
 
-"The Yankees have an AL-best .347 on-base percentage... By now, it should be boilerplate: the easiest way to score runs is to put people on base. And the Yankees have scored enough to make it to the World Series." - Jeff Passan, ESPN
+What the A's noticed is that a team's On Base Percentage is also highly correlated with runs scored. This aligns with conventional wisdom. Players get a lot of hype when they achieve a high OBP.
+
+![FOX 2024](images/yankdodge.png){width="70%"}
+
+On the 2024 world series: "The Yankees have an AL-best .347 on-base percentage... By now, it should be boilerplate: the easiest way to score runs is to put people on base. And the Yankees have scored enough to make it to the World Series." - Jeff Passan, ESPN
 
 This correlation shows up in our data, too.
 

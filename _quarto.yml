@@ -14,6 +14,7 @@ book:
     - 05-Causalityii.qmd
     - 06-Loops.qmd
     - 07-Prediction.qmd
+    - 08-Regression.qmd
   page-navigation: true
   sidebar:
     style: docked

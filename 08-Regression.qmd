@@ -613,41 +613,40 @@ Goal: Test accuracy in a way that can help detect overfitting. See how well our 
 
 Macro political and economic fundamentals are sometimes used for early forecasting of an election. We will build a version of this model and test its accuracy using a process of "Leave-one-out" cross-validation.
 
-Below is a video explainer of this application, which uses cross-validation.
+Below is a video explainer of a similar application, which uses cross-validation.
 
 {{< video src="https://www.youtube.com/watch?v=Wqj9Jm8heAA" >}}
 
-The data and model are based on the [FAIR model](Based%20on%20the%20FAIR%20model%20for%20forecasting%20elections%20\url%7Bhttps://fairmodel.econ.yale.edu/vote2016/computev.htm%7D) of forecasting.
 
 ```{r, include=FALSE}
-fair <- read.csv("data/fair.csv")
+fair <- read.csv("data/fair20.csv")
+fair <- subset(fair, t >= 1916)
 ```
 
 ```{r, eval=F}
-fair <- read.csv("fair.csv")
+fair <- read.csv("fair20.csv")
+fair <- subset(fair, t >= 1916)
 ```
 
-Key Variables:
 
--   `VP`: Democratic share of the two-party presidential vote
--   `t`: Year (presidential years only)
--   `G`: growth rate of real per capita GDP in the first 3 quarters
--   `P`: growth rate of the GDP deflator in the first 15 quarters of the recent administration
--   `Z`: number of quarters in the first 15 quarters of recent administration in which the growth rate of real per capita GDP is greater than 3.2 percent at an annual rate
--   `I`: 1 if Democrats in WH and -1 if Republicans in WH
--   `WAR`: 1 if 1920, 1944, 1948 (denoting the \`\`WAR" elections, which are believed to be particular)
--   `DUR`: indicating how many consecutive terms Democrats/Republicans have been office (e.g., in 2020 it will be 0 because Republicans will have been in office for only 1 term.)
+<iframe title="Fair&#39;s presidential vote equation" aria-label="Table" id="datawrapper-chart-g7B9i" src="https://datawrapper.dwcdn.net/g7B9i/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="609" data-external="1">
+
+</iframe>
+
+```{=html}
+<script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();</script>
+```
 
 Let's propose a model
 
 ```{r}
-fit <- lm(VP ~ DUR, data = fair)
+fit <- lm(VP ~  DUR, data = fair)
 ```
 
 Let's propose an alternative model and see which one we think is better.
 
 ```{r}
-fit2 <- lm(VP ~ G*I +  DUR, data = fair)
+fit2 <- lm(VP ~ G*I + DUR , data = fair)
 ```
 
 Note: The asterisk represents an "interaction." See QSS Chapter 4. We use this when we think the effect of one variable (growth) may depend on the values of another variable (the party of who is in office).
@@ -657,15 +656,17 @@ Note: The asterisk represents an "interaction." See QSS Chapter 4. We use this w
 We are going to run a model where each time we \`leave out' one row of data (in our case, one election). Let's try this once:
 
 ```{r}
+range(fair$t)
+
 years <- fair$t
 
 ## Step 1: Subset data into two portions
-traindata <- subset(fair, t != years[1])
-testdata <- subset(fair, t == years[1])
+traindata <- fair[-1,]
+testdata <- fair[1,]
 
 ## Step 2: Run model on training data
-fit <- lm(VP ~ DUR, data = traindata)
-fit2 <- lm(VP ~  G*I +  DUR, data = traindata)
+fit <- lm(VP ~  DUR, data = traindata)
+fit2 <- lm(VP ~  G*I + DUR , data = traindata)
 ```
 
 #### Step 3: Predict and assess accuracy with test data
@@ -699,10 +700,10 @@ errors.fit2 <- rep(NA, length(years))
 
 ## Loop (copy paste meat from  above)
 for(i in  1:length(years)){
-  traindata <- subset(fair, t != years[i])
-  testdata <- subset(fair, t == years[i])
-  fit <- lm(VP ~  DUR, data = traindata)
-  fit2 <- lm(VP ~ G*I +  DUR , data = traindata)
+  traindata <- fair[-i,]
+  testdata <- fair[i,]
+  fit <- lm(VP ~ DUR, data = traindata)
+  fit2 <- lm(VP ~ G*I + DUR   , data = traindata)
   yhat.fit <- predict(fit, testdata)
   yhat.fit2 <- predict(fit2, testdata)
   errors.fit[i] <- testdata$VP - yhat.fit
@@ -728,26 +729,31 @@ Which model tends to have less error?
 
 #### Applying Model to New Data
 
-Eventually, you might further test the model on data that has been "held out"-- data that neither your train/test has seen. How good was our model? We can do this for the 2016 election, which was not in the data.
+Eventually, you might further test the model on data that has been "held out"-- data that neither your train/test has seen. How good was our model? We can do this for the 2024 election, which was not in the data.
 
-Truth: 2016 VP was 51.1 Democratic "two-party" vote share.
+Truth: 2024 VP was  Democratic "two-party" vote share.
 
 ```{r}
 ## Let's use the winner of our two models
-fit2 <- lm(VP ~ G*I +  DUR, data = fair)
-51.1-predict(fit2, data.frame(G=0.97, I=1, DUR=1))
+fit2 <- lm(VP ~ G*I + DUR, data = fair)
+prediction24 <- predict(fit2, data.frame(G=1.97, I=0, DUR=0,
+                                         P= 4.54, Z= 4, WAR=0))
+prediction24
+
+predictionerror <- 49.2 - prediction24
+predictionerror
 ```
 
-2016 values based on the FAIR [site](https://fairmodel.econ.yale.edu/vote2016/index2.htm)
+2024 values based on the FAIR [site](https://fairmodel.econ.yale.edu/vote2020/computv4.htm)
 
 #### Challenge
 
-Can you build a better model? What would your prediction for 2020 have been?
+Can you build a better model? Would you have treated "I" differently or used different values for the other variables? What would your prediction for 2024 have been? What about other years?
 
--   -5.07: growth rate of real per capita GDP in the first 3 quarters of 2020 (annual rate) (G)
--   1.80: growth rate of the GDP deflator in the first 15 quarters of the Trump administration, (annual rate) (P)
--   3: number of quarters in the first 15 quarters of the Trump administration in which the growth rate of real per capita GDP is greater than 3.2 percent at an annual rate (Z)
--   DUR=0
--   I = -1
-
-Values based on the FAIR [site](https://fairmodel.econ.yale.edu/vote2020/computev.htm)
+  - G=1.97
+  - P= 4.54
+  - Z= 4
+  - I= 0
+  - DUR = 0
+  
+  

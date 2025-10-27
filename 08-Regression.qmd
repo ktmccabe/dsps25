@@ -617,7 +617,6 @@ Below is a video explainer of a similar application, which uses cross-validation
 
 {{< video src="https://www.youtube.com/watch?v=Wqj9Jm8heAA" >}}
 
-
 ```{r, include=FALSE}
 fair <- read.csv("data/fair20.csv")
 fair <- subset(fair, t >= 1916)
@@ -627,7 +626,6 @@ fair <- subset(fair, t >= 1916)
 fair <- read.csv("fair20.csv")
 fair <- subset(fair, t >= 1916)
 ```
-
 
 <iframe title="Fair&#39;s presidential vote equation" aria-label="Table" id="datawrapper-chart-g7B9i" src="https://datawrapper.dwcdn.net/g7B9i/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="609" data-external="1">
 
@@ -657,8 +655,6 @@ We are going to run a model where each time we \`leave out' one row of data (in 
 
 ```{r}
 range(fair$t)
-
-years <- fair$t
 
 ## Step 1: Subset data into two portions
 traindata <- fair[-1,]
@@ -693,13 +689,13 @@ Step 4: Let's do this for each row, storing the prediction errors.
 
 ```{r}
 ## Iteration vector
-years <- fair$t
+## just i!
 ## Empty container vectors
-errors.fit <- rep(NA, length(years))
-errors.fit2 <- rep(NA, length(years))
+errors.fit <- rep(NA, nrow(years))
+errors.fit2 <- rep(NA, nrow(years))
 
 ## Loop (copy paste meat from  above)
-for(i in  1:length(years)){
+for(i in  1:nrow(years)){
   traindata <- fair[-i,]
   testdata <- fair[i,]
   fit <- lm(VP ~ DUR, data = traindata)
@@ -731,7 +727,7 @@ Which model tends to have less error?
 
 Eventually, you might further test the model on data that has been "held out"-- data that neither your train/test has seen. How good was our model? We can do this for the 2024 election, which was not in the data.
 
-Truth: 2024 VP was  Democratic "two-party" vote share.
+Truth: 2024 VP was Democratic "two-party" vote share.
 
 ```{r}
 ## Let's use the winner of our two models
@@ -750,10 +746,8 @@ predictionerror
 
 Can you build a better model? Would you have treated "I" differently or used different values for the other variables? What would your prediction for 2024 have been? What about other years?
 
-  - G=1.97
-  - P= 4.54
-  - Z= 4
-  - I= 0
-  - DUR = 0
-  
-  
+-   G=1.97
+-   P= 4.54
+-   Z= 4
+-   I= 0
+-   DUR = 0

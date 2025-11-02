@@ -691,11 +691,11 @@ Step 4: Let's do this for each row, storing the prediction errors.
 ## Iteration vector
 ## just i!
 ## Empty container vectors
-errors.fit <- rep(NA, nrow(years))
-errors.fit2 <- rep(NA, nrow(years))
+errors.fit <- rep(NA, nrow(fair))
+errors.fit2 <- rep(NA, nrow(fair))
 
 ## Loop (copy paste meat from  above)
-for(i in  1:nrow(years)){
+for(i in  1:nrow(fair)){
   traindata <- fair[-i,]
   testdata <- fair[i,]
   fit <- lm(VP ~ DUR, data = traindata)

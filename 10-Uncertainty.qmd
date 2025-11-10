@@ -212,33 +212,61 @@ rosca <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/
                   stringsAsFactors = T)
 ```
 
+To practice creating variables, we can create a column that focuses on just the comparison between those with a Safe Box and those with just an Encouragement.
+
 ```{r}
+## Create variable for comparison
+rosca$safeboxvsencouragement <- NA
+rosca$safeboxvsencouragement[rosca$safe_box == 1] <- "Safe Box"
+rosca$safeboxvsencouragement[rosca$encouragement == 1] <- "Encouragement"
+
+## Subset to two groups
+comparison <- subset(rosca, safeboxvsencouragement %in% c("Safe Box",
+                                                          "Encouragement"))
+```
+
+
+We can then calculate the difference in means between these groups on the amount invested.
+
+```{r }
 ## Compare means
-mean.safebox <- mean(rosca$fol2_amtinvest[rosca$safe_box == 1], na.rm=T)
-mean.encouragement <- mean(rosca$fol2_amtinvest[rosca$encouragement== 1], 
-                           na.rm=T)
+mean.safebox <- mean(comparison$fol2_amtinvest[comparison$safeboxvsencouragement == "Safe Box"], na.rm=T)
+mean.safebox
+
+mean.encouragement <- mean(comparison$fol2_amtinvest[comparison$safeboxvsencouragement == "Encouragement"],   na.rm=T)
+mean.encouragement
+
 diff.means <- mean.safebox - mean.encouragement
 diff.means
+
 ```
+
+## Example: Estimate of Difference in Means
+
+To get uncertainty when calculating a difference in means, we can use the {\tt t.test()} function in R.
+
+\begin{itemize}
+\item The first input is the vector of values from one group.
+\item The second input is the vector of values from the other group.
+\end{itemize}
+
+
 
 ***5. Calculate the uncertainty around this estimate.***
 
 To get uncertainty when calculating a difference in means, we can use the `t.test` function in R.
 
--   The first input is the vector of values from one group.
--   The second input is the vector of values from the other group.
-
 To get the t-statistic, underneath the hood of the function, R is estimating the standard error by calculating the standard deviation in the sample and the sample size (the number of people in each condition).
 
-```{r}
+```{r }
 ## Compare amount saved for those in Safe Box vs. 
 ## Encouragement Only conditions
-test <- t.test(rosca$fol2_amtinvest[rosca$safe_box == 1],
-               rosca$fol2_amtinvest[rosca$encouragement== 1])
-
-test
+test <- t.test(fol2_amtinvest ~ safeboxvsencouragement, data= comparison)
 ```
 
+```{r eval=F}
+test
+```
 ***6. Decide whether you can reject or fail to reject the hypothesis of no difference***
 
 We can extract the group means, the p-value of the difference and confidence interval of the difference.

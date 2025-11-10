@@ -254,12 +254,13 @@ window.Quarto = {
   </ul></li>
   <li><a href="#wrapping-up-the-process" id="toc-wrapping-up-the-process" class="nav-link" data-scroll-target="#wrapping-up-the-process"><span class="header-section-number">10.4</span> Wrapping up the Process</a></li>
   <li><a href="#application-health-savings-study" id="toc-application-health-savings-study" class="nav-link" data-scroll-target="#application-health-savings-study"><span class="header-section-number">10.5</span> Application: Health Savings Study</a></li>
-  <li><a href="#additional-applications" id="toc-additional-applications" class="nav-link" data-scroll-target="#additional-applications"><span class="header-section-number">10.6</span> Additional Applications</a>
+  <li><a href="#example-estimate-of-difference-in-means" id="toc-example-estimate-of-difference-in-means" class="nav-link" data-scroll-target="#example-estimate-of-difference-in-means"><span class="header-section-number">10.6</span> Example: Estimate of Difference in Means</a></li>
+  <li><a href="#additional-applications" id="toc-additional-applications" class="nav-link" data-scroll-target="#additional-applications"><span class="header-section-number">10.7</span> Additional Applications</a>
   <ul>
-  <li><a href="#example-using-regression" id="toc-example-using-regression" class="nav-link" data-scroll-target="#example-using-regression"><span class="header-section-number">10.6.1</span> Example Using Regression</a></li>
-  <li><a href="#example-using-prop.test" id="toc-example-using-prop.test" class="nav-link" data-scroll-target="#example-using-prop.test"><span class="header-section-number">10.6.2</span> Example Using prop.test()</a></li>
+  <li><a href="#example-using-regression" id="toc-example-using-regression" class="nav-link" data-scroll-target="#example-using-regression"><span class="header-section-number">10.7.1</span> Example Using Regression</a></li>
+  <li><a href="#example-using-prop.test" id="toc-example-using-prop.test" class="nav-link" data-scroll-target="#example-using-prop.test"><span class="header-section-number">10.7.2</span> Example Using prop.test()</a></li>
   </ul></li>
-  <li><a href="#in-class-exercise-questions" id="toc-in-class-exercise-questions" class="nav-link" data-scroll-target="#in-class-exercise-questions"><span class="header-section-number">10.7</span> In-Class Exercise Questions</a></li>
+  <li><a href="#in-class-exercise-questions" id="toc-in-class-exercise-questions" class="nav-link" data-scroll-target="#in-class-exercise-questions"><span class="header-section-number">10.8</span> In-Class Exercise Questions</a></li>
   </ul>
 </nav>
 </nav>
@@ -502,60 +503,66 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rosca <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/rosca.csv"</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">stringsAsFactors =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To practice creating variables, we can create a column that focuses on just the comparison between those with a Safe Box and those with just an Encouragement.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare means</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mean.safebox <span class="ot">&lt;-</span> <span class="fu">mean</span>(rosca<span class="sc">$</span>fol2_amtinvest[rosca<span class="sc">$</span>safe_box <span class="sc">==</span> <span class="dv">1</span>], <span class="at">na.rm=</span>T)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mean.encouragement <span class="ot">&lt;-</span> <span class="fu">mean</span>(rosca<span class="sc">$</span>fol2_amtinvest[rosca<span class="sc">$</span>encouragement<span class="sc">==</span> <span class="dv">1</span>], </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">na.rm=</span>T)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>diff.means <span class="ot">&lt;-</span> mean.safebox <span class="sc">-</span> mean.encouragement</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>diff.means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create variable for comparison</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>rosca<span class="sc">$</span>safeboxvsencouragement <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>rosca<span class="sc">$</span>safeboxvsencouragement[rosca<span class="sc">$</span>safe_box <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Safe Box"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>rosca<span class="sc">$</span>safeboxvsencouragement[rosca<span class="sc">$</span>encouragement <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Encouragement"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Subset to two groups</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">subset</span>(rosca, safeboxvsencouragement <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Safe Box"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Encouragement"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can then calculate the difference in means between these groups on the amount invested.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare means</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mean.safebox <span class="ot">&lt;-</span> <span class="fu">mean</span>(comparison<span class="sc">$</span>fol2_amtinvest[comparison<span class="sc">$</span>safeboxvsencouragement <span class="sc">==</span> <span class="st">"Safe Box"</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mean.safebox</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 408.215</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mean.encouragement <span class="ot">&lt;-</span> <span class="fu">mean</span>(comparison<span class="sc">$</span>fol2_amtinvest[comparison<span class="sc">$</span>safeboxvsencouragement <span class="sc">==</span> <span class="st">"Encouragement"</span>],   <span class="at">na.rm=</span>T)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mean.encouragement</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 257.8333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>diff.means <span class="ot">&lt;-</span> mean.safebox <span class="sc">-</span> mean.encouragement</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>diff.means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 150.3816</code></pre>
 </div>
 </div>
+</section>
+<section id="example-estimate-of-difference-in-means" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="example-estimate-of-difference-in-means"><span class="header-section-number">10.6</span> Example: Estimate of Difference in Means</h2>
+<p>To get uncertainty when calculating a difference in means, we can use the {} function in R.</p>
 <p><strong><em>5. Calculate the uncertainty around this estimate.</em></strong></p>
 <p>To get uncertainty when calculating a difference in means, we can use the <code>t.test</code> function in R.</p>
-<ul>
-<li>The first input is the vector of values from one group.</li>
-<li>The second input is the vector of values from the other group.</li>
-</ul>
 <p>To get the t-statistic, underneath the hood of the function, R is estimating the standard error by calculating the standard deviation in the sample and the sample size (the number of people in each condition).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare amount saved for those in Safe Box vs. </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Encouragement Only conditions</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(rosca<span class="sc">$</span>fol2_amtinvest[rosca<span class="sc">$</span>safe_box <span class="sc">==</span> <span class="dv">1</span>],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               rosca<span class="sc">$</span>fol2_amtinvest[rosca<span class="sc">$</span>encouragement<span class="sc">==</span> <span class="dv">1</span>])</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Welch Two Sample t-test
-
-data:  rosca$fol2_amtinvest[rosca$safe_box == 1] and rosca$fol2_amtinvest[rosca$encouragement == 1]
-t = 2.1083, df = 150.38, p-value = 0.03666
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
-   9.445604 291.317636
-sample estimates:
-mean of x mean of y 
- 408.2150  257.8333 </code></pre>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare amount saved for those in Safe Box vs. </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Encouragement Only conditions</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(fol2_amtinvest <span class="sc">~</span> safeboxvsencouragement, <span class="at">data=</span> comparison)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong><em>6. Decide whether you can reject or fail to reject the hypothesis of no difference</em></strong></p>
 <p>We can extract the group means, the p-value of the difference and confidence interval of the difference.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>estimate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>mean of x mean of y 
- 408.2150  257.8333 </code></pre>
+<pre><code>mean in group Encouragement      mean in group Safe Box 
+                   257.8333                    408.2150 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>conf.int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>conf.int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]   9.445604 291.317636
+<pre><code>[1] -291.317636   -9.445604
 attr(,"conf.level")
 [1] 0.95</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.03666403</code></pre>
 </div>
@@ -565,8 +572,8 @@ attr(,"conf.level")
 <li>In a “t test”, the t-statistic serves as the z-score. It is also a ratio of standard errors. The t-statistic and z-scores differ slightly in how we calculate the corresponding p-value, but with a large enough sample size, these are also very similar. The <code>t.test</code> function in R calculates the p-value for you.</li>
 </ul>
 </section>
-<section id="additional-applications" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="additional-applications"><span class="header-section-number">10.6</span> Additional Applications</h2>
+<section id="additional-applications" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="additional-applications"><span class="header-section-number">10.7</span> Additional Applications</h2>
 <p>We will carry out the same type of hypothesis testing process for a range of different scenarios. Though the process will remain very similar, the underlying statistical test/calculation/R function will change.</p>
 <ul>
 <li>If dependent variable is numeric / continuous, can use regression and <code>lm()</code> (type of independent variable does not matter)</li>
@@ -574,8 +581,8 @@ attr(,"conf.level")
 <li>If dependent variable is binary, such as assessing the proportion of call back rates, and want to compare between two specific groups, can use <code>prop.test()</code></li>
 </ul>
 <p>Other tests exist for different situations</p>
-<section id="example-using-regression" class="level3" data-number="10.6.1">
-<h3 data-number="10.6.1" class="anchored" data-anchor-id="example-using-regression"><span class="header-section-number">10.6.1</span> Example Using Regression</h3>
+<section id="example-using-regression" class="level3" data-number="10.7.1">
+<h3 data-number="10.7.1" class="anchored" data-anchor-id="example-using-regression"><span class="header-section-number">10.7.1</span> Example Using Regression</h3>
 <p><strong><em>1. Start with a research question</em></strong></p>
 <p>Do past election results help explain future election results?</p>
 <p><strong><em>2. Develop a theory of how the world works</em></strong></p>
@@ -587,12 +594,12 @@ attr(,"conf.level")
 </ul>
 <p>Going back to our Florida example: The null hypothesis would be the 1996 Perot vote does not help us explain the Buchanan 2000 vote (that <span class="math inline">\(\beta = 0\)</span>). Our alternative is <span class="math inline">\(\beta \neq 0\)</span>, that there is some relationship between 1996 Perot votes and the 2000 Buchanan vote in Florida counties.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We estimate <span class="math inline">\(\hat \beta\)</span>: for every 1 additional vote Perot received in 1996, we expect Buchanan to receive .036 additional votes in 2000.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)     Perot96 
  1.34575212  0.03591504 </code></pre>
@@ -604,7 +611,7 @@ attr(,"conf.level")
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="10-Uncertainty_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="10-Uncertainty_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -613,7 +620,7 @@ attr(,"conf.level")
 <p><strong><em>5. Calculate the uncertainty around this estimate.</em></strong></p>
 <p>Our regression <code>lm</code> function will also generate estimates of uncertainty related to hypothesis testing</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients, <span class="at">digits=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients, <span class="at">digits=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)   1.3458    49.7593  0.0270   0.9785
@@ -646,8 +653,8 @@ Num. obs.     67
 </div>
 </div>
 </section>
-<section id="example-using-prop.test" class="level3" data-number="10.6.2">
-<h3 data-number="10.6.2" class="anchored" data-anchor-id="example-using-prop.test"><span class="header-section-number">10.6.2</span> Example Using prop.test()</h3>
+<section id="example-using-prop.test" class="level3" data-number="10.7.2">
+<h3 data-number="10.7.2" class="anchored" data-anchor-id="example-using-prop.test"><span class="header-section-number">10.7.2</span> Example Using prop.test()</h3>
 <p>Sometimes our outcomes are 0 vs.&nbsp;1 variables, which become proportions when we take the mean()</p>
 <ul>
 <li>For example, applicants who get a call back vs.&nbsp;do not</li>
@@ -667,9 +674,9 @@ Num. obs.     67
 </ul>
 <p>The two-sided means we aren’t specifying a direction of our alternative hypothesis. Instead, we are conducting test just trying to reject the idea of no difference between racial groups. Sometimes researchers may specify the alternative hypothesis in a directional way, such as Black applicants will have a lower call back rate than white applicants. However, it is more common to use a two-sided test, even if researchers have a theoretical hypothesis in a particular direction.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resume)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resume)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  firstname    sex  race call
 1   Allison female white    0
@@ -683,14 +690,14 @@ Num. obs.     67
 <p><strong><em>4. Carry out a test of the hypothesis, such as a test of proportions.</em></strong></p>
 <p>Does being black (vs.&nbsp;white) decrease call backs?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(resume<span class="sc">$</span>race, resume<span class="sc">$</span>call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(resume<span class="sc">$</span>race, resume<span class="sc">$</span>call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       
            0    1
   black 2278  157
   white 2200  235</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">157</span>, <span class="dv">235</span>), <span class="at">n=</span><span class="fu">c</span>(<span class="dv">157</span><span class="sc">+</span><span class="dv">2278</span>, <span class="dv">235</span><span class="sc">+</span><span class="dv">2200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">157</span>, <span class="dv">235</span>), <span class="at">n=</span><span class="fu">c</span>(<span class="dv">157</span><span class="sc">+</span><span class="dv">2278</span>, <span class="dv">235</span><span class="sc">+</span><span class="dv">2200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>The <code>prop.test()</code> function includes 4 inputs</li>
@@ -699,7 +706,7 @@ Num. obs.     67
 </ul>
 <p><strong><em>5. Calculate the uncertainty around this estimate.</em></strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -718,7 +725,7 @@ sample estimates:
 <p><strong><em>6. Decide whether you can reject or fail to reject the hypothesis of no difference</em></strong></p>
 <p>In the <code>prop.test</code> function, you see a X-squared statistic. You can treat this like the z-score. When you are doing a test of two groups, the X-squared is essentially the z-score squared. The X-squared refers to a Chi-squared test. In our case, the equivalent z-score would be about 4– well more than our threshold of about 2.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(test<span class="sc">$</span>p.value, <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(test<span class="sc">$</span>p.value, <span class="at">digits=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -726,8 +733,8 @@ sample estimates:
 <p>What do you conclude about the hypothesis? Is it significant?</p>
 </section>
 </section>
-<section id="in-class-exercise-questions" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="in-class-exercise-questions"><span class="header-section-number">10.7</span> In-Class Exercise Questions</h2>
+<section id="in-class-exercise-questions" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="in-class-exercise-questions"><span class="header-section-number">10.8</span> In-Class Exercise Questions</h2>
 <p>Do negative ads increase voter turnout? In an experiment, suppose researchers found that a negative political ad intending to make voters angry toward the opposing candidate increased voter turnout by 5 percentage points relative to a control condition in which a non-political ad was shown. The difference between treatment and control had a p-value of 0.25, and the confidence interval was -1 to 11 percentage points.</p>
 <ol type="1">
 <li>What are the implied null and alternative hypotheses?</li>

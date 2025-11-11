@@ -4,7 +4,7 @@ We are continuing our topic of prediction, this time adding a new tool: linear r
 
 Recall that we predict (estimate/guess) some unknown using information we have -- and do so as accurately and precisely as possible.
 
-1.  Choose an approach
+1.  Choose an approach(es)
     -   Using an observed (known) measure as a direct proxy to predict an outcome
     -   ***Using one or more observed (known) measures in a regression model to predict an outcome***
     -   (Beyond the course) Using a statistical model to select the measures to use for predicting an outcome

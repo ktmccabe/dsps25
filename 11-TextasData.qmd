@@ -1,0 +1,326 @@
+# Text as Data {#text}
+
+Recall that we said, four primary goals of social science include:
+
+-   **Describe** and measure
+    -   Has the U.S. population increased?
+-   **Explain**, evaluate, and recommend (study of causation)
+    -   Does expanding Medicaid improve health outcomes?
+-   **Predict**
+    -   Who will win the next election?
+-   **Discover**
+    -   How do policies diffuse across states?
+
+In this section, we start to explore the goal of discovery, seeing what we can learn from text as data.
+
+## Why text?
+
+Words (can) matter. Patterns of word usage can be suggestive of deeper divides.
+
+![](images/deadspin.png){width="80%"}
+
+Article from [Deadspin](https://deadspin.com/which-words-are-used-to-describe-white-and-black-nfl-pr-1573683214)
+
+![](images/wordsmass.png)
+
+Article from [NY Times](https://www.nytimes.com/interactive/2016/06/13/us/politics/politicians-respond-to-orlando-nightclub-attack.html)
+
+***Why Use R to analyze text?***
+
+-   Assist in reading large amounts of text
+
+![](images/greg1.jpg){width="40%"} ![](images/greg2.jpg){width="40%"}
+
+-   Efficiently summarize text through quantifying text attributes
+-   (Can) remove some subjectivity in coding text, allow to discover aspects of text unknown a priori
+
+## R Packages for text
+
+Packages are like apps on your phone. They give you additional functionality. To use the tools in a package you first have to install it.
+
+```{r, eval=F}
+install.packages("sotu", dependencies = TRUE)
+install.packages("dplyr", dependencies = TRUE)
+install.packages("tidytext", dependencies = TRUE)
+install.packages("quanteda", dependencies = TRUE)
+install.packages("wordcloud", dependencies = TRUE)
+install.packages("SnowballC", dependencies = TRUE)
+```
+
+After you install it, just like on a phone, anytime you want to use the app, you need to open it. In R, we do that with `library()`.
+
+```{r, message=F, warning=F}
+library(sotu)
+library(dplyr)
+library(tidytext)
+library(quanteda)
+library(wordcloud)
+library(SnowballC)
+```
+
+## Application: State of the Union
+
+The `sotu` package includes a dataset with the text of every U.S. State of the Union speech. It also includes second dataset with information about the speech. When datasets are stored in a package, you can add them to your environment through the `data()` function.
+
+```{r}
+data(sotu_meta)
+data(sotu_text)
+```
+
+We are going to "bind" these together into a new dataframe. That way, the `sotu_text` is a variable inside of our `speeches` dataframe.
+
+```{r}
+# Combine metadata and text 
+speeches <- cbind(sotu_meta, text=sotu_text)
+speeches$doc_id <- speeches$X # make an id for each row
+
+# SOTU speeches
+range(speeches$year)
+```
+
+### Cleaning Text
+
+Note that when working with raw text data, we usually do want our variables to be character variables and not factor variables. Here, every cell is not a category. Instead, it is a speech!
+
+```{r}
+class(speeches$text)
+```
+
+Text is messy data. We may want to spruce it up a bit by removing some of the non-essential characters and words, and moving everything to lowercase.
+
+```{r}
+## Example of speech
+speeches$text[1]
+```
+
+```{r}
+# break up the text by word
+tokens <- unnest_tokens(tbl = speeches,
+                output = word, 
+                input = text, 
+                token = "words", # one-token-per-row format
+                to_lower = TRUE, # lowercase
+                strip_numeric = TRUE, # strip numbers
+                strip_punct = TRUE) # strip punctuation
+head(tokens)
+
+## further clean the text
+tokens <-  subset(tokens, !word %in% stop_words$word)  # remove stopwords
+head(tokens)
+
+## could also stem the words
+#tokens$word <- wordStem(tokens$word, language = "en")
+
+```
+
+Note: What you might consider non-essential could differ depending on your application. Maybe you want to keep numbers in your text, for example.
+
+
+### Word Frequency
+
+We count the number of times each word appears in each speech and sort them in descending order.
+
+```{r}
+## introducing some tidyverse tools %>%
+token_counts <- tokens %>%
+  count(doc_id, word, sort = TRUE)
+head(token_counts)
+```
+
+Here are the most frequent words for the first and last speeches.
+
+```{r}
+# Word frequencies for first and last speech
+head(subset(token_counts, doc_id == 1), 10)
+
+head(subset(token_counts, doc_id == 240), 10)
+```
+
+Note: these are somewhat generic words.
+
+### Wordcloud
+We can create a wordcloud of these speeches. Note that you can add color to the wordcloud using the same `col` argument. You can also assign a vector of colors and indicate `ordered.colors=T` to make sure they show up according to the order of the colors you assign.
+
+Sometimes you will get a warning message that not all words could fit. You can increase the size of your plotting window in RStudio or adjust the scale() argument, which is similar to our cex arguments in past plotting functions.  Scale reflects the range of the size of the words.
+
+```{r}
+first_speech <- subset(token_counts, doc_id == 1)
+first_speech$colors <- ifelse(first_speech$word=="citizens", "red2", "black")
+wordcloud(first_speech$word, first_speech$n, max.words = 20,
+          col=first_speech$colors,
+          ordered.colors = T,
+          scale=c(3.5, 0.25))
+
+```
+
+## Word Importance
+
+We use tf-idf (term frequency - inverse document frequency) as a way to pull out uniquely important/relevant words for a given character.
+
+-   Relative frequency of a term inversely weighted by the number of documents in which the term appears.
+-   Functionally, if everyone uses the word "know," then it's not very important for distinguishing characters/documents from each other.
+-   We want words that a speech used frequently, that other speeches use less frequently
+
+```{r}
+tfidf <- token_counts %>%
+  bind_tf_idf(word, doc_id, n) %>%
+  arrange(desc(tf_idf))
+
+# Most unique words in first and last speech
+head(subset(tfidf, doc_id == 1), 10)
+head(subset(tfidf, doc_id == 240), 10)
+
+
+## wordcloud
+first_speech_tfidf <- subset(tfidf, doc_id == 1)
+wordcloud(first_speech_tfidf$word, first_speech_tfidf$tf_idf, max.words = 30,
+          scale=c(2.5, 0.25))
+
+```
+
+
+Instead of a wordcloud, we could also present results as barplots.
+
+```{r}
+barplot(first_speech_tfidf$tf_idf[1:10], 
+        cex.axis=.6,
+        names=first_speech_tfidf$word[1:10],
+        cex.names=.5,
+        main= "Most `Important' 1790 SOTU Words (tf-idf)", 
+        horiz = T, # flips the plot
+        las=2,
+        xlim=c(0, .015))
+
+```
+
+## Document length
+
+Are the length of speeches changing? The `nchar()` function tells you the number of characters in a "string."
+
+```{r}
+speeches$speechlength <- nchar(speeches$text)
+```
+
+Let's plot the length of speeches over time and annotate with informative colors and labels.
+
+Is the length of speeches changing?
+
+```{r}
+plot(x=1:length(speeches$speechlength), y= speeches$speechlength, 
+    pch=15,
+     xaxt="n",
+     xlab="", 
+     ylab = "Number of Characters")
+
+## add x axis
+axis(1, 1:length(speeches$speechlength), labels=speeches$year, las=3, cex.axis=.7)
+```
+
+We can add color to distinguish written vs. spoken speeches
+
+```{r}
+speechcolor <- ifelse(speeches$sotu_type == "written", "black", "green3")
+plot(x=1:length(speeches$speechlength), y= speeches$speechlength, 
+     xaxt="n", pch=15,
+     xlab="", 
+     ylab = "Number of Characters",
+     col = speechcolor)
+
+## add x axis
+axis(1, 1:length(speeches$speechlength), labels=speeches$year, las=3, cex.axis=.7)
+
+## add legend
+legend("topleft", c("spoken", "written"), 
+       pch=15, 
+       col=c("green3", "black"), bty="n")
+```
+
+### Counting tokens instead of characters
+
+```{r}
+token_totals <- tapply(token_counts$n, token_counts$doc_id, sum)
+
+# Convert to a data frame
+token_totals <- data.frame(
+  doc_id = as.integer(names(token_totals)),
+  token_count = as.integer(token_totals)
+)
+
+speeches <- merge(speeches, token_totals, by = "doc_id", all.x = TRUE)
+
+```
+
+
+```{r}
+speechcolor <- ifelse(speeches$sotu_type == "written", "black", "green3")
+plot(x=1:length(speeches$token_count), y= speeches$token_count, 
+     xaxt="n", pch=15,
+     xlab="", 
+     ylab = "Number of Words",
+     col = speechcolor)
+
+## add x axis
+axis(1, 1:length(speeches$token_count), labels=speeches$year, las=3, cex.axis=.7)
+
+## add legend
+legend("topleft", c("spoken", "written"), 
+       pch=15, 
+       col=c("green3", "black"), bty="n")
+
+```
+
+## Dictionary Analysis
+
+We can characterize the content of speeches in different ways. For example, we can see if speeches mention specific string patterns, such as \`"terrorism."
+
+-   The function `grepl()` lets you search for a pattern of text in a character string
+-   The function `str_detect()` works similarly with the opposite order of inputs
+
+```{r}
+# Define a set of related terms
+terror_terms <- c("terror", "terrorism", "terrorist", 
+                  "counterterror")
+
+# Subset to just those tokens
+terror_tokens <- subset(token_counts, word %in% terror_terms)
+
+# Count terrorism-related tokens per doc_id using tapply
+terror_counts <- tapply(terror_tokens$n, terror_tokens$doc_id, sum)
+
+head(terror_counts)
+```
+
+We now create a data.frame. We did this recently in our prediction module. This just reformts our tapply output.
+
+```{r}
+# Convert named vector to data frame
+terror_counts <- data.frame(
+  doc_id = names(terror_counts),
+  terror_word_count = as.integer(terror_counts)
+)
+head(terror_counts)
+```
+
+We can now merge this back in with our speeches data so that the information is attached to our original dataset.
+
+```{r}
+# Merge with speeches
+speeches <- merge(speeches, terror_counts, by = "doc_id", all.x = TRUE)
+```
+
+Lastly, we have just a little cleanup. We want all of the speeches to have a number, so we have to replace any missing values with 0, indicating the absence of any "terrorism" word.
+
+```{r}
+# Replace NA with 0 (docs that had none of those terms)
+speeches$terror_word_count[is.na(speeches$terror_word_count)] <- 0
+
+```
+
+Let's look at the use of terrorism words by president.
+```{r}
+sort(tapply(speeches$terror_word_count, speeches$president, sum), 
+     decreasing=T)[1:10]
+```
+
+What are possible limitations of this analysis?
+

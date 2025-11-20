@@ -17,6 +17,7 @@ book:
     - 08-Regression.qmd
     - 09-Fairness.qmd
     - 10-Uncertainty.qmd
+    - 11-TextasData.qmd
   page-navigation: true
   sidebar:
     style: docked

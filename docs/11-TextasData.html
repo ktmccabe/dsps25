@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>textasdata</title>
+<title>11&nbsp; Text as Data – Data Science for Political Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,31 +57,210 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="11-TextasData_files/libs/clipboard/clipboard.min.js"></script>
-<script src="11-TextasData_files/libs/quarto-html/quarto.js"></script>
-<script src="11-TextasData_files/libs/quarto-html/popper.min.js"></script>
-<script src="11-TextasData_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="11-TextasData_files/libs/quarto-html/anchor.min.js"></script>
-<link href="11-TextasData_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="11-TextasData_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="11-TextasData_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="11-TextasData_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="11-TextasData_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./10-Uncertainty.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9becf3fbc736aa3d8123452166bd44f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar docked">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-TextasData.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Text as Data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science for Political Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Notes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Description.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Description</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-CausalityI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Causation with Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Causalityii.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Causality with Non-Experimental Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Loops in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-Prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Prediction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Prediction with Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Fairness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fairness and Ethics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-TextasData.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Text as Data</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Section Contents</h2>
+   
+  <ul>
+  <li><a href="#why-text" id="toc-why-text" class="nav-link active" data-scroll-target="#why-text"><span class="header-section-number">11.1</span> Why text?</a></li>
+  <li><a href="#r-packages-for-text" id="toc-r-packages-for-text" class="nav-link" data-scroll-target="#r-packages-for-text"><span class="header-section-number">11.2</span> R Packages for text</a></li>
+  <li><a href="#application-state-of-the-union" id="toc-application-state-of-the-union" class="nav-link" data-scroll-target="#application-state-of-the-union"><span class="header-section-number">11.3</span> Application: State of the Union</a>
+  <ul>
+  <li><a href="#cleaning-text" id="toc-cleaning-text" class="nav-link" data-scroll-target="#cleaning-text"><span class="header-section-number">11.3.1</span> Cleaning Text</a></li>
+  <li><a href="#word-frequency" id="toc-word-frequency" class="nav-link" data-scroll-target="#word-frequency"><span class="header-section-number">11.3.2</span> Word Frequency</a></li>
+  <li><a href="#wordcloud" id="toc-wordcloud" class="nav-link" data-scroll-target="#wordcloud"><span class="header-section-number">11.3.3</span> Wordcloud</a></li>
+  </ul></li>
+  <li><a href="#word-importance" id="toc-word-importance" class="nav-link" data-scroll-target="#word-importance"><span class="header-section-number">11.4</span> Word Importance</a></li>
+  <li><a href="#document-length" id="toc-document-length" class="nav-link" data-scroll-target="#document-length"><span class="header-section-number">11.5</span> Document length</a>
+  <ul>
+  <li><a href="#counting-tokens-instead-of-characters" id="toc-counting-tokens-instead-of-characters" class="nav-link" data-scroll-target="#counting-tokens-instead-of-characters"><span class="header-section-number">11.5.1</span> Counting tokens instead of characters</a></li>
+  <li><a href="#hypothesis-tests" id="toc-hypothesis-tests" class="nav-link" data-scroll-target="#hypothesis-tests"><span class="header-section-number">11.5.2</span> Hypothesis Tests</a></li>
+  </ul></li>
+  <li><a href="#dictionary-analysis" id="toc-dictionary-analysis" class="nav-link" data-scroll-target="#dictionary-analysis"><span class="header-section-number">11.6</span> Dictionary Analysis</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="text" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Text as Data</span></span></h1>
+</div>
 
 
 
-<section id="text" class="level1">
-<h1>Text as Data</h1>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <p>Recall that we said, four primary goals of social science include:</p>
 <ul>
 <li><strong>Describe</strong> and measure
@@ -102,8 +281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <p>In this section, we start to explore the goal of discovery, seeing what we can learn from text as data.</p>
-<section id="why-text" class="level2">
-<h2 class="anchored" data-anchor-id="why-text">Why text?</h2>
+<section id="why-text" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="why-text"><span class="header-section-number">11.1</span> Why text?</h2>
 <p>Words (can) matter. Patterns of word usage can be suggestive of deeper divides.</p>
 <p><img src="images/deadspin.png" class="img-fluid" style="width:80.0%"></p>
 <p>Article from <a href="https://deadspin.com/which-words-are-used-to-describe-white-and-black-nfl-pr-1573683214">Deadspin</a></p>
@@ -119,8 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>(Can) remove some subjectivity in coding text, allow to discover aspects of text unknown a priori</li>
 </ul>
 </section>
-<section id="r-packages-for-text" class="level2">
-<h2 class="anchored" data-anchor-id="r-packages-for-text">R Packages for text</h2>
+<section id="r-packages-for-text" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="r-packages-for-text"><span class="header-section-number">11.2</span> R Packages for text</h2>
 <p>Packages are like apps on your phone. They give you additional functionality. To use the tools in a package you first have to install it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sotu"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
@@ -140,8 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="application-state-of-the-union" class="level2">
-<h2 class="anchored" data-anchor-id="application-state-of-the-union">Application: State of the Union</h2>
+<section id="application-state-of-the-union" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="application-state-of-the-union"><span class="header-section-number">11.3</span> Application: State of the Union</h2>
 <p>The <code>sotu</code> package includes a dataset with the text of every U.S. State of the Union speech. It also includes second dataset with information about the speech. When datasets are stored in a package, you can add them to your environment through the <code>data()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sotu_meta)</span>
@@ -159,8 +338,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 1790 2020</code></pre>
 </div>
 </div>
-<section id="cleaning-text" class="level3">
-<h3 class="anchored" data-anchor-id="cleaning-text">Cleaning Text</h3>
+<section id="cleaning-text" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="cleaning-text"><span class="header-section-number">11.3.1</span> Cleaning Text</h3>
 <p>Note that when working with raw text data, we usually do want our variables to be character variables and not factor variables. Here, every cell is not a category. Instead, it is a speech!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(speeches<span class="sc">$</span>text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -219,8 +398,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note: What you might consider non-essential could differ depending on your application. Maybe you want to keep numbers in your text, for example.</p>
 </section>
-<section id="word-frequency" class="level3">
-<h3 class="anchored" data-anchor-id="word-frequency">Word Frequency</h3>
+<section id="word-frequency" class="level3" data-number="11.3.2">
+<h3 data-number="11.3.2" class="anchored" data-anchor-id="word-frequency"><span class="header-section-number">11.3.2</span> Word Frequency</h3>
 <p>We count the number of times each word appears in each speech and sort them in descending order.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## introducing some tidyverse tools %&gt;%</span></span>
@@ -271,8 +450,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note: these are somewhat generic words.</p>
 </section>
-<section id="wordcloud" class="level3">
-<h3 class="anchored" data-anchor-id="wordcloud">Wordcloud</h3>
+<section id="wordcloud" class="level3" data-number="11.3.3">
+<h3 data-number="11.3.3" class="anchored" data-anchor-id="wordcloud"><span class="header-section-number">11.3.3</span> Wordcloud</h3>
 <p>We can create a wordcloud of these speeches. Note that you can add color to the wordcloud using the same <code>col</code> argument. You can also assign a vector of colors and indicate <code>ordered.colors=T</code> to make sure they show up according to the order of the colors you assign.</p>
 <p>Sometimes you will get a warning message that not all words could fit. You can increase the size of your plotting window in RStudio or adjust the scale() argument, which is similar to our cex arguments in past plotting functions. Scale reflects the range of the size of the words.</p>
 <div class="cell">
@@ -292,8 +471,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="word-importance" class="level2">
-<h2 class="anchored" data-anchor-id="word-importance">Word Importance</h2>
+<section id="word-importance" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="word-importance"><span class="header-section-number">11.4</span> Word Importance</h2>
 <p>We use tf-idf (term frequency - inverse document frequency) as a way to pull out uniquely important/relevant words for a given character.</p>
 <ul>
 <li>Relative frequency of a term inversely weighted by the number of documents in which the term appears.</li>
@@ -365,8 +544,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="document-length" class="level2">
-<h2 class="anchored" data-anchor-id="document-length">Document length</h2>
+<section id="document-length" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="document-length"><span class="header-section-number">11.5</span> Document length</h2>
 <p>Are the length of speeches changing? The <code>nchar()</code> function tells you the number of characters in a “string.”</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>speeches<span class="sc">$</span>speechlength <span class="ot">&lt;-</span> <span class="fu">nchar</span>(speeches<span class="sc">$</span>text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -414,8 +593,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="counting-tokens-instead-of-characters" class="level3">
-<h3 class="anchored" data-anchor-id="counting-tokens-instead-of-characters">Counting tokens instead of characters</h3>
+<section id="counting-tokens-instead-of-characters" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="counting-tokens-instead-of-characters"><span class="header-section-number">11.5.1</span> Counting tokens instead of characters</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>token_totals <span class="ot">&lt;-</span> <span class="fu">tapply</span>(token_counts<span class="sc">$</span>n, token_counts<span class="sc">$</span>doc_id, sum)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -451,26 +630,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-</section>
-<section id="dictionary-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="dictionary-analysis">Dictionary Analysis</h2>
-<p>We can characterize the content of speeches in different ways. For example, we can see if speeches mention specific string patterns, such as `“terrorism.”</p>
-<ul>
-<li>The function <code>grepl()</code> lets you search for a pattern of text in a character string</li>
-<li>The function <code>str_detect()</code> works similarly with the opposite order of inputs</li>
-</ul>
+<section id="hypothesis-tests" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="hypothesis-tests"><span class="header-section-number">11.5.2</span> Hypothesis Tests</h3>
+<p>Can we test whether written speeches are significantly different in length from spoken speeches?</p>
+<p>Null hypothesis: No difference in speech length</p>
+<p>Can we reject the null?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a set of related terms</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>terror_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"terror"</span>, <span class="st">"terrorism"</span>, <span class="st">"terrorist"</span>, </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"counterterror"</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to just those tokens</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>terror_tokens <span class="ot">&lt;-</span> <span class="fu">subset</span>(token_counts, word <span class="sc">%in%</span> terror_terms)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Count terrorism-related tokens per doc_id using tapply</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>terror_counts <span class="ot">&lt;-</span> <span class="fu">tapply</span>(terror_tokens<span class="sc">$</span>n, terror_tokens<span class="sc">$</span>doc_id, sum)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(terror_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t.speechlength <span class="ot">&lt;-</span> <span class="fu">t.test</span>(speechlength <span class="sc">~</span> sotu_type, <span class="at">data=</span>speeches)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>t.speechlength</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  speechlength by sotu_type
+t = -10.512, df = 158.83, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group speech and group written is not equal to 0
+95 percent confidence interval:
+ -45385.33 -31028.20
+sample estimates:
+ mean in group speech mean in group written 
+             27815.75              66022.51 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(t.speechlength<span class="sc">$</span>p.value, <span class="at">digits=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>What about a different hypothesis: Have speeches become shorter over time? For every one year increase, do we see an average decline in speech length?</p>
+<p>Null hypothesis: No relationship, b=0</p>
+<p>Can we reject the null? No!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(speechlength <span class="sc">~</span> year, <span class="at">data=</span>speeches)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = speechlength ~ year, data = speeches)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-43608 -24388 -11012  13329 170023 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) 46024.017  68176.805   0.675    0.500
+year            1.972     35.734   0.055    0.956
+
+Residual standard error: 37060 on 238 degrees of freedom
+Multiple R-squared:  1.28e-05,  Adjusted R-squared:  -0.004189 
+F-statistic: 0.003046 on 1 and 238 DF,  p-value: 0.956</code></pre>
+</div>
+</div>
+<p>Note that you can add multiple predictors to “control” on one variable while studying the relationship with others.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(speechlength <span class="sc">~</span> year <span class="sc">+</span> sotu_type, <span class="at">data=</span>speeches)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = speechlength ~ year + sotu_type, data = speeches)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-65280 -14135  -3968  11846 128118 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      -442623.81   66411.66  -6.665 1.84e-10 ***
+year                 241.11      34.01   7.090 1.53e-11 ***
+sotu_typewritten   56814.80    4604.68  12.338  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 28980 on 237 degrees of freedom
+Multiple R-squared:  0.3911,    Adjusted R-squared:  0.386 
+F-statistic: 76.12 on 2 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Now that we control on speech type, we see that time is associated with a slight increase in length.</p>
+</section>
+</section>
+<section id="dictionary-analysis" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="dictionary-analysis"><span class="header-section-number">11.6</span> Dictionary Analysis</h2>
+<p>We can characterize the content of speeches in different ways. For example, we can see if speeches mention specific words, such as “terrorism.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a set of related terms</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>terror_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"terror"</span>, <span class="st">"terrorism"</span>, <span class="st">"terrorist"</span>, </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"counterterror"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to just those tokens</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>terror_tokens <span class="ot">&lt;-</span> <span class="fu">subset</span>(token_counts, word <span class="sc">%in%</span> terror_terms)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Count terrorism-related tokens per doc_id using tapply</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>terror_counts <span class="ot">&lt;-</span> <span class="fu">tapply</span>(terror_tokens<span class="sc">$</span>n, terror_tokens<span class="sc">$</span>doc_id, sum)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(terror_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>29 62 79 86 95 96 
  1  1  1  1  1  1 </code></pre>
@@ -478,12 +732,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We now create a data.frame. We did this recently in our prediction module. This just reformts our tapply output.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert named vector to data frame</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>terror_counts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">doc_id =</span> <span class="fu">names</span>(terror_counts),</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">terror_word_count =</span> <span class="fu">as.integer</span>(terror_counts)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(terror_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert named vector to data frame</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>terror_counts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">doc_id =</span> <span class="fu">names</span>(terror_counts),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">terror_word_count =</span> <span class="fu">as.integer</span>(terror_counts)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(terror_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  doc_id terror_word_count
 1     29                 1
@@ -496,18 +750,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can now merge this back in with our speeches data so that the information is attached to our original dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with speeches</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>speeches <span class="ot">&lt;-</span> <span class="fu">merge</span>(speeches, terror_counts, <span class="at">by =</span> <span class="st">"doc_id"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with speeches</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>speeches <span class="ot">&lt;-</span> <span class="fu">merge</span>(speeches, terror_counts, <span class="at">by =</span> <span class="st">"doc_id"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lastly, we have just a little cleanup. We want all of the speeches to have a number, so we have to replace any missing values with 0, indicating the absence of any “terrorism” word.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA with 0 (docs that had none of those terms)</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>speeches<span class="sc">$</span>terror_word_count[<span class="fu">is.na</span>(speeches<span class="sc">$</span>terror_word_count)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA with 0 (docs that had none of those terms)</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>speeches<span class="sc">$</span>terror_word_count[<span class="fu">is.na</span>(speeches<span class="sc">$</span>terror_word_count)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s look at the use of terrorism words by president.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">tapply</span>(speeches<span class="sc">$</span>terror_word_count, speeches<span class="sc">$</span>president, sum), </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">decreasing=</span>T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">tapply</span>(speeches<span class="sc">$</span>terror_word_count, speeches<span class="sc">$</span>president, sum), </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">decreasing=</span>T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       George W. Bush    William J. Clinton          Donald Trump 
                    94                    16                    14 
@@ -520,11 +774,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>What are possible limitations of this analysis?</p>
-</section>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -942,6 +1196,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./10-Uncertainty.html" class="pagination-link" aria-label="Uncertainty">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Uncertainty</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

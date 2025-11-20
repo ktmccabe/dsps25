@@ -268,13 +268,46 @@ legend("topleft", c("spoken", "written"),
        col=c("green3", "black"), bty="n")
 
 ```
+### Hypothesis Tests
+
+Can we test whether written speeches are significantly different in length from spoken speeches?
+
+Null hypothesis: No difference in speech length
+
+Can we reject the null?
+```{r}
+t.speechlength <- t.test(speechlength ~ sotu_type, data=speeches)
+t.speechlength
+
+round(t.speechlength$p.value, digits=4)
+```
+
+What about a different hypothesis: Have speeches become shorter over time? For every one year increase, do we see an average decline in speech length?
+
+Null hypothesis: No relationship, b=0
+
+Can we reject the null? No!
+
+```{r}
+fit <- lm(speechlength ~ year, data=speeches)
+summary(fit)
+```
+
+Note that you can add multiple predictors to "control" on one variable while studying the relationship with others.
+
+```{r}
+fit2 <- lm(speechlength ~ year + sotu_type, data=speeches)
+summary(fit2)
+```
+
+
+Now that we control on speech type, we see that time is associated with a slight increase in length.
+
 
 ## Dictionary Analysis
 
-We can characterize the content of speeches in different ways. For example, we can see if speeches mention specific string patterns, such as \`"terrorism."
+We can characterize the content of speeches in different ways. For example, we can see if speeches mention specific words, such as "terrorism."
 
--   The function `grepl()` lets you search for a pattern of text in a character string
--   The function `str_detect()` works similarly with the opposite order of inputs
 
 ```{r}
 # Define a set of related terms

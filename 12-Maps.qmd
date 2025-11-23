@@ -56,7 +56,7 @@ Can maps be misleading? See this discussion from Kieran Healy in [Chap. 7](https
 
 ## Mapping in R
 
-*For a video explainer of the code for the applications with maps and color, see below. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)*
+*For a video explainer of the code for similar applications with maps and color, see below. (Via youtube, you can speed up the playback to 1.5 or 2x speed.)*
 
 {{< video src="https://www.youtube.com/watch?v=-uvnL42Stew" >}}
 
@@ -220,6 +220,8 @@ ggplot()+
   coord_quickmap()
 ```
 
+Could you update this for the 2025 election results?
+
 ## Application: Voter Identification Laws
 
 According to the NCSL, 36 states have laws requesting or requiring voters to show some form of identification at the polls.
@@ -253,22 +255,22 @@ head(usmap)
 usmap$photoidlaws <- NA
 
 usmap$photoidlaws[usmap$region %in% c("arkansas","georgia", "indiana", "kansas",
-                                      "mississippi","missouri", "north carolina", "ohio", 
+                                      "mississippi","new hampshire", "north carolina", "ohio", 
                                       "tennessee", "wisconsin")] <- "Strict Photo ID"
 
-usmap$photoidlaws[usmap$region %in% c("alabama", "florida", "idaho", "louisiana", 
-                                      "michigan", "montana", "rhode island", "south carolina", 
-                                      "south dakota", "texas")] <- "Non-Strict Photo ID"
+usmap$photoidlaws[usmap$region %in% c("alabama", "florida", "idaho", "kentucky", "louisiana", 
+                                      "michigan","missouri",  "montana","nebraska", "rhode island", "south carolina", 
+                                      "south dakota", "texas", "west virginia")] <- "Non-Strict Photo ID"
 
 usmap$photoidlaws[usmap$region %in% c("arizona", "north dakota", "wyoming")]<- "Strict Non-Photo ID"
 
 usmap$photoidlaws[usmap$region %in% c("alaska", "colorado", "connecticut", "delaware", "hawaii", 
-                                      "iowa", "kentucky", "new hampshire", "oklahoma", "utah", 
-                                      "virginia", "washington", "west virginia")] <- "Non-Strict Non-Photo ID"
+                                      "iowa",   "oklahoma", "utah", 
+                                      "virginia", "washington")] <- "Non-Strict Non-Photo ID"
 
 usmap$photoidlaws[usmap$region %in% c("oregon", "nevada","california", "new mexico", 
-                                      "nebraska", "minnesota", "illinois",  "pennsylvania", 
-                                      "new york", "new jersey", "massachusetts", "vermont",
+                                      "minnesota", "illinois",  "pennsylvania", 
+                                      "new mexico", "new york", "new jersey", "massachusetts", "vermont",
                                       "maryland",  "district of columbia", "maine")] <- "No Document Required"
 
 

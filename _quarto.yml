@@ -18,6 +18,8 @@ book:
     - 09-Fairness.qmd
     - 10-Uncertainty.qmd
     - 11-TextasData.qmd
+    - 12-Maps.qmd
+    - 13-ChooseYourOwnAdventure.qmd
   page-navigation: true
   sidebar:
     style: docked

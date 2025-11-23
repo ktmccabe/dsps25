@@ -316,14 +316,18 @@ terror_terms <- c("terror", "terrorism", "terrorist",
 
 # Subset to just those tokens
 terror_tokens <- subset(token_counts, word %in% terror_terms)
+```
 
+Below we calculate sums. The first uses functions we have already covered in the course: `tapply` and `data.frame`.
+
+```{r}
 # Count terrorism-related tokens per doc_id using tapply
 terror_counts <- tapply(terror_tokens$n, terror_tokens$doc_id, sum)
 
 head(terror_counts)
 ```
 
-We now create a data.frame. We did this recently in our prediction module. This just reformts our tapply output.
+We now create a data.frame. We did this recently in our prediction module. This just reformats our tapply output.
 
 ```{r}
 # Convert named vector to data frame
@@ -333,6 +337,7 @@ terror_counts <- data.frame(
 )
 head(terror_counts)
 ```
+
 
 We can now merge this back in with our speeches data so that the information is attached to our original dataset.
 
@@ -356,4 +361,485 @@ sort(tapply(speeches$terror_word_count, speeches$president, sum),
 ```
 
 What are possible limitations of this analysis?
+
+# In-Class Exercise: Choose your Own Adventure
+
+## Choose your own adventure
+In this health check, pick and load the text as dataset of your choice to work with. Options include:
+
+  - `constitutions.csv`: The data set contains the raw textual information about the preambles of constitutions around the world. We focus on the preamble of each constitution, which typically states the guiding purpose and principles of the rest of the constitution.
+    - `country`: The country name 
+    - `year`: The year the constitution was created 
+    - `preamble`: Raw text of the constitution's preamble 
+  - Beyonce lyrics: The dataset contains lyrics to many Beyonce songs at the "line level" (though was created in 2020, so is missing a few) 
+    - `line`: Contains the line of text
+    - `song_name`: Contains the name of the song
+  - Taylor Swfit lyrics: The dataset contains the lyrics to many Taylor Swift songs.
+    - `lyric`: Contains the line of text
+    - `track_name`: Contains the name of the track
+    - `album_name`: Containes the name of the album
+  - Stranger Things dialogue: The data set contains dialogue from the show Stranger Things (dataset from 2023)
+    - `raw_text`: Contains the line of dialogue
+    - `season_episode`: Indicates which season and episode the dialogue comes from
+    - `episdode`, `season`: Separately indicates the episode number or season number
+
+
+Let's read in the data, load required packages. Verify that the text variable in your chosen dataset is a "character" variable and that you can see the text output of the first observation.
+
+First, load some text packages
+
+```{r, warning=F, message=F}
+library(dplyr)
+library(tidytext)
+library(quanteda)
+library(wordcloud)
+library(SnowballC)
+```
+
+```{r, message=F}
+## constitution
+constitution <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/constitution.csv")
+constitution$doc_id <- 1:nrow(constitution) #make unique doc_id variable
+class(constitution$preamble) # text variable
+constitution$preamble[1]
+
+```
+
+
+```{r}
+## beyonce
+beyonce <-  read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/beyonce_lyrics.csv')
+beyonce$doc_id <- 1:nrow(beyonce) #make unique doc_id variable
+class(beyonce$line)
+beyonce$line[1]
+```
+
+
+```{r}
+taylor <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/taylor.csv")
+taylor$doc_id <- 1:nrow(taylor) #make unique doc_id variable
+class(taylor$lyric)
+taylor$lyric[1]
+```
+
+
+```{r}
+## stranger things
+strangerthings <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-10-18/stranger_things_all_dialogue.csv')
+strangerthings$season_episode <- paste(strangerthings$season, 
+                                       strangerthings$episode, sep = "_")
+strangerthings$doc_id <- 1:nrow(strangerthings) #make unique doc_id variable
+class(strangerthings$raw_text)
+strangerthings$raw_text[1]
+```
+
+
+### Problem 1
+
+Let's pre-process our texts to make them easier to analyze. Unnest the text by the unit of "words." Remove punctuation and make lowercase. You can decide whether you want to remove numbers based on your use case. Store the results in an object called `tokens`. This is an arbitrary name but will help us all work together. You should use the `unnest` code from our course notes, but you likely have a different `input` column.
+
+Report the 6 first words in the data by using `head(tokens$word)` after you unnest.
+
+
+```{r}
+# break up the text by word
+
+```
+
+After creating the tokens object, further remove stop words by running the code here: `tokens <-  subset(tokens, !word %in% stop_words$word)`  
+
+
+```{r}
+## further clean the text
+```
+
+### Problem 2
+
+Word frequency. Count up the number of times each word is used in a given unit analysis of interest. This could be by the `doc_id` variable or some higher level of aggregation such as `track_name`,`song_name` or `season_episode`. Store these counts in an object called `token_counts`. And report `head(token_counts)`
+
+```{r}
+## use the count function
+
+```
+
+
+### Problem 3
+
+Wordclouds! Pick a particular subset of the `token_counts` to analyze. For example, you might pick a particular `doc_id`, `track_name`, etc.
+
+```{r}
+# subset the data and then use wordcloud()
+
+```
+
+
+
+### Problem 4
+
+Pick a topic to explore in your text. Create a vector of words that represent this topic. Sum up the number of times these words are used and merge them back into your dataset.
+
+```{r}
+# create the vector of words
+
+# subset the token counts data using subset() to only rows that have those words
+
+# use tapply to sum up the words
+
+# format as a dataframe
+
+
+# merge back into your original dataset
+
+```
+
+
+
+### Extra if time
+
+Conduct a `t.test()` to compare average mentions of the topic you chose across two different groups in your data. E.g., this could be across two different seasons of Stranger Things, different year ranges on constitutions data, different albums of songs, etc. 
+
+```{r}
+# t.test code here
+
+```
+
+### Example application
+
+<details>
+
+<summary>Try on your own, then expand for an example.</summary>
+
+```{r}
+taylor <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/taylor.csv")
+taylor$doc_id <- 1:nrow(taylor) #make unique doc_id variable
+class(taylor$lyric)
+taylor$lyric[1]
+```
+
+```{r}
+# break up the text by word
+tokens_taylor <- unnest_tokens(tbl = taylor,
+                output = word, 
+                input = lyric, 
+                token = "words", # one-token-per-row format
+                to_lower = TRUE, # lowercase
+                strip_numeric = TRUE, # strip numbers
+                strip_punct = TRUE) # strip punctuation
+head(tokens_taylor$word)
+
+tokens_taylor <-  subset(tokens_taylor, !word %in% stop_words$word)  
+
+token_counts_taylor <- tokens_taylor %>%
+  count(track_name, word, sort = TRUE)
+head(token_counts_taylor)
+
+
+red_words <- subset(token_counts_taylor, track_name == "Red (Taylor's Version)")
+colors_taylor <- ifelse(red_words$word=="red", "red3", "black")
+wordcloud(red_words$word, red_words$n, max.words = 20,
+          col=colors_taylor,
+          ordered.colors=T,
+          scale=c(2.5, .25))
+
+
+# create the vector of words
+love <- c("love", "loving", "marry")
+
+# subset the token counts data using subset() to only rows that have those words
+love_taylor <- subset(token_counts_taylor, word %in% love)
+
+# use tapply to sum up the words
+love_taylor_counts <- tapply(love_taylor$n, love_taylor$track_name, sum)
+
+# format as a dataframe
+love_taylor_counts <- data.frame(
+  track_name = names(love_taylor_counts),
+  love_word_count = as.integer(love_taylor_counts)
+)
+
+# merge back into your original dataset
+taylor <- merge(taylor, love_taylor_counts, by = "track_name", all.x = TRUE)
+taylor$love_word_count[is.na(taylor$love_word_count)] <- 0
+
+
+# t.test code here
+taylor_track <- taylor %>% select(love_word_count, track_name, album_name)
+taylor_track <- unique(taylor_track)
+
+taylor_track <- subset(taylor_track, album_name %in% c("reputation", "1989 (Taylor's Version)"))
+t.test(love_word_count ~ album_name, data=taylor_track)
+
+
+```
+
+</details>
+
+# Application Programming Interfaces
+
+Application programming interfaces (APIs) are tools that allow you to search a large database to extract specific types of information. Social scientists often work with APIs to extract data from social media platforms, government agencies (e.g., U.S. Census), and news sites, among others.
+
+Organizations that develop these APIs can control what types of information researchers can access. Often, they set limits on the types and quantities of information someone can collect. Companies also often monitor who accesses the information by requiring people to sign up for access, apply for access, and/or pay for access.
+
+## Example: Google Trends
+
+Oftentimes, developers that use R will create "wrappers" for using APIs. These are R packages that have R-friendly functions for asking the API to extract information.
+
+An example of one of these is the `gtrendsR` package which queries Google to understand the popularity of different topics using key word search terms.
+
+We can install the R packages below. Remember, you only have to do the install line once.
+
+We are going to install the development version of the package, which includes the most recent updates the package authors have made, which often happen prior to when they officially provide them to the R respository. To do this, we need the package `devtools`. Occasionally, this can create trouble for some computers. If you have trouble installing `devtools`, you can focus on other examples instead. This is not essential for the completion of the course.
+
+```{r, eval=F}
+install.packages("devtools")
+install.packages("curl")
+```
+
+```{r, eval=F}
+devtools::install_github("PMassicotte/gtrendsR")
+```
+
+Each time we use it, we need to use `library()`
+
+```{r}
+library(gtrendsR)
+```
+
+Now we have access. Note that most functions that let you extract information from websites, social media, etc., have what are called "rate limits" that limit the size and quantity of your calls for information. If you get an error when making a query, this might be what is happening. 
+
+### Popularity of Side Dishes
+
+To demonstrate how this works, we can ask for data on the popularity of "green bean casserole" and "mashed potatoes" in NJ.
+
+The first line asks and stores this information
+
+```{r}
+res <- gtrends(c("green bean casserole",
+                 "mashed potatoes"), geo = c("US-NJ"))
+```
+
+### Saving R Objects
+
+After you extract data from online, you may want to save them as a hard data file on your computer. This way if you close RStudio, you can reproduce the data.
+
+R allows you to save any R object as an .RData file that can be opened with the `load()` command. This is discussed on pg. 24 of QSS [Chapter 1](https://assets.press.princeton.edu/chapters/s11025.pdf).
+
+We can demonstrate this now by saving `res` as an RData object. It will automatically save to your working directory, but you can also add a subfolder or alternative file path.
+
+```{r, eval=F}
+save(res, file = "sideresults.RData")
+```
+
+Then, you can load the file (if you happen to close R/RStudio, restart your computer, etc.) with the load command.
+
+```{r}
+load("sideresults.RData")
+```
+
+We can take a look at the data we extracted. Trend results are re-scaled based on relative popularity, not absolute search volume.
+```{r}
+head(res$interest_over_time)
+```
+
+And this line plots the results. The package has a built-in version of the R `plot` function.
+
+```{r}
+plot(res)
+```
+
+
+
+## Perspective API
+
+Another API that can be used with text as data is Google's Perspective API. It uses statistical machine learning models based trained on real-world comments to score text on the likelihood it will be perceived as toxic. More information here: https://www.perspectiveapi.com/.
+
+This, like many APIs, requires a "key" and "secret" to use. Think of these like passwords.We are going to use an R package that serves as a "wrapper" for the API, making it easier to access the API with R-friendly functions. The github for the package describes the steps you can personally take to set up a perspective API account. We will just use my account in class. https://github.com/favstats/peRspective?tab=readme-ov-file
+
+We will use the development version of the package.
+
+```{r, eval=F}
+devtools::install_github("favstats/peRspective")
+```
+
+We open the package below.
+
+```{r}
+library(peRspective)
+```
+
+From the package github documentation: "peRspective functions will read the API key from environment variable `perspective_api_key`. In order to add your key to your environment file, you can use the function `edit_r_environ()` from the usethis package. If your function does not work, you likely need to install `usethis` as a package first."
+
+```{r, eval=F}
+usethis::edit_r_environ()
+
+```
+
+"This will open your .Renviron file in your text editor. Now, you can add the following line to it:"
+
+```{r, eval=F}
+perspective_api_key="YOUR_API_KEY"
+```
+
+Now you should be ready to use the main function, `prsp_score` which will score text based on the chance it would be perceived as toxic, among other dimensions of text sentiment/content. 
+
+For example, let's pull two recent tweets from Vice President JD Vance to demonstrate variation in the scores:
+
+```{r}
+jd1 <- "I have an extraordinary tolerance for disagreements and criticisms from the various people in our coalition. But I am a very loyal person, and I have zero tolerance for scumbags attacking my staff. And yes, *everyone* who I've seen attack Buckley with lies is a scumbag."
+text_scores1 <- prsp_score(
+           text = jd1, 
+           languages = "en",
+           score_model = peRspective::prsp_models
+           )
+text_scores1$TOXICITY
+```
+
+```{r}
+jd2 <- "Today's jobs report shows that the Trump economic plan is working: 119,000 new jobs when economists thought we would only add 52,000.Wages are continuing to outpace inflation and manufacturing hours are increasing. We've got a lot more work to do, but these are great signs."
+text_scores2 <- prsp_score(
+           text = jd2, 
+           languages = "en",
+           score_model = peRspective::prsp_models)
+text_scores2$TOXICITY
+```
+
+If we wanted to score several comments from a dataset, we could create a loop to repeat the function for each comment. Here is a short example creating our tweets as a dataframe first, and then storing toxicity scores in that dataset as a new column.
+
+```{r, eval=F}
+jddata <- data.frame(text=c(jd1, jd2), toxicity=NA)
+
+for(i in 1:length(jddata$text)){
+  text_scores <- prsp_score(
+           text = jddata$text[i], 
+           languages = "en",
+           score_model = peRspective::prsp_models)
+  jddata$toxicity[i] <- text_scores$TOXICITY
+}
+jddata
+```
+
+We can then save the output so we don't have to re-score the data every time we use R.
+
+```{r, eval=F}
+save(jddata, file="jddata.RData")
+```
+
+```{r}
+load("jddata.RData")
+jddata
+```
+
+## Example: Census API 
+
+As another example of an API, the U.S. Census has an API that allows researchers to extract nicely formatted data summaries of different geographic units (e.g., all zip codes in the U.S.).
+
+-   Researchers can sign up [here](https://api.census.gov/data/key_signup.html) for an API "key" which allows the organization to monitor who is accessing what information.
+
+Researchers Kyle Walker and Matt Herman have made an R package that makes working with the API easier.
+
+-   Example: `tidycensus` found [here](https://walker-data.com/tidycensus/articles/basic-usage.html) allows you to search Census data by providing the variables you want to extract
+
+![](images/tidycensus.png){width="45%"}
+
+
+APIs can make a social scientist's life easier by providing an efficient way to collect data. Without an API, researchers might have to resort to manually extracting information from online or writing an ad hoc set of code to "scrape" the information off of websites. This can be time consuming, against an organization or company's policy, or even impossible in some cases. APIs are powerful and efficient.
+
+However, because researchers cannot control the API, the downside is at any given time, an organization could change or remove API access. Researchers might also not have the full details of what information is included in the API, potentially leading to biased conclusions from the data. APIs are great, but we should use them with caution.
+
+### Using the tidycensus
+
+```{r, eval=FALSE}
+install.packages("tidycensus", dependencies=T)
+```
+
+Load the package
+```{r}
+library(tidycensus)
+library(tidyverse)
+```
+
+Add your personal API KEY. Treat this like a password, and do not share
+```{r, eval=FALSE}
+census_api_key("YOUR API KEY GOES HERE")
+```
+Search for the variables you are interested in by loading a dataframe relevant to your research question.
+
+```{r, eval=F}
+## Load variables associated with Census/ACS/ACS-5
+v23 <- load_variables(2023, "acs5", cache = TRUE)
+```
+
+Extract data for the variable. We will extract the median income for NJ counties.
+
+```{r, eval=F}
+## Getting median income across NJ counties
+nj <- get_acs(geography = "county", 
+              variables = c(medincome = "B19013_001"), 
+              state = "NJ", 
+              year = 2023)
+```
+
+
+```{r, eval=FALSE}
+nj
+```
+
+We can save the data to our computer.
+```{r, eval=FALSE}
+save(nj, file="njmedincome.RData")
+```
+
+What can we do with this dataset? Analyze it or merge it with other data to anaalyze!
+
+# Preview of mapping in R
+
+For example, to preview our next section, we can map the median income across counties in NJ.
+
+```{r}
+## Load income data
+load("njmedincome.RData")
+
+## Load mapping package in R
+library(maps)
+
+## create a map of NJ
+map(database="county", regions = "New Jersey")
+```
+
+Work to merge mapping and income data together (any outside data)
+
+```{r}
+## extract mapping data
+njcounties <- map_data("county", region="New Jersey")
+
+## clean income data to match mapping data
+nj$NAME <- gsub(" County, New Jersey", "", nj$NAME)
+nj$NAME <- tolower(nj$NAME)
+
+## merge the data
+njcounties <- merge(njcounties, nj, 
+                    by.x="subregion", by.y = "NAME", 
+                    all.x=TRUE, all.y=F)
+```
+
+Use ggplot to help map the data
+
+```{r}
+library(ggplot2)
+ggplot()+
+  
+  ## create an nj county-level plot
+  geom_polygon(data=njcounties, aes(x=long, y=lat, 
+                                    group=group, 
+                                    fill=estimate),
+               colour="white")+
+  ## Shade the map according to the vote share
+  scale_fill_gradient(name="Median Income %", low="yellow", high="red")+
+  
+  ## remove background
+  theme_void()+
+  
+  ggtitle("2023 ACS-5 Year Median Income")+
+  coord_quickmap()
+```
 

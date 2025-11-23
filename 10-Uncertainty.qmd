@@ -225,7 +225,6 @@ comparison <- subset(rosca, safeboxvsencouragement %in% c("Safe Box",
                                                           "Encouragement"))
 ```
 
-
 We can then calculate the difference in means between these groups on the amount invested.
 
 ```{r }
@@ -250,8 +249,6 @@ To get uncertainty when calculating a difference in means, we can use the {\tt t
 \item The second input is the vector of values from the other group.
 \end{itemize}
 
-
-
 ***5. Calculate the uncertainty around this estimate.***
 
 To get uncertainty when calculating a difference in means, we can use the `t.test` function in R.
@@ -267,6 +264,7 @@ test <- t.test(fol2_amtinvest ~ safeboxvsencouragement, data= comparison)
 ```{r eval=F}
 test
 ```
+
 ***6. Decide whether you can reject or fail to reject the hypothesis of no difference***
 
 We can extract the group means, the p-value of the difference and confidence interval of the difference.

@@ -526,6 +526,7 @@ wordcloud(red_words$word, red_words$n, max.words = 20,
           colors =red_words$colors_taylor,
           ordered.colors = TRUE, 
               random.color = FALSE,
+          random.order=FALSE,
           scale=c(2.5, .25))
 
 # create the vector of words

@@ -115,7 +115,6 @@ head(tokens)
 
 Note: What you might consider non-essential could differ depending on your application. Maybe you want to keep numbers in your text, for example.
 
-
 ### Word Frequency
 
 We count the number of times each word appears in each speech and sort them in descending order.
@@ -139,9 +138,10 @@ head(subset(token_counts, doc_id == 240), 10)
 Note: these are somewhat generic words.
 
 ### Wordcloud
+
 We can create a wordcloud of these speeches. Note that you can add color to the wordcloud using the same `col` argument. You can also assign a vector of colors and indicate `ordered.colors=T` to make sure they show up according to the order of the colors you assign.
 
-Sometimes you will get a warning message that not all words could fit. You can increase the size of your plotting window in RStudio or adjust the scale() argument, which is similar to our cex arguments in past plotting functions.  Scale reflects the range of the size of the words.
+Sometimes you will get a warning message that not all words could fit. You can increase the size of your plotting window in RStudio or adjust the scale() argument, which is similar to our cex arguments in past plotting functions. Scale reflects the range of the size of the words.
 
 ```{r}
 first_speech <- subset(token_counts, doc_id == 1)
@@ -177,7 +177,6 @@ wordcloud(first_speech_tfidf$word, first_speech_tfidf$tf_idf, max.words = 30,
           scale=c(2.5, 0.25))
 
 ```
-
 
 Instead of a wordcloud, we could also present results as barplots.
 
@@ -250,7 +249,6 @@ speeches <- merge(speeches, token_totals, by = "doc_id", all.x = TRUE)
 
 ```
 
-
 ```{r}
 speechcolor <- ifelse(speeches$sotu_type == "written", "black", "green3")
 plot(x=1:length(speeches$token_count), y= speeches$token_count, 
@@ -268,6 +266,7 @@ legend("topleft", c("spoken", "written"),
        col=c("green3", "black"), bty="n")
 
 ```
+
 ### Hypothesis Tests
 
 Can we test whether written speeches are significantly different in length from spoken speeches?
@@ -275,6 +274,7 @@ Can we test whether written speeches are significantly different in length from 
 Null hypothesis: No difference in speech length
 
 Can we reject the null?
+
 ```{r}
 t.speechlength <- t.test(speechlength ~ sotu_type, data=speeches)
 t.speechlength
@@ -300,14 +300,11 @@ fit2 <- lm(speechlength ~ year + sotu_type, data=speeches)
 summary(fit2)
 ```
 
-
 Now that we control on speech type, we see that time is associated with a slight increase in length.
-
 
 ## Dictionary Analysis
 
 We can characterize the content of speeches in different ways. For example, we can see if speeches mention specific words, such as "terrorism."
-
 
 ```{r}
 # Define a set of related terms
@@ -338,7 +335,6 @@ terror_counts <- data.frame(
 head(terror_counts)
 ```
 
-
 We can now merge this back in with our speeches data so that the information is attached to our original dataset.
 
 ```{r}
@@ -355,6 +351,7 @@ speeches$terror_word_count[is.na(speeches$terror_word_count)] <- 0
 ```
 
 Let's look at the use of terrorism words by president.
+
 ```{r}
 sort(tapply(speeches$terror_word_count, speeches$president, sum), 
      decreasing=T)[1:10]
@@ -365,24 +362,24 @@ What are possible limitations of this analysis?
 # In-Class Exercise: Choose your Own Adventure
 
 ## Choose your own adventure
+
 In this health check, pick and load the text as dataset of your choice to work with. Options include:
 
-  - `constitutions.csv`: The data set contains the raw textual information about the preambles of constitutions around the world. We focus on the preamble of each constitution, which typically states the guiding purpose and principles of the rest of the constitution.
-    - `country`: The country name 
-    - `year`: The year the constitution was created 
-    - `preamble`: Raw text of the constitution's preamble 
-  - Beyonce lyrics: The dataset contains lyrics to many Beyonce songs at the "line level" (though was created in 2020, so is missing a few) 
-    - `line`: Contains the line of text
-    - `song_name`: Contains the name of the song
-  - Taylor Swfit lyrics: The dataset contains the lyrics to many Taylor Swift songs.
-    - `lyric`: Contains the line of text
-    - `track_name`: Contains the name of the track
-    - `album_name`: Containes the name of the album
-  - Stranger Things dialogue: The data set contains dialogue from the show Stranger Things (dataset from 2023)
-    - `raw_text`: Contains the line of dialogue
-    - `season_episode`: Indicates which season and episode the dialogue comes from
-    - `episdode`, `season`: Separately indicates the episode number or season number
-
+-   `constitutions.csv`: The data set contains the raw textual information about the preambles of constitutions around the world. We focus on the preamble of each constitution, which typically states the guiding purpose and principles of the rest of the constitution.
+    -   `country`: The country name
+    -   `year`: The year the constitution was created
+    -   `preamble`: Raw text of the constitution's preamble
+-   Beyonce lyrics: The dataset contains lyrics to many Beyonce songs at the "line level" (though was created in 2020, so is missing a few)
+    -   `line`: Contains the line of text
+    -   `song_name`: Contains the name of the song
+-   Taylor Swfit lyrics: The dataset contains the lyrics to many Taylor Swift songs.
+    -   `lyric`: Contains the line of text
+    -   `track_name`: Contains the name of the track
+    -   `album_name`: Containes the name of the album
+-   Stranger Things dialogue: The data set contains dialogue from the show Stranger Things (dataset from 2023)
+    -   `raw_text`: Contains the line of dialogue
+    -   `season_episode`: Indicates which season and episode the dialogue comes from
+    -   `episdode`, `season`: Separately indicates the episode number or season number
 
 Let's read in the data, load required packages. Verify that the text variable in your chosen dataset is a "character" variable and that you can see the text output of the first observation.
 
@@ -405,7 +402,6 @@ constitution$preamble[1]
 
 ```
 
-
 ```{r}
 ## beyonce
 beyonce <-  read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-29/beyonce_lyrics.csv')
@@ -414,14 +410,12 @@ class(beyonce$line)
 beyonce$line[1]
 ```
 
-
 ```{r}
 taylor <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/refs/heads/main/taylor.csv")
 taylor$doc_id <- 1:nrow(taylor) #make unique doc_id variable
 class(taylor$lyric)
 taylor$lyric[1]
 ```
-
 
 ```{r}
 ## stranger things
@@ -433,21 +427,18 @@ class(strangerthings$raw_text)
 strangerthings$raw_text[1]
 ```
 
-
 ### Problem 1
 
 Let's pre-process our texts to make them easier to analyze. Unnest the text by the unit of "words." Remove punctuation and make lowercase. You can decide whether you want to remove numbers based on your use case. Store the results in an object called `tokens`. This is an arbitrary name but will help us all work together. You should use the `unnest` code from our course notes, but you likely have a different `input` column.
 
 Report the 6 first words in the data by using `head(tokens$word)` after you unnest.
 
-
 ```{r}
 # break up the text by word
 
 ```
 
-After creating the tokens object, further remove stop words by running the code here: `tokens <-  subset(tokens, !word %in% stop_words$word)`  
-
+After creating the tokens object, further remove stop words by running the code here: `tokens <-  subset(tokens, !word %in% stop_words$word)`
 
 ```{r}
 ## further clean the text
@@ -462,7 +453,6 @@ Word frequency. Count up the number of times each word is used in a given unit a
 
 ```
 
-
 ### Problem 3
 
 Wordclouds! Pick a particular subset of the `token_counts` to analyze. For example, you might pick a particular `doc_id`, `track_name`, etc.
@@ -471,8 +461,6 @@ Wordclouds! Pick a particular subset of the `token_counts` to analyze. For examp
 # subset the data and then use wordcloud()
 
 ```
-
-
 
 ### Problem 4
 
@@ -492,11 +480,9 @@ Pick a topic to explore in your text. Create a vector of words that represent th
 
 ```
 
-
-
 ### Extra if time
 
-Conduct a `t.test()` to compare average mentions of the topic you chose across two different groups in your data. E.g., this could be across two different seasons of Stranger Things, different year ranges on constitutions data, different albums of songs, etc. 
+Conduct a `t.test()` to compare average mentions of the topic you chose across two different groups in your data. E.g., this could be across two different seasons of Stranger Things, different year ranges on constitutions data, different albums of songs, etc.
 
 ```{r}
 # t.test code here
@@ -535,12 +521,12 @@ head(token_counts_taylor)
 
 
 red_words <- subset(token_counts_taylor, track_name == "Red (Taylor's Version)")
-colors_taylor <- ifelse(red_words$word=="red", "red3", "black")
+red_words$colors_taylor <- ifelse(red_words$word=="red", "red3", "black")
 wordcloud(red_words$word, red_words$n, max.words = 20,
-          col=colors_taylor,
-          ordered.colors=T,
+          colors =red_words$colors_taylor,
+          ordered.colors = TRUE, 
+              random.color = FALSE,
           scale=c(2.5, .25))
-
 
 # create the vector of words
 love <- c("love", "loving", "marry")
@@ -605,7 +591,7 @@ Each time we use it, we need to use `library()`
 library(gtrendsR)
 ```
 
-Now we have access. Note that most functions that let you extract information from websites, social media, etc., have what are called "rate limits" that limit the size and quantity of your calls for information. If you get an error when making a query, this might be what is happening. 
+Now we have access. Note that most functions that let you extract information from websites, social media, etc., have what are called "rate limits" that limit the size and quantity of your calls for information. If you get an error when making a query, this might be what is happening.
 
 ### Popularity of Side Dishes
 
@@ -613,7 +599,7 @@ To demonstrate how this works, we can ask for data on the popularity of "green b
 
 The first line asks and stores this information
 
-```{r}
+```{r, eval=FALSE}
 res <- gtrends(c("green bean casserole",
                  "mashed potatoes"), geo = c("US-NJ"))
 ```
@@ -637,6 +623,7 @@ load("sideresults.RData")
 ```
 
 We can take a look at the data we extracted. Trend results are re-scaled based on relative popularity, not absolute search volume.
+
 ```{r}
 head(res$interest_over_time)
 ```
@@ -646,8 +633,6 @@ And this line plots the results. The package has a built-in version of the R `pl
 ```{r}
 plot(res)
 ```
-
-
 
 ## Perspective API
 
@@ -680,7 +665,7 @@ usethis::edit_r_environ()
 perspective_api_key="YOUR_API_KEY"
 ```
 
-Now you should be ready to use the main function, `prsp_score` which will score text based on the chance it would be perceived as toxic, among other dimensions of text sentiment/content. 
+Now you should be ready to use the main function, `prsp_score` which will score text based on the chance it would be perceived as toxic, among other dimensions of text sentiment/content.
 
 For example, let's pull two recent tweets from Vice President JD Vance to demonstrate variation in the scores:
 
@@ -729,7 +714,7 @@ load("jddata.RData")
 jddata
 ```
 
-## Example: Census API 
+## Example: Census API
 
 As another example of an API, the U.S. Census has an API that allows researchers to extract nicely formatted data summaries of different geographic units (e.g., all zip codes in the U.S.).
 
@@ -740,7 +725,6 @@ Researchers Kyle Walker and Matt Herman have made an R package that makes workin
 -   Example: `tidycensus` found [here](https://walker-data.com/tidycensus/articles/basic-usage.html) allows you to search Census data by providing the variables you want to extract
 
 ![](images/tidycensus.png){width="45%"}
-
 
 APIs can make a social scientist's life easier by providing an efficient way to collect data. Without an API, researchers might have to resort to manually extracting information from online or writing an ad hoc set of code to "scrape" the information off of websites. This can be time consuming, against an organization or company's policy, or even impossible in some cases. APIs are powerful and efficient.
 
@@ -753,15 +737,18 @@ install.packages("tidycensus", dependencies=T)
 ```
 
 Load the package
+
 ```{r}
 library(tidycensus)
 library(tidyverse)
 ```
 
 Add your personal API KEY. Treat this like a password, and do not share
+
 ```{r, eval=FALSE}
 census_api_key("YOUR API KEY GOES HERE")
 ```
+
 Search for the variables you are interested in by loading a dataframe relevant to your research question.
 
 ```{r, eval=F}
@@ -779,12 +766,12 @@ nj <- get_acs(geography = "county",
               year = 2023)
 ```
 
-
 ```{r, eval=FALSE}
 nj
 ```
 
 We can save the data to our computer.
+
 ```{r, eval=FALSE}
 save(nj, file="njmedincome.RData")
 ```
@@ -842,4 +829,3 @@ ggplot()+
   ggtitle("2023 ACS-5 Year Median Income")+
   coord_quickmap()
 ```
-

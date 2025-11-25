@@ -1003,11 +1003,12 @@ Try on your own, then expand for an example.
 6 We Are Never Ever Getting Back Together (Taylor's Version)   ooh  50</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>red_words <span class="ot">&lt;-</span> <span class="fu">subset</span>(token_counts_taylor, track_name <span class="sc">==</span> <span class="st">"Red (Taylor's Version)"</span>)</span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>colors_taylor <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(red_words<span class="sc">$</span>word<span class="sc">==</span><span class="st">"red"</span>, <span class="st">"red3"</span>, <span class="st">"black"</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>red_words<span class="sc">$</span>colors_taylor <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(red_words<span class="sc">$</span>word<span class="sc">==</span><span class="st">"red"</span>, <span class="st">"red3"</span>, <span class="st">"black"</span>)</span>
 <span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(red_words<span class="sc">$</span>word, red_words<span class="sc">$</span>n, <span class="at">max.words =</span> <span class="dv">20</span>,</span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">col=</span>colors_taylor,</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">ordered.colors=</span>T,</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">2.5</span>, .<span class="dv">25</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">colors =</span>red_words<span class="sc">$</span>colors_taylor,</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">ordered.colors =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">random.color =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">2.5</span>, .<span class="dv">25</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
